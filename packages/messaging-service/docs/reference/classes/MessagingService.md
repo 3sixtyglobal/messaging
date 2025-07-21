@@ -28,14 +28,6 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
-
-> `readonly` `static` **NAMESPACE**: `string` = `"messaging"`
-
-The namespace for the service.
-
-***
-
 ### CLASS\_NAME
 
 > `readonly` **CLASS\_NAME**: `string`
