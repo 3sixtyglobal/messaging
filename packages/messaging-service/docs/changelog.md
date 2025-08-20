@@ -1,5 +1,28 @@
 # @twin.org/messaging-service - Changelog
 
+## [0.0.2-next.1](https://github.com/twinfoundation/messaging/compare/messaging-service-v0.0.2-next.0...messaging-service-v0.0.2-next.1) (2025-08-20)
+
+
+### Features
+
+* Messaging services ([#3](https://github.com/twinfoundation/messaging/issues/3)) ([32571b5](https://github.com/twinfoundation/messaging/commit/32571b5abf5d3fc3b168074c23507e926c5d00b0))
+* remove unused namespace ([2201898](https://github.com/twinfoundation/messaging/commit/22018988b84e4b3e76da1a1e16f29bfde7e6f0e6))
+* update dependencies ([53dcde6](https://github.com/twinfoundation/messaging/commit/53dcde60d6efaee5957296f6d097cb97c0fb2f9d))
+* update framework core ([fc476b4](https://github.com/twinfoundation/messaging/commit/fc476b48e6075de0ae871e3cec1fa179aa04b5eb))
+* use shared store mechanism ([#8](https://github.com/twinfoundation/messaging/issues/8)) ([9ad65c2](https://github.com/twinfoundation/messaging/commit/9ad65c239ba77bb75604a1f6e51b975357f3228d))
+
+
+### Bug Fixes
+
+* Adding format to the MessagingEntries ts number ([8b99d4f](https://github.com/twinfoundation/messaging/commit/8b99d4f01c4f2b08da8d2affc1b9554fcb0d3690))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.2-next.0 to 0.0.2-next.1
+
 ## 0.0.1 (2025-07-08)
 
 
