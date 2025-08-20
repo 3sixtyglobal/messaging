@@ -216,7 +216,7 @@ export class MessagingService implements IMessagingComponent {
 
 		const templateEntry = new TemplateEntry();
 		templateEntry.id = `${templateId}:${locale}`;
-		templateEntry.ts = Date.now();
+		templateEntry.dateCreated = new Date(Date.now()).toISOString();
 		templateEntry.title = title;
 		templateEntry.content = content;
 

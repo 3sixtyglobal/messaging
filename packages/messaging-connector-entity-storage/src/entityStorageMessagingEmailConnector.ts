@@ -1,11 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Converter, GeneralError, Guards, Is, RandomHelper, StringHelper } from "@twin.org/core";
+import {
+	ComponentFactory,
+	Converter,
+	GeneralError,
+	Guards,
+	RandomHelper,
+	StringHelper
+} from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
-import { LoggingConnectorFactory, type ILoggingConnector } from "@twin.org/logging-models";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import type { EmailEntry } from "./entities/emailEntry";
@@ -26,10 +33,10 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	public readonly CLASS_NAME: string = nameof<EntityStorageMessagingEmailConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The entity storage for the emails entries.
@@ -42,9 +49,7 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	 * @param options The options for the connector.
 	 */
 	constructor(options?: IEntityStorageMessagingEmailConnectorConstructorOptions) {
-		if (Is.stringValue(options?.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
-		}
+		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
 		this._messagingEmailEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingEmailEntryStorageConnectorType ??
 				StringHelper.kebabCase(nameof<EmailEntry>())

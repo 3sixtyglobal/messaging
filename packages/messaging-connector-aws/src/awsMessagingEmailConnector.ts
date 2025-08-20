@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { SESClient, SendEmailCommand, VerifyEmailAddressCommand } from "@aws-sdk/client-ses";
-import { GeneralError, Guards, Is } from "@twin.org/core";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
+import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
@@ -24,10 +24,10 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	public readonly CLASS_NAME: string = nameof<AwsMessagingEmailConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The configuration for the client connector.
@@ -64,9 +64,7 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 			options.config.secretAccessKey
 		);
 
-		if (Is.stringValue(options.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
-		}
+		this._logging = ComponentFactory.getIfExists(options.loggingComponentType ?? "logging");
 
 		this._config = options.config;
 		this._config.endpoint = Is.stringValue(this._config.endpoint)

@@ -9,8 +9,8 @@ import {
 	PublishCommand,
 	SNSClient
 } from "@aws-sdk/client-sns";
-import { GeneralError, Guards, Is } from "@twin.org/core";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
+import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
@@ -32,10 +32,10 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	public readonly CLASS_NAME: string = nameof<AwsMessagingPushNotificationConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The configuration for the client connector.
@@ -83,9 +83,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			options.config.applicationsSettings
 		);
 
-		if (Is.stringValue(options.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
-		}
+		this._logging = ComponentFactory.getIfExists(options.loggingComponentType ?? "logging");
 
 		this._applicationMap = new Map<string, string>();
 		this._config = options.config;
@@ -105,14 +103,12 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	/**
 	 * The component needs to be started when the node is initialized.
 	 * @param nodeIdentity The identity of the node starting the component.
-	 * @param nodeLoggingConnectorType The node logging connector type, defaults to "node-logging".
+	 * @param nodeLoggingComponentType The node logging component type.
 	 * @returns Nothing.
 	 */
-	public async start(nodeIdentity: string, nodeLoggingConnectorType?: string): Promise<void> {
+	public async start(nodeIdentity: string, nodeLoggingComponentType?: string): Promise<void> {
 		try {
-			const nodeLogging = LoggingConnectorFactory.getIfExists(
-				nodeLoggingConnectorType ?? "node-logging"
-			);
+			const nodeLogging = ComponentFactory.getIfExists<ILoggingComponent>(nodeLoggingComponentType);
 
 			await nodeLogging?.log({
 				level: "info",

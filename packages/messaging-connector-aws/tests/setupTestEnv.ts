@@ -7,7 +7,10 @@ import type { IAwsEmailConnectorConfig } from "../src/models/IAwsEmailConnectorC
 import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig";
 import type { IAwsSmsConnectorConfig } from "../src/models/IAwsSmsConnectorConfig";
 
-dotenv.config({ path: [path.join(__dirname, ".env"), path.join(__dirname, ".env.dev")] });
+dotenv.config({
+	path: [path.join(__dirname, ".env"), path.join(__dirname, ".env.dev")],
+	quiet: true
+});
 
 console.debug("Setting up test environment from .env and .env.dev files");
 

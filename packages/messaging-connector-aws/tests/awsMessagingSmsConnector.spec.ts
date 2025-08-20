@@ -31,7 +31,6 @@ describe("AwsMessagingSmsConnector", () => {
 		});
 		EntityStorageConnectorFactory.register("log-entry", () => memoryEntityStorage);
 		LoggingConnectorFactory.register("logging", () => new EntityStorageLoggingConnector());
-		LoggingConnectorFactory.register("node-logging", () => new EntityStorageLoggingConnector());
 	});
 
 	test("can fail to construct when there are no options", async () => {

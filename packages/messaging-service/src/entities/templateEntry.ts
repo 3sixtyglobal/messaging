@@ -28,6 +28,6 @@ export class TemplateEntry {
 	/**
 	 * The timestamp of the template entry.
 	 */
-	@property({ type: "integer", format: "uint64", sortDirection: SortDirection.Descending })
-	public ts!: number;
+	@property({ type: "string", format: "date-time", sortDirection: SortDirection.Descending })
+	public dateCreated!: string;
 }

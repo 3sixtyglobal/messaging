@@ -38,8 +38,8 @@ The content.
 
 ***
 
-### ts
+### dateCreated
 
-> **ts**: `number`
+> **dateCreated**: `string`
 
 The timestamp of the template entry.
