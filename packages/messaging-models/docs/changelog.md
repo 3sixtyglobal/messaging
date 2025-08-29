@@ -1,5 +1,12 @@
 # @twin.org/messaging-models - Changelog
 
+## [0.0.2-next.2](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.2-next.1...messaging-models-v0.0.2-next.2) (2025-08-29)
+
+
+### Features
+
+* eslint migration to flat config ([faa02ec](https://github.com/twinfoundation/messaging/commit/faa02ec0ef450db88b08e938415e40cf13625d15))
+
 ## [0.0.2-next.1](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.2-next.0...messaging-models-v0.0.2-next.1) (2025-08-20)
 
 

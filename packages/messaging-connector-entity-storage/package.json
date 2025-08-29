@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/messaging-connector-entity-storage",
-	"version": "0.0.2-next.1",
+	"version": "0.0.2-next.2",
 	"description": "Messaging connector implementation using the Entity Storage",
 	"repository": {
 		"type": "git",
@@ -34,7 +34,7 @@
 		"@twin.org/core": "next",
 		"@twin.org/entity": "next",
 		"@twin.org/logging-models": "next",
-		"@twin.org/messaging-models": "0.0.2-next.1",
+		"@twin.org/messaging-models": "0.0.2-next.2",
 		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
