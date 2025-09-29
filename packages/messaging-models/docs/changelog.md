@@ -1,5 +1,12 @@
 # @twin.org/messaging-models - Changelog
 
+## [0.0.2-next.3](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.2-next.2...messaging-models-v0.0.2-next.3) (2025-09-29)
+
+
+### Features
+
+* add messaging admin component ([cbaaca3](https://github.com/twinfoundation/messaging/commit/cbaaca34db6a9f5c51438c201535b4b43a1aea1f))
+
 ## [0.0.2-next.2](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.2-next.1...messaging-models-v0.0.2-next.2) (2025-08-29)
 
 

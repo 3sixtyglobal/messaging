@@ -1,5 +1,19 @@
 # @twin.org/messaging-connector-aws - Changelog
 
+## [0.0.2-next.3](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.2-next.2...messaging-connector-aws-v0.0.2-next.3) (2025-09-29)
+
+
+### Features
+
+* add messaging admin component ([cbaaca3](https://github.com/twinfoundation/messaging/commit/cbaaca34db6a9f5c51438c201535b4b43a1aea1f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.2-next.2 to 0.0.2-next.3
+
 ## [0.0.2-next.2](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.2-next.1...messaging-connector-aws-v0.0.2-next.2) (2025-08-29)
 
 
