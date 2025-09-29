@@ -40,6 +40,38 @@ Runtime name for the class.
 
 ## Methods
 
+### start()
+
+> **start**(`nodeIdentity?`, `nodeLoggingComponentType?`): `Promise`\<`void`\>
+
+The component needs to be started when the node is initialized.
+
+#### Parameters
+
+##### nodeIdentity?
+
+`string`
+
+The identity of the node starting the component.
+
+##### nodeLoggingComponentType?
+
+`string`
+
+The node logging component type.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IMessagingAdminComponent.start`
+
+***
+
 ### setTemplate()
 
 > **setTemplate**(`templateId`, `locale`, `title`, `content`): `Promise`\<`void`\>

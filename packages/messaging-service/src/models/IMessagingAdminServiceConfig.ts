@@ -10,4 +10,13 @@ export interface IMessagingAdminServiceConfig {
 	 * @default en
 	 */
 	defaultLocale?: string;
+
+	/**
+	 * Initial set of templates to create on startup.
+	 */
+	templates?: {
+		templateId: string;
+		title: string;
+		content: { [locale: string]: string };
+	}[];
 }
