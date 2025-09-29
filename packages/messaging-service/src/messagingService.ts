@@ -1,11 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, Guards, Is } from "@twin.org/core";
+import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
 import {
-	EntityStorageConnectorFactory,
-	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
-import {
+	type IMessagingAdminComponent,
 	MessagingEmailConnectorFactory,
 	MessagingPushNotificationsConnectorFactory,
 	MessagingSmsConnectorFactory,
@@ -15,7 +12,6 @@ import {
 	type IMessagingSmsConnector
 } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import { TemplateEntry } from "./entities/templateEntry";
 import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions";
 
 /**
@@ -46,10 +42,10 @@ export class MessagingService implements IMessagingComponent {
 	private readonly _smsMessagingConnector?: IMessagingSmsConnector;
 
 	/**
-	 * Entity storage connector used by the service.
+	 * The admin component for the messaging.
 	 * @internal
 	 */
-	private readonly _entityStorageConnector: IEntityStorageConnector<TemplateEntry>;
+	private readonly _messagingAdminComponent: IMessagingAdminComponent;
 
 	/**
 	 * Create a new instance of MessagingService.
@@ -74,8 +70,8 @@ export class MessagingService implements IMessagingComponent {
 			);
 		}
 
-		this._entityStorageConnector = EntityStorageConnectorFactory.get(
-			options?.templateEntryStorageConnectorType ?? "template-entry"
+		this._messagingAdminComponent = ComponentFactory.get(
+			options?.messagingAdminComponentType ?? "messaging-admin"
 		);
 	}
 
@@ -105,7 +101,7 @@ export class MessagingService implements IMessagingComponent {
 		Guards.object(this.CLASS_NAME, nameof(data), data);
 		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
 
-		const template = await this.getTemplate(templateId, locale);
+		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._emailMessagingConnector.sendCustomEmail(
@@ -156,7 +152,7 @@ export class MessagingService implements IMessagingComponent {
 		Guards.object(this.CLASS_NAME, nameof(data), data);
 		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
 
-		const template = await this.getTemplate(templateId, locale);
+		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._pushNotificationMessagingConnector.sendSinglePushNotification(
@@ -189,59 +185,10 @@ export class MessagingService implements IMessagingComponent {
 		Guards.object(this.CLASS_NAME, nameof(data), data);
 		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
 
-		const template = await this.getTemplate(templateId, locale);
+		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._smsMessagingConnector.sendSMS(phoneNumber, populatedTemplate.content);
-	}
-
-	/**
-	 * Create or update a template.
-	 * @param templateId The id of the template.
-	 * @param locale The locale of the template.
-	 * @param title The title of the template.
-	 * @param content The content of the template.
-	 * @returns If the template was created or updated successfully.
-	 */
-	public async createOrUpdateTemplate(
-		templateId: string,
-		locale: string,
-		title: string,
-		content: string
-	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
-		Guards.stringValue(this.CLASS_NAME, nameof(title), title);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
-
-		const templateEntry = new TemplateEntry();
-		templateEntry.id = `${templateId}:${locale}`;
-		templateEntry.dateCreated = new Date(Date.now()).toISOString();
-		templateEntry.title = title;
-		templateEntry.content = content;
-
-		await this._entityStorageConnector.set(templateEntry);
-		return true;
-	}
-
-	/**
-	 * Get the email template by id and locale.
-	 * @param templateId The id of the email template.
-	 * @param locale The locale of the email template.
-	 * @returns The email template.
-	 * @internal
-	 */
-	private async getTemplate(
-		templateId: string,
-		locale: string
-	): Promise<{ title: string; content: string }> {
-		const entityId = `${templateId}:${locale}`;
-		const templateInfo = await this._entityStorageConnector.get(entityId);
-
-		if (!templateInfo) {
-			throw new GeneralError(this.CLASS_NAME, "getTemplateFailed", { templateId, locale });
-		}
-		return templateInfo;
 	}
 
 	/**

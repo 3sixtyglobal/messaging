@@ -1,20 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import {
-	ComponentFactory,
-	Converter,
-	GeneralError,
-	Guards,
-	RandomHelper,
-	StringHelper
-} from "@twin.org/core";
+import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingSmsConnector } from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { SmsEntry } from "./entities/smsEntry";
 import type { IEntityStorageMessagingSmsConnectorConstructorOptions } from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions";
 
@@ -51,7 +44,7 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	constructor(options?: IEntityStorageMessagingSmsConnectorConstructorOptions) {
 		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
 		this._messagingSmsEntryStorage = EntityStorageConnectorFactory.get(
-			options?.messagingSmsEntryStorageConnectorType ?? StringHelper.kebabCase(nameof<SmsEntry>())
+			options?.messagingSmsEntryStorageConnectorType ?? nameofKebabCase<SmsEntry>()
 		);
 	}
 

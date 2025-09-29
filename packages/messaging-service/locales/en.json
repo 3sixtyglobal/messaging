@@ -4,10 +4,12 @@
 	},
 	"error": {
 		"messagingService": {
-			"getTemplateFailed": "Failed to get template with id: \"{templateId}\" and locale: \"{locale}\"",
 			"notConfiguredEmailMessagingConnector": "Email messaging connector was not configured",
 			"notConfiguredPushNotificationMessagingConnector": "Push notification messaging connector was not configured",
 			"notConfiguredSmsMessagingConnector": "SMS messaging connector was not configured"
+		},
+		"messagingAdminService": {
+			"getTemplateFailed": "Failed to get template with id: \"{templateId}\" and locale: \"{locale}\""
 		}
 	}
 }

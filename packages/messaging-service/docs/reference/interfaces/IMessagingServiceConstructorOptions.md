@@ -28,14 +28,14 @@ The type of the sms messaging connector to use, defaults to not configured.
 
 ***
 
-### templateEntryStorageConnectorType?
+### messagingAdminComponentType?
 
-> `optional` **templateEntryStorageConnectorType**: `string`
+> `optional` **messagingAdminComponentType**: `string`
 
-The type of the entity connector to use.
+The type of the messaging admin component to use.
 
 #### Default
 
 ```ts
-template-entry
+messaging-admin
 ```

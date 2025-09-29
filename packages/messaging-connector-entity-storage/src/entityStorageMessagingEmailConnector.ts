@@ -1,20 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import {
-	ComponentFactory,
-	Converter,
-	GeneralError,
-	Guards,
-	RandomHelper,
-	StringHelper
-} from "@twin.org/core";
+import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { EmailEntry } from "./entities/emailEntry";
 import type { IEntityStorageMessagingEmailConnectorConstructorOptions } from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions";
 
@@ -51,8 +44,7 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	constructor(options?: IEntityStorageMessagingEmailConnectorConstructorOptions) {
 		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
 		this._messagingEmailEntryStorage = EntityStorageConnectorFactory.get(
-			options?.messagingEmailEntryStorageConnectorType ??
-				StringHelper.kebabCase(nameof<EmailEntry>())
+			options?.messagingEmailEntryStorageConnectorType ?? nameofKebabCase<EmailEntry>()
 		);
 	}
 

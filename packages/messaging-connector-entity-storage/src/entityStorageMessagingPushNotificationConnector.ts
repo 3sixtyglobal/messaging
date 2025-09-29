@@ -1,20 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import {
-	ComponentFactory,
-	Converter,
-	GeneralError,
-	Guards,
-	RandomHelper,
-	StringHelper
-} from "@twin.org/core";
+import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry";
 import type { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry";
 import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions } from "./models/IEntityStorageMessagingPushNotificationConnectorConstructorOptions";
@@ -61,11 +54,11 @@ export class EntityStorageMessagingPushNotificationConnector
 		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
 		this._messagingDeviceEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingDeviceEntryStorageConnectorType ??
-				StringHelper.kebabCase(nameof<PushNotificationDeviceEntry>())
+				nameofKebabCase<PushNotificationDeviceEntry>()
 		);
 		this._messagingMessageEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingMessageEntryStorageConnectorType ??
-				StringHelper.kebabCase(nameof<PushNotificationMessageEntry>())
+				nameofKebabCase<PushNotificationMessageEntry>()
 		);
 	}
 
