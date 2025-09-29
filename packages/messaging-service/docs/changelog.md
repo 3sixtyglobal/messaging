@@ -1,5 +1,19 @@
 # @twin.org/messaging-service - Changelog
 
+## [0.0.2-next.4](https://github.com/twinfoundation/messaging/compare/messaging-service-v0.0.2-next.3...messaging-service-v0.0.2-next.4) (2025-09-29)
+
+
+### Features
+
+* add initial templates config ([66b40eb](https://github.com/twinfoundation/messaging/commit/66b40eb57a478d9f79de540eb847a4fb37894235))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.2-next.3 to 0.0.2-next.4
+
 ## [0.0.2-next.3](https://github.com/twinfoundation/messaging/compare/messaging-service-v0.0.2-next.2...messaging-service-v0.0.2-next.3) (2025-09-29)
 
 
