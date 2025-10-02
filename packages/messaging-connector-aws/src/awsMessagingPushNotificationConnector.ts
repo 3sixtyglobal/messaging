@@ -67,16 +67,27 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			options.config
 		);
 		Guards.stringValue(this.CLASS_NAME, nameof(options.config.region), options.config.region);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.config.accessKeyId),
-			options.config.accessKeyId
-		);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.config.secretAccessKey),
-			options.config.secretAccessKey
-		);
+
+		options.config.authMode ??= "credentials";
+
+		let credentials;
+		if (options.config.authMode === "credentials") {
+			Guards.stringValue(
+				this.CLASS_NAME,
+				nameof(options.config.accessKeyId),
+				options.config.accessKeyId
+			);
+			Guards.stringValue(
+				this.CLASS_NAME,
+				nameof(options.config.secretAccessKey),
+				options.config.secretAccessKey
+			);
+			credentials = {
+				accessKeyId: options.config.accessKeyId,
+				secretAccessKey: options.config.secretAccessKey
+			};
+		}
+
 		Guards.arrayValue(
 			this.CLASS_NAME,
 			nameof(options.config.applicationsSettings),
@@ -93,10 +104,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 		this._client = new SNSClient({
 			endpoint: this._config.endpoint,
 			region: this._config.region,
-			credentials: {
-				accessKeyId: this._config.accessKeyId,
-				secretAccessKey: this._config.secretAccessKey
-			}
+			credentials
 		});
 	}
 

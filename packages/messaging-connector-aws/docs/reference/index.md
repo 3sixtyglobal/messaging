@@ -9,6 +9,7 @@
 ## Interfaces
 
 - [IAwsApplicationSettings](interfaces/IAwsApplicationSettings.md)
+- [IAwsBaseConfig](interfaces/IAwsBaseConfig.md)
 - [IAwsEmailConnectorConfig](interfaces/IAwsEmailConnectorConfig.md)
 - [IAwsMessagingEmailConnectorConstructorOptions](interfaces/IAwsMessagingEmailConnectorConstructorOptions.md)
 - [IAwsMessagingPushNotificationConnectorConstructorOptions](interfaces/IAwsMessagingPushNotificationConnectorConstructorOptions.md)

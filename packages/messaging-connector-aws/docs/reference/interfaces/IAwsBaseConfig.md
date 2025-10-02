@@ -1,10 +1,12 @@
-# Interface: IAwsSmsConnectorConfig
+# Interface: IAwsBaseConfig
 
-Configuration for the AWS Connector.
+Base configuration for the AWS Connector.
 
-## Extends
+## Extended by
 
-- [`IAwsBaseConfig`](IAwsBaseConfig.md)
+- [`IAwsEmailConnectorConfig`](IAwsEmailConnectorConfig.md)
+- [`IAwsPushNotificationConnectorConfig`](IAwsPushNotificationConnectorConfig.md)
+- [`IAwsSmsConnectorConfig`](IAwsSmsConnectorConfig.md)
 
 ## Properties
 
@@ -13,10 +15,6 @@ Configuration for the AWS Connector.
 > **region**: `string`
 
 The region for the AWS instance.
-
-#### Inherited from
-
-[`IAwsBaseConfig`](IAwsBaseConfig.md).[`region`](IAwsBaseConfig.md#region)
 
 ***
 
@@ -34,10 +32,6 @@ The authentication mode.
 credentials
 ```
 
-#### Inherited from
-
-[`IAwsBaseConfig`](IAwsBaseConfig.md).[`authMode`](IAwsBaseConfig.md#authmode)
-
 ***
 
 ### accessKeyId?
@@ -45,10 +39,6 @@ credentials
 > `optional` **accessKeyId**: `string`
 
 The AWS access key ID.
-
-#### Inherited from
-
-[`IAwsBaseConfig`](IAwsBaseConfig.md).[`accessKeyId`](IAwsBaseConfig.md#accesskeyid)
 
 ***
 
@@ -58,10 +48,6 @@ The AWS access key ID.
 
 The AWS secret access key.
 
-#### Inherited from
-
-[`IAwsBaseConfig`](IAwsBaseConfig.md).[`secretAccessKey`](IAwsBaseConfig.md#secretaccesskey)
-
 ***
 
 ### endpoint?
@@ -69,7 +55,3 @@ The AWS secret access key.
 > `optional` **endpoint**: `string`
 
 AWS endpoint, not usually required but could be used for local testing.
-
-#### Inherited from
-
-[`IAwsBaseConfig`](IAwsBaseConfig.md).[`endpoint`](IAwsBaseConfig.md#endpoint)
