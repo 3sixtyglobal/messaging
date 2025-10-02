@@ -1,5 +1,19 @@
 # @twin.org/messaging-connector-aws - Changelog
 
+## [0.0.2-next.5](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.2-next.4...messaging-connector-aws-v0.0.2-next.5) (2025-10-02)
+
+
+### Features
+
+* add AWS pod authentication mode ([6dc5d2b](https://github.com/twinfoundation/messaging/commit/6dc5d2b6ccf3c4323d06321042a34c3f6dd4215c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.2-next.4 to 0.0.2-next.5
+
 ## [0.0.2-next.4](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.2-next.3...messaging-connector-aws-v0.0.2-next.4) (2025-09-29)
 
 
