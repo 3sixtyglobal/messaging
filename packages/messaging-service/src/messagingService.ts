@@ -21,7 +21,7 @@ export class MessagingService implements IMessagingComponent {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<MessagingService>();
+	public static readonly CLASS_NAME: string = nameof<MessagingService>();
 
 	/**
 	 * Emails messaging connector used by the service.
@@ -92,14 +92,14 @@ export class MessagingService implements IMessagingComponent {
 		locale: string
 	): Promise<boolean> {
 		if (Is.empty(this._emailMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredEmailMessagingConnector");
+			throw new GeneralError(MessagingService.CLASS_NAME, "notConfiguredEmailMessagingConnector");
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(sender), sender);
-		Guards.arrayValue(this.CLASS_NAME, nameof(recipients), recipients);
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.object(this.CLASS_NAME, nameof(data), data);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(sender), sender);
+		Guards.arrayValue(MessagingService.CLASS_NAME, nameof(recipients), recipients);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.object(MessagingService.CLASS_NAME, nameof(data), data);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
 		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
@@ -120,11 +120,14 @@ export class MessagingService implements IMessagingComponent {
 	 */
 	public async registerDevice(applicationId: string, deviceToken: string): Promise<string> {
 		if (Is.empty(this._pushNotificationMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredPushNotificationMessagingConnector");
+			throw new GeneralError(
+				MessagingService.CLASS_NAME,
+				"notConfiguredPushNotificationMessagingConnector"
+			);
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(applicationId), applicationId);
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceToken), deviceToken);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(applicationId), applicationId);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(deviceToken), deviceToken);
 
 		return this._pushNotificationMessagingConnector.registerDevice(applicationId, deviceToken);
 	}
@@ -144,13 +147,16 @@ export class MessagingService implements IMessagingComponent {
 		locale: string
 	): Promise<boolean> {
 		if (Is.empty(this._pushNotificationMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredPushNotificationMessagingConnector");
+			throw new GeneralError(
+				MessagingService.CLASS_NAME,
+				"notConfiguredPushNotificationMessagingConnector"
+			);
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceAddress), deviceAddress);
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.object(this.CLASS_NAME, nameof(data), data);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(deviceAddress), deviceAddress);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.object(MessagingService.CLASS_NAME, nameof(data), data);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
 		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
@@ -177,13 +183,13 @@ export class MessagingService implements IMessagingComponent {
 		locale: string
 	): Promise<boolean> {
 		if (Is.empty(this._smsMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredSmsMessagingConnector");
+			throw new GeneralError(MessagingService.CLASS_NAME, "notConfiguredSmsMessagingConnector");
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(phoneNumber), phoneNumber);
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.object(this.CLASS_NAME, nameof(data), data);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(phoneNumber), phoneNumber);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.object(MessagingService.CLASS_NAME, nameof(data), data);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
 		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);

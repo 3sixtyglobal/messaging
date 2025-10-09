@@ -21,7 +21,7 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<AwsMessagingEmailConnector>();
+	public static readonly CLASS_NAME: string = nameof<AwsMessagingEmailConnector>();
 
 	/**
 	 * The logging component.
@@ -46,25 +46,29 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	 * @param options The options for the connector.
 	 */
 	constructor(options: IAwsMessagingEmailConnectorConstructorOptions) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.object(AwsMessagingEmailConnector.CLASS_NAME, nameof(options), options);
 		Guards.object<IAwsEmailConnectorConfig>(
-			this.CLASS_NAME,
+			AwsMessagingEmailConnector.CLASS_NAME,
 			nameof(options.config),
 			options.config
 		);
-		Guards.stringValue(this.CLASS_NAME, nameof(options.config.region), options.config.region);
+		Guards.stringValue(
+			AwsMessagingEmailConnector.CLASS_NAME,
+			nameof(options.config.region),
+			options.config.region
+		);
 
 		options.config.authMode ??= "credentials";
 
 		let credentials;
 		if (options.config.authMode === "credentials") {
 			Guards.stringValue(
-				this.CLASS_NAME,
+				AwsMessagingEmailConnector.CLASS_NAME,
 				nameof(options.config.accessKeyId),
 				options.config.accessKeyId
 			);
 			Guards.stringValue(
-				this.CLASS_NAME,
+				AwsMessagingEmailConnector.CLASS_NAME,
 				nameof(options.config.secretAccessKey),
 				options.config.secretAccessKey
 			);
@@ -101,14 +105,14 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 		subject: string,
 		content: string
 	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(sender), sender);
-		Guards.arrayValue(this.CLASS_NAME, nameof(recipients), recipients);
-		Guards.stringValue(this.CLASS_NAME, nameof(subject), subject);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
+		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(sender), sender);
+		Guards.arrayValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(recipients), recipients);
+		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(subject), subject);
+		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(content), content);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingEmailConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "emailSending",
 				data: {
@@ -136,15 +140,25 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 			if (result.$metadata.httpStatusCode !== HttpStatusCode.ok) {
 				await this._logging?.log({
 					level: "error",
-					source: this.CLASS_NAME,
+					source: AwsMessagingEmailConnector.CLASS_NAME,
 					ts: Date.now(),
 					message: "sendCustomEmailFailed"
 				});
-				throw new GeneralError(this.CLASS_NAME, "sendCustomEmailFailed", undefined, result);
+				throw new GeneralError(
+					AwsMessagingEmailConnector.CLASS_NAME,
+					"sendCustomEmailFailed",
+					undefined,
+					result
+				);
 			}
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendCustomEmailFailed", undefined, err);
+			throw new GeneralError(
+				AwsMessagingEmailConnector.CLASS_NAME,
+				"sendCustomEmailFailed",
+				undefined,
+				err
+			);
 		}
 	}
 }

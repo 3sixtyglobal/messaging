@@ -23,7 +23,7 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EntityStorageMessagingSmsConnector>();
+	public static readonly CLASS_NAME: string = nameof<EntityStorageMessagingSmsConnector>();
 
 	/**
 	 * The logging component.
@@ -55,12 +55,16 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	 * @returns If the SMS was sent successfully.
 	 */
 	public async sendSMS(phoneNumber: string, message: string): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(phoneNumber), phoneNumber);
-		Guards.stringValue(this.CLASS_NAME, nameof(message), message);
+		Guards.stringValue(
+			EntityStorageMessagingSmsConnector.CLASS_NAME,
+			nameof(phoneNumber),
+			phoneNumber
+		);
+		Guards.stringValue(EntityStorageMessagingSmsConnector.CLASS_NAME, nameof(message), message);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: EntityStorageMessagingSmsConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "smsSending"
 			});
@@ -79,7 +83,12 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendSMSFailed", undefined, err);
+			throw new GeneralError(
+				EntityStorageMessagingSmsConnector.CLASS_NAME,
+				"sendSMSFailed",
+				undefined,
+				err
+			);
 		}
 	}
 }

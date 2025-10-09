@@ -1,38 +1,35 @@
 {
 	"info": {
-		"awsMessagingConnector": {
-			"emailSending": "Sending email of type {type}",
-			"templateCreating": "Creating template of name {type}",
-			"templateDeleting": "Deleting template of name {type}",
-			"smsSending": "Sending SMS of type",
+		"awsMessagingSmsConnector": {
+			"smsSending": "Sending SMS of type"
+		},
+		"awsMessagingPushNotificationConnector": {
+			"registeringApplications": "Registering applications",
 			"deviceRegistering": "Registering device token",
 			"deviceTokenChecking": "Checking device token",
 			"platformAppChecking": "Checking platform application",
 			"pushNotificationSending": "Sending push notification",
-			"topicCreating": "Creating topic",
-			"topicChecking": "Checking topic existence",
-			"subscriptionChecking": "Checking subscription existence",
-			"topicSubscribing": "Subscribing to topic",
-			"topicPublishing": "Publishing to topic",
-			"nodeStarting": "Starting AWS messaging connector"
+			"platformAppCreating": "Creating platform application"
+		},
+		"awsMessagingEmailConnector": {
+			"emailSending": "Sending email of type {type}"
 		}
 	},
 	"error": {
-		"awsMessagingConnector": {
-			"createCustomEmailFailed": "Failed to create custom email",
-			"createTemplateFailed": "Failed to create template",
-			"deleteTemplateFailed": "Failed to delete template with name {name}",
-			"sendSMSFailed": "Failed to send SMS",
+		"awsMessagingSmsConnector": {
+			"sendSMSFailed": "Failed to send SMS"
+		},
+		"awsMessagingPushNotificationConnector": {
+			"applicationRegistrationFailed": "Application registration failed for applicationId {applicationId}",
+			"applicationIdNotFound": "ApplicationId not found: {applicationId}",
 			"deviceTokenCheckFailed": "Failed to check device token",
 			"deviceTokenRegisterFailed": "Failed to register device token",
-			"platformAppCreationFailed": "Failed to create platform application",
-			"platformAppCreationCheckFailed": "Failed to check or create the platform application",
+			"platformAppCreationFailed": "Failed to create platform application for applicationId {applicationId}",
 			"sendPushNotificationFailed": "Failed to send push notification",
-			"createTopicFailed": "Failed to create topic",
-			"subscriptionCheckFailed": "Failed to check subscription",
-			"topicCheckFailed": "Failed to check topic",
-			"subscribeToTopicFailed": "Failed to subscribe to topic",
-			"sendTopicPushNotificationFailed": "Failed to send push notification to topic"
+			"platformAppCheckFailed": "Failed to check platform application"
+		},
+		"awsMessagingEmailConnector": {
+			"sendCustomEmailFailed": "Failed to send custom email"
 		}
 	}
 }

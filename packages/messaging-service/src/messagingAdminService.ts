@@ -15,14 +15,14 @@ import type { IMessagingAdminServiceConstructorOptions } from "./models/IMessagi
  */
 export class MessagingAdminService implements IMessagingAdminComponent {
 	/**
+	 * Runtime name for the class.
+	 */
+	public static readonly CLASS_NAME: string = nameof<MessagingAdminService>();
+
+	/**
 	 * Default locale for the messaging service.
 	 */
 	private static readonly _DEFAULT_LOCALE: string = "en";
-
-	/**
-	 * Runtime name for the class.
-	 */
-	public readonly CLASS_NAME: string = nameof<MessagingAdminService>();
 
 	/**
 	 * Entity storage connector used by the service.
@@ -94,10 +94,10 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 		title: string,
 		content: string
 	): Promise<void> {
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
-		Guards.stringValue(this.CLASS_NAME, nameof(title), title);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(title), title);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(content), content);
 
 		const templateEntry = new TemplateEntry();
 		templateEntry.id = `${templateId}:${locale}`;
@@ -118,8 +118,8 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 		templateId: string,
 		locale: string
 	): Promise<{ title: string; content: string }> {
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(locale), locale);
 
 		let templateEntry;
 
@@ -139,7 +139,10 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 		}
 
 		if (Is.empty(templateEntry)) {
-			throw new GeneralError(this.CLASS_NAME, "getTemplateFailed", { templateId, locale });
+			throw new GeneralError(MessagingAdminService.CLASS_NAME, "getTemplateFailed", {
+				templateId,
+				locale
+			});
 		}
 
 		return templateEntry;
@@ -152,8 +155,8 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 	 * @returns Nothing
 	 */
 	public async removeTemplate(templateId: string, locale: string): Promise<void> {
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(locale), locale);
 
 		return this._entityStorageConnector.remove(`${templateId}:${locale}`);
 	}

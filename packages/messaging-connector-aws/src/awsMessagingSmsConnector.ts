@@ -20,7 +20,7 @@ export class AwsMessagingSmsConnector implements IMessagingSmsConnector {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<AwsMessagingSmsConnector>();
+	public static readonly CLASS_NAME: string = nameof<AwsMessagingSmsConnector>();
 
 	/**
 	 * The logging component.
@@ -45,21 +45,29 @@ export class AwsMessagingSmsConnector implements IMessagingSmsConnector {
 	 * @param options The options for the connector.
 	 */
 	constructor(options: IAwsMessagingSmsConnectorConstructorOptions) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object<IAwsSmsConnectorConfig>(this.CLASS_NAME, nameof(options.config), options.config);
-		Guards.stringValue(this.CLASS_NAME, nameof(options.config.region), options.config.region);
+		Guards.object(AwsMessagingSmsConnector.CLASS_NAME, nameof(options), options);
+		Guards.object<IAwsSmsConnectorConfig>(
+			AwsMessagingSmsConnector.CLASS_NAME,
+			nameof(options.config),
+			options.config
+		);
+		Guards.stringValue(
+			AwsMessagingSmsConnector.CLASS_NAME,
+			nameof(options.config.region),
+			options.config.region
+		);
 
 		options.config.authMode ??= "credentials";
 
 		let credentials;
 		if (options.config.authMode === "credentials") {
 			Guards.stringValue(
-				this.CLASS_NAME,
+				AwsMessagingSmsConnector.CLASS_NAME,
 				nameof(options.config.accessKeyId),
 				options.config.accessKeyId
 			);
 			Guards.stringValue(
-				this.CLASS_NAME,
+				AwsMessagingSmsConnector.CLASS_NAME,
 				nameof(options.config.secretAccessKey),
 				options.config.secretAccessKey
 			);
@@ -89,8 +97,8 @@ export class AwsMessagingSmsConnector implements IMessagingSmsConnector {
 	 * @returns If the SMS was sent successfully.
 	 */
 	public async sendSMS(phoneNumber: string, message: string): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(phoneNumber), phoneNumber);
-		Guards.stringValue(this.CLASS_NAME, nameof(message), message);
+		Guards.stringValue(AwsMessagingSmsConnector.CLASS_NAME, nameof(phoneNumber), phoneNumber);
+		Guards.stringValue(AwsMessagingSmsConnector.CLASS_NAME, nameof(message), message);
 		const params = {
 			Message: message,
 			PhoneNumber: phoneNumber
@@ -98,14 +106,14 @@ export class AwsMessagingSmsConnector implements IMessagingSmsConnector {
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingSmsConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "smsSending"
 			});
 			await this._client.send(new PublishCommand(params));
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendSMSFailed", undefined, err);
+			throw new GeneralError(AwsMessagingSmsConnector.CLASS_NAME, "sendSMSFailed", undefined, err);
 		}
 	}
 }

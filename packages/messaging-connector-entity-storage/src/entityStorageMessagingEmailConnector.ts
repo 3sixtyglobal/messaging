@@ -23,7 +23,7 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EntityStorageMessagingEmailConnector>();
+	public static readonly CLASS_NAME: string = nameof<EntityStorageMessagingEmailConnector>();
 
 	/**
 	 * The logging component.
@@ -62,14 +62,18 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 		subject: string,
 		content: string
 	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(sender), sender);
-		Guards.arrayValue(this.CLASS_NAME, nameof(recipients), recipients);
-		Guards.stringValue(this.CLASS_NAME, nameof(subject), subject);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
+		Guards.stringValue(EntityStorageMessagingEmailConnector.CLASS_NAME, nameof(sender), sender);
+		Guards.arrayValue(
+			EntityStorageMessagingEmailConnector.CLASS_NAME,
+			nameof(recipients),
+			recipients
+		);
+		Guards.stringValue(EntityStorageMessagingEmailConnector.CLASS_NAME, nameof(subject), subject);
+		Guards.stringValue(EntityStorageMessagingEmailConnector.CLASS_NAME, nameof(content), content);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: EntityStorageMessagingEmailConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "emailSending",
 				data: {
@@ -93,7 +97,12 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendCustomEmailFailed", undefined, err);
+			throw new GeneralError(
+				EntityStorageMessagingEmailConnector.CLASS_NAME,
+				"sendCustomEmailFailed",
+				undefined,
+				err
+			);
 		}
 	}
 }

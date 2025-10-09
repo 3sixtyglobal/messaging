@@ -62,8 +62,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 		).rejects.toMatchObject({
 			name: "GuardError",
 			properties: {
-				property: "applicationId",
-				value: "undefined"
+				property: "applicationId"
 			}
 		});
 	});
@@ -106,8 +105,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 		).rejects.toMatchObject({
 			name: "GeneralError",
 			properties: {
-				property: "applicationId",
-				value: applicationId
+				applicationId: "TestApp"
 			}
 		});
 	});

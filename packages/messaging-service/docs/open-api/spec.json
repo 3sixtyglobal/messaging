@@ -186,8 +186,8 @@
                         }
                     },
                     {
-                        "name": "pageSize",
-                        "description": "The maximum number of entities in a page.",
+                        "name": "limit",
+                        "description": "Limit the number of entities to return.",
                         "in": "query",
                         "required": false,
                         "schema": {

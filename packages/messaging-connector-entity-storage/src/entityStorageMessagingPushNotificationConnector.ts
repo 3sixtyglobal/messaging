@@ -26,7 +26,8 @@ export class EntityStorageMessagingPushNotificationConnector
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EntityStorageMessagingPushNotificationConnector>();
+	public static readonly CLASS_NAME: string =
+		nameof<EntityStorageMessagingPushNotificationConnector>();
 
 	/**
 	 * The logging component.
@@ -69,12 +70,20 @@ export class EntityStorageMessagingPushNotificationConnector
 	 * @returns If the device was registered successfully.
 	 */
 	public async registerDevice(applicationId: string, deviceToken: string): Promise<string> {
-		Guards.stringValue(this.CLASS_NAME, nameof(applicationId), applicationId);
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceToken), deviceToken);
+		Guards.stringValue(
+			EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(applicationId),
+			applicationId
+		);
+		Guards.stringValue(
+			EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(deviceToken),
+			deviceToken
+		);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "deviceRegistering"
 			});
@@ -93,7 +102,7 @@ export class EntityStorageMessagingPushNotificationConnector
 			return id;
 		} catch (err) {
 			throw new GeneralError(
-				this.CLASS_NAME,
+				EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
 				"deviceTokenRegisterFailed",
 				{ property: "applicationId", value: applicationId },
 				err
@@ -113,13 +122,25 @@ export class EntityStorageMessagingPushNotificationConnector
 		title: string,
 		message: string
 	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceAddress), deviceAddress);
-		Guards.stringValue(this.CLASS_NAME, nameof(title), title);
-		Guards.stringValue(this.CLASS_NAME, nameof(message), message);
+		Guards.stringValue(
+			EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(deviceAddress),
+			deviceAddress
+		);
+		Guards.stringValue(
+			EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(title),
+			title
+		);
+		Guards.stringValue(
+			EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(message),
+			message
+		);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "pushNotificationSending"
 			});
@@ -139,7 +160,7 @@ export class EntityStorageMessagingPushNotificationConnector
 			return true;
 		} catch (err) {
 			throw new GeneralError(
-				this.CLASS_NAME,
+				EntityStorageMessagingPushNotificationConnector.CLASS_NAME,
 				"sendPushNotificationFailed",
 				{ value: deviceAddress },
 				err

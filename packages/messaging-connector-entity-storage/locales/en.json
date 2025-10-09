@@ -1,19 +1,26 @@
 {
 	"info": {
-		"entityStorageMessagingConnector": {
-			"emailSending": "Sending email",
-			"smsSending": "Sending SMS",
+		"entityStorageMessagingSmsConnector": {
+			"smsSending": "Sending SMS"
+		},
+		"entityStorageMessagingPushNotificationConnector": {
 			"deviceRegistering": "Registering device",
 			"pushNotificationSending": "Sending push notification"
+		},
+		"entityStorageMessagingEmailConnector": {
+			"emailSending": "Sending email"
 		}
 	},
 	"error": {
-		"entityStorageMessagingConnector": {
-			"sendCustomEmailFailed": "Failed to send custom email",
-			"readEmailEntryFailed": "Failed to read email entry",
-			"sendSMSFailed": "Failed to send SMS",
+		"entityStorageMessagingSmsConnector": {
+			"sendSMSFailed": "Failed to send SMS"
+		},
+		"entityStorageMessagingPushNotificationConnector": {
 			"deviceTokenRegisterFailed": "Failed to register device token",
 			"sendPushNotificationFailed": "Failed to send push notification"
+		},
+		"entityStorageMessagingEmailConnector": {
+			"sendCustomEmailFailed": "Failed to send custom email"
 		}
 	}
 }
