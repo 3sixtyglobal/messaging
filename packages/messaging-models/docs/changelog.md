@@ -1,5 +1,12 @@
 # @twin.org/messaging-models - Changelog
 
+## [0.0.2-next.6](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.2-next.5...messaging-models-v0.0.2-next.6) (2025-10-09)
+
+
+### Features
+
+* add validate-locales ([5eeff9b](https://github.com/twinfoundation/messaging/commit/5eeff9b9bf6cecf93b249b56c4bb74b4c5bf86c9))
+
 ## [0.0.2-next.5](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.2-next.4...messaging-models-v0.0.2-next.5) (2025-10-02)
 
 

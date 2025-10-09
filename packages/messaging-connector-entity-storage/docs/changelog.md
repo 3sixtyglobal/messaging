@@ -1,5 +1,19 @@
 # @twin.org/messaging-connector-entity-storage - Changelog
 
+## [0.0.2-next.6](https://github.com/twinfoundation/messaging/compare/messaging-connector-entity-storage-v0.0.2-next.5...messaging-connector-entity-storage-v0.0.2-next.6) (2025-10-09)
+
+
+### Features
+
+* add validate-locales ([5eeff9b](https://github.com/twinfoundation/messaging/commit/5eeff9b9bf6cecf93b249b56c4bb74b4c5bf86c9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.2-next.5 to 0.0.2-next.6
+
 ## [0.0.2-next.5](https://github.com/twinfoundation/messaging/compare/messaging-connector-entity-storage-v0.0.2-next.4...messaging-connector-entity-storage-v0.0.2-next.5) (2025-10-02)
 
 
