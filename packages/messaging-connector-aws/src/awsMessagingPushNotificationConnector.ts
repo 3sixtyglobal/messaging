@@ -14,8 +14,8 @@ import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
-import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "./models/IAwsMessagingPushNotificationConnectorConstructorOptions";
-import type { IAwsPushNotificationConnectorConfig } from "./models/IAwsPushNotificationConnectorConfig";
+import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "./models/IAwsMessagingPushNotificationConnectorConstructorOptions.js";
+import type { IAwsPushNotificationConnectorConfig } from "./models/IAwsPushNotificationConnectorConfig.js";
 
 /**
  * Class for connecting to the push notifications messaging operations of the AWS services.
@@ -113,12 +113,19 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	}
 
 	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return AwsMessagingPushNotificationConnector.CLASS_NAME;
+	}
+
+	/**
 	 * The component needs to be started when the node is initialized.
-	 * @param nodeIdentity The identity of the node starting the component.
 	 * @param nodeLoggingComponentType The node logging component type.
 	 * @returns Nothing.
 	 */
-	public async start(nodeIdentity?: string, nodeLoggingComponentType?: string): Promise<void> {
+	public async start(nodeLoggingComponentType?: string): Promise<void> {
 		const nodeLogging = ComponentFactory.getIfExists<ILoggingComponent>(nodeLoggingComponentType);
 
 		await nodeLogging?.log({

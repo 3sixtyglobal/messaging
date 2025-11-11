@@ -7,8 +7,8 @@ import {
 } from "@twin.org/entity-storage-models";
 import type { IMessagingAdminComponent } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import { TemplateEntry } from "./entities/templateEntry";
-import type { IMessagingAdminServiceConstructorOptions } from "./models/IMessagingAdminServiceConstructorOptions";
+import { TemplateEntry } from "./entities/templateEntry.js";
+import type { IMessagingAdminServiceConstructorOptions } from "./models/IMessagingAdminServiceConstructorOptions.js";
 
 /**
  * Service for performing email messaging operations to a connector.
@@ -37,16 +37,6 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 	private readonly _defaultLocale: string;
 
 	/**
-	 * Initial set of templates to create on startup.
-	 * @internal
-	 */
-	private readonly _initialTemplates?: {
-		templateId: string;
-		title: string;
-		content: { [locale: string]: string };
-	}[];
-
-	/**
 	 * Create a new instance of MessagingAdminService.
 	 * @param options The options for the connector.
 	 */
@@ -56,28 +46,14 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 		);
 
 		this._defaultLocale = options?.config?.defaultLocale ?? MessagingAdminService._DEFAULT_LOCALE;
-		this._initialTemplates = options?.config?.templates;
 	}
 
 	/**
-	 * The component needs to be started when the node is initialized.
-	 * @param nodeIdentity The identity of the node starting the component.
-	 * @param nodeLoggingComponentType The node logging component type.
-	 * @returns Nothing.
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
 	 */
-	public async start(nodeIdentity?: string, nodeLoggingComponentType?: string): Promise<void> {
-		if (Is.arrayValue(this._initialTemplates)) {
-			for (const template of this._initialTemplates) {
-				for (const locale of Object.keys(template.content)) {
-					await this.setTemplate(
-						template.templateId,
-						locale,
-						template.title,
-						template.content[locale]
-					);
-				}
-			}
-		}
+	public className(): string {
+		return MessagingAdminService.CLASS_NAME;
 	}
 
 	/**

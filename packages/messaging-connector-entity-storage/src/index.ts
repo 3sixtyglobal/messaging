@@ -1,13 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-export * from "./entities/emailEntry";
-export * from "./entities/pushNotificationDeviceEntry";
-export * from "./entities/pushNotificationMessageEntry";
-export * from "./entities/smsEntry";
-export * from "./entityStorageMessagingEmailConnector";
-export * from "./entityStorageMessagingPushNotificationConnector";
-export * from "./entityStorageMessagingSmsConnector";
-export * from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions";
-export * from "./models/IEntityStorageMessagingPushNotificationConnectorConstructorOptions";
-export * from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions";
-export * from "./schema";
+export * from "./entities/emailEntry.js";
+export * from "./entities/pushNotificationDeviceEntry.js";
+export * from "./entities/pushNotificationMessageEntry.js";
+export * from "./entities/smsEntry.js";
+export * from "./entityStorageMessagingEmailConnector.js";
+export * from "./entityStorageMessagingPushNotificationConnector.js";
+export * from "./entityStorageMessagingSmsConnector.js";
+export * from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions.js";
+export * from "./models/IEntityStorageMessagingPushNotificationConnectorConstructorOptions.js";
+export * from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions.js";
+export * from "./schema.js";

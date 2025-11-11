@@ -12,10 +12,10 @@ import {
 	type IMessagingSmsConnector
 } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import type { TemplateEntry } from "../src/entities/templateEntry";
-import { MessagingAdminService } from "../src/messagingAdminService";
-import { MessagingService } from "../src/messagingService";
-import { initSchema } from "../src/schema";
+import type { TemplateEntry } from "../src/entities/templateEntry.js";
+import { MessagingAdminService } from "../src/messagingAdminService.js";
+import { MessagingService } from "../src/messagingService.js";
+import { initSchema } from "../src/schema.js";
 
 let templateStorageMemory: MemoryEntityStorageConnector<TemplateEntry>;
 

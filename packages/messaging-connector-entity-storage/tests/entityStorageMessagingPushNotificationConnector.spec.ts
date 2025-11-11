@@ -3,10 +3,10 @@
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { PushNotificationDeviceEntry } from "../src/entities/pushNotificationDeviceEntry";
-import type { PushNotificationMessageEntry } from "../src/entities/pushNotificationMessageEntry";
-import { EntityStorageMessagingPushNotificationConnector } from "../src/entityStorageMessagingPushNotificationConnector";
-import { initSchema } from "../src/schema";
+import type { PushNotificationDeviceEntry } from "../src/entities/pushNotificationDeviceEntry.js";
+import type { PushNotificationMessageEntry } from "../src/entities/pushNotificationMessageEntry.js";
+import { EntityStorageMessagingPushNotificationConnector } from "../src/entityStorageMessagingPushNotificationConnector.js";
+import { initSchema } from "../src/schema.js";
 
 describe("EntityStorageMessagingPushNotificationConnector", () => {
 	beforeAll(() => {

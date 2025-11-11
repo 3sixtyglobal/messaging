@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { EntitySchemaFactory, EntitySchemaHelper } from "@twin.org/entity";
 import { nameof } from "@twin.org/nameof";
-import { EmailEntry } from "./entities/emailEntry";
-import { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry";
-import { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry";
-import { SmsEntry } from "./entities/smsEntry";
+import { EmailEntry } from "./entities/emailEntry.js";
+import { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry.js";
+import { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry.js";
+import { SmsEntry } from "./entities/smsEntry.js";
 
 /**
  * Initialize the schema for the messaging connector entity storage.

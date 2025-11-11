@@ -3,9 +3,9 @@
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { EmailEntry } from "../src/entities/emailEntry";
-import { EntityStorageMessagingEmailConnector } from "../src/entityStorageMessagingEmailConnector";
-import { initSchema } from "../src/schema";
+import type { EmailEntry } from "../src/entities/emailEntry.js";
+import { EntityStorageMessagingEmailConnector } from "../src/entityStorageMessagingEmailConnector.js";
+import { initSchema } from "../src/schema.js";
 
 describe("EntityStorageMessagingEmailConnector", () => {
 	beforeAll(() => {

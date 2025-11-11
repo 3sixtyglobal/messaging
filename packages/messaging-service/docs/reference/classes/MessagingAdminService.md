@@ -36,35 +36,21 @@ Runtime name for the class.
 
 ## Methods
 
-### start()
+### className()
 
-> **start**(`nodeIdentity?`, `nodeLoggingComponentType?`): `Promise`\<`void`\>
+> **className**(): `string`
 
-The component needs to be started when the node is initialized.
-
-#### Parameters
-
-##### nodeIdentity?
-
-`string`
-
-The identity of the node starting the component.
-
-##### nodeLoggingComponentType?
-
-`string`
-
-The node logging component type.
+Returns the class name of the component.
 
 #### Returns
 
-`Promise`\<`void`\>
+`string`
 
-Nothing.
+The class name of the component.
 
 #### Implementation of
 
-`IMessagingAdminComponent.start`
+`IMessagingAdminComponent.className`
 
 ***
 

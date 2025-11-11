@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAwsBaseConfig } from "./IAwsBaseConfig";
+import type { IAwsBaseConfig } from "./IAwsBaseConfig.js";
 
 /**
  * Configuration for the AWS Connector.

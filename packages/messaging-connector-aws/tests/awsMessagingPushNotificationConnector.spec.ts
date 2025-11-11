@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { I18n } from "@twin.org/core";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import {
@@ -10,17 +9,15 @@ import {
 } from "@twin.org/logging-connector-entity-storage";
 import { LoggingConnectorFactory } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
-import { TEST_AWS_CONFIG_PUSH } from "./setupTestEnv";
-import { AwsMessagingPushNotificationConnector } from "../src/awsMessagingPushNotificationConnector";
-import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig";
+import { TEST_AWS_CONFIG_PUSH } from "./setupTestEnv.js";
+import { AwsMessagingPushNotificationConnector } from "../src/awsMessagingPushNotificationConnector.js";
+import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig.js";
 
 let memoryEntityStorage: MemoryEntityStorageConnector<LogEntry>;
 const configuration: IAwsPushNotificationConnectorConfig = TEST_AWS_CONFIG_PUSH;
 
 describe("AwsMessagingPushNotificationConnector", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", await import("../locales/en.json"));
-
 		initSchema();
 	});
 
@@ -87,7 +84,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 			config: configuration
 		});
 		const applicationId = "TestApp";
-		await messagingConnector.start("");
+		await messagingConnector.start();
 		const deviceToken = "testDeviceToken";
 		const result = await messagingConnector.registerDevice(applicationId, deviceToken);
 		expect(result).toBeDefined();
@@ -172,7 +169,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 			config: configuration
 		});
 		const applicationId = "TestApp";
-		await messagingConnector.start("");
+		await messagingConnector.start();
 		const deviceToken = "testDeviceToken";
 		const deviceAddress = await messagingConnector.registerDevice(applicationId, deviceToken);
 		const result = await messagingConnector.sendSinglePushNotification(

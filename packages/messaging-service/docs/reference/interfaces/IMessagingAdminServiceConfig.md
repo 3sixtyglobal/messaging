@@ -15,27 +15,3 @@ The default locale to use for the messaging service.
 ```ts
 en
 ```
-
-***
-
-### templates?
-
-> `optional` **templates**: `object`[]
-
-Initial set of templates to create on startup.
-
-#### templateId
-
-> **templateId**: `string`
-
-#### title
-
-> **title**: `string`
-
-#### content
-
-> **content**: `object`
-
-##### Index Signature
-
-\[`locale`: `string`\]: `string`

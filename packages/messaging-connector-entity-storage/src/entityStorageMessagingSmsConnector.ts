@@ -8,8 +8,8 @@ import {
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingSmsConnector } from "@twin.org/messaging-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { SmsEntry } from "./entities/smsEntry";
-import type { IEntityStorageMessagingSmsConnectorConstructorOptions } from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions";
+import type { SmsEntry } from "./entities/smsEntry.js";
+import type { IEntityStorageMessagingSmsConnectorConstructorOptions } from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the SMS messaging operations of the Entity Storage.
@@ -46,6 +46,14 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 		this._messagingSmsEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingSmsEntryStorageConnectorType ?? nameofKebabCase<SmsEntry>()
 		);
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return EntityStorageMessagingSmsConnector.CLASS_NAME;
 	}
 
 	/**

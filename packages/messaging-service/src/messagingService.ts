@@ -12,7 +12,7 @@ import {
 	type IMessagingSmsConnector
 } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions";
+import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions.js";
 
 /**
  * Service for performing email messaging operations to a connector.
@@ -73,6 +73,14 @@ export class MessagingService implements IMessagingComponent {
 		this._messagingAdminComponent = ComponentFactory.get(
 			options?.messagingAdminComponentType ?? "messaging-admin"
 		);
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return MessagingService.CLASS_NAME;
 	}
 
 	/**

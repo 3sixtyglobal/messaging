@@ -8,9 +8,9 @@ import {
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry";
-import type { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry";
-import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions } from "./models/IEntityStorageMessagingPushNotificationConnectorConstructorOptions";
+import type { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry.js";
+import type { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry.js";
+import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions } from "./models/IEntityStorageMessagingPushNotificationConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the push notifications messaging operations of the Entity Storage.
@@ -61,6 +61,14 @@ export class EntityStorageMessagingPushNotificationConnector
 			options?.messagingMessageEntryStorageConnectorType ??
 				nameofKebabCase<PushNotificationMessageEntry>()
 		);
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return EntityStorageMessagingPushNotificationConnector.CLASS_NAME;
 	}
 
 	/**

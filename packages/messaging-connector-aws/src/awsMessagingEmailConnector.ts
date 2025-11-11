@@ -6,8 +6,8 @@ import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
-import type { IAwsEmailConnectorConfig } from "./models/IAwsEmailConnectorConfig";
-import type { IAwsMessagingEmailConnectorConstructorOptions } from "./models/IAwsMessagingEmailConnectorConstructorOptions";
+import type { IAwsEmailConnectorConfig } from "./models/IAwsEmailConnectorConfig.js";
+import type { IAwsMessagingEmailConnectorConstructorOptions } from "./models/IAwsMessagingEmailConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the email messaging operations of the AWS services.
@@ -89,6 +89,14 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 			region: this._config.region,
 			credentials
 		});
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return AwsMessagingEmailConnector.CLASS_NAME;
 	}
 
 	/**

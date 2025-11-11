@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { I18n } from "@twin.org/core";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import {
@@ -10,17 +9,15 @@ import {
 } from "@twin.org/logging-connector-entity-storage";
 import { LoggingConnectorFactory } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
-import { TEST_AWS_CONFIG } from "./setupTestEnv";
-import { AwsMessagingEmailConnector } from "../src/awsMessagingEmailConnector";
-import type { IAwsEmailConnectorConfig } from "../src/models/IAwsEmailConnectorConfig";
+import { TEST_AWS_CONFIG } from "./setupTestEnv.js";
+import { AwsMessagingEmailConnector } from "../src/awsMessagingEmailConnector.js";
+import type { IAwsEmailConnectorConfig } from "../src/models/IAwsEmailConnectorConfig.js";
 
 let memoryEntityStorage: MemoryEntityStorageConnector<LogEntry>;
 const configuration: IAwsEmailConnectorConfig = TEST_AWS_CONFIG;
 
 describe("AwsMessagingEmailConnector", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", await import("../locales/en.json"));
-
 		initSchema();
 	});
 

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IMessagingAdminServiceConfig } from "./IMessagingAdminServiceConfig";
+import type { IMessagingAdminServiceConfig } from "./IMessagingAdminServiceConfig.js";
 
 /**
  * Options for the messaging admin service.

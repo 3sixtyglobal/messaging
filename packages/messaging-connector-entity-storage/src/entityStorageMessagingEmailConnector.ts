@@ -8,8 +8,8 @@ import {
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { EmailEntry } from "./entities/emailEntry";
-import type { IEntityStorageMessagingEmailConnectorConstructorOptions } from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions";
+import type { EmailEntry } from "./entities/emailEntry.js";
+import type { IEntityStorageMessagingEmailConnectorConstructorOptions } from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the email messaging operations of the Entity Storage.
@@ -46,6 +46,14 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 		this._messagingEmailEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingEmailEntryStorageConnectorType ?? nameofKebabCase<EmailEntry>()
 		);
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return EntityStorageMessagingEmailConnector.CLASS_NAME;
 	}
 
 	/**

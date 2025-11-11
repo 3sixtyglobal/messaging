@@ -3,9 +3,9 @@
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { TemplateEntry } from "../src/entities/templateEntry";
-import { MessagingAdminService } from "../src/messagingAdminService";
-import { initSchema } from "../src/schema";
+import type { TemplateEntry } from "../src/entities/templateEntry.js";
+import { MessagingAdminService } from "../src/messagingAdminService.js";
+import { initSchema } from "../src/schema.js";
 
 let templateStorageMemory: MemoryEntityStorageConnector<TemplateEntry>;
 

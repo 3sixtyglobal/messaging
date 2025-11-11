@@ -5,8 +5,8 @@ import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingSmsConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import type { IAwsMessagingSmsConnectorConstructorOptions } from "./models/IAwsMessagingSmsConnectorConstructorOptions";
-import type { IAwsSmsConnectorConfig } from "./models/IAwsSmsConnectorConfig";
+import type { IAwsMessagingSmsConnectorConstructorOptions } from "./models/IAwsMessagingSmsConnectorConstructorOptions.js";
+import type { IAwsSmsConnectorConfig } from "./models/IAwsSmsConnectorConfig.js";
 
 /**
  * Class for connecting to the SMS messaging operations of the AWS services.
@@ -88,6 +88,14 @@ export class AwsMessagingSmsConnector implements IMessagingSmsConnector {
 			region: this._config.region,
 			credentials
 		});
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return AwsMessagingSmsConnector.CLASS_NAME;
 	}
 
 	/**
