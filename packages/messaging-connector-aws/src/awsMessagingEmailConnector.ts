@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { SESClient, SendEmailCommand, VerifyEmailAddressCommand } from "@aws-sdk/client-ses";
+import { SESClient, SendEmailCommand, VerifyEmailIdentityCommand } from "@aws-sdk/client-ses";
 import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
@@ -127,8 +127,6 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 					type: "Custom Email"
 				}
 			});
-			const command = new VerifyEmailAddressCommand({ EmailAddress: sender });
-			await this._client.send(command);
 			const result = await this._client.send(
 				new SendEmailCommand({
 					Destination: { ToAddresses: recipients },
@@ -168,5 +166,14 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 				err
 			);
 		}
+	}
+
+	/**
+	 * Verify an email address using AWS SES.
+	 * @param emailAddress The email address to verify.
+	 */
+	public async verifyEmailAddress(emailAddress: string): Promise<void> {
+		const command = new VerifyEmailIdentityCommand({ EmailAddress: emailAddress });
+		await this._client.send(command);
 	}
 }

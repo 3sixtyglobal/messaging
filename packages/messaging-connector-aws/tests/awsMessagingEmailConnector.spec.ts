@@ -130,6 +130,8 @@ describe("AwsMessagingEmailConnector", () => {
 			config: configuration
 		});
 
+		await messagingConnector.verifyEmailAddress("sender@example.com");
+
 		const result = await messagingConnector.sendCustomEmail(
 			"sender@example.com",
 			["receiver1@example.com"],

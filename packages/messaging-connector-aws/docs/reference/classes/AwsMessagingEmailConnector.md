@@ -103,3 +103,23 @@ True if the email was send successfully, otherwise undefined.
 #### Implementation of
 
 `IMessagingEmailConnector.sendCustomEmail`
+
+***
+
+### verifyEmailAddress()
+
+> **verifyEmailAddress**(`emailAddress`): `Promise`\<`void`\>
+
+Verify an email address using AWS SES.
+
+#### Parameters
+
+##### emailAddress
+
+`string`
+
+The email address to verify.
+
+#### Returns
+
+`Promise`\<`void`\>
