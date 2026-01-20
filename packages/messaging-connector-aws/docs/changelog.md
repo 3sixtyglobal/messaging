@@ -1,5 +1,19 @@
 # @twin.org/messaging-connector-aws - Changelog
 
+## [0.0.3-next.2](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.3-next.1...messaging-connector-aws-v0.0.3-next.2) (2026-01-20)
+
+
+### Bug Fixes
+
+* remove verify call on every send ([#27](https://github.com/twinfoundation/messaging/issues/27)) ([eef3528](https://github.com/twinfoundation/messaging/commit/eef35282835eee43aa95365d3a63fd00bcf819cc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.3-next.1 to 0.0.3-next.2
+
 ## [0.0.3-next.1](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.3-next.0...messaging-connector-aws-v0.0.3-next.1) (2025-11-11)
 
 
