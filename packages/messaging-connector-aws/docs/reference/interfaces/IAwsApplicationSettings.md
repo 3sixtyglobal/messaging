@@ -25,3 +25,11 @@ The type of push notifications platform.
 > **pushNotificationsPlatformCredentials**: `string`
 
 The credentials for the push notifications platform.
+
+***
+
+### pushNotificationsPlatformPrincipal?
+
+> `optional` **pushNotificationsPlatformPrincipal**: `string`
+
+The principal for the push notifications platform (required for APNS and some platform types).

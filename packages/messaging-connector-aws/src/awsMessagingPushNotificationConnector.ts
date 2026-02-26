@@ -136,13 +136,18 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 		});
 
 		for (const app of this._config.applicationsSettings) {
-			const { applicationId, pushNotificationsPlatformType, pushNotificationsPlatformCredentials } =
-				app;
+			const {
+				applicationId,
+				pushNotificationsPlatformType,
+				pushNotificationsPlatformCredentials,
+				pushNotificationsPlatformPrincipal
+			} = app;
 			try {
 				const applicationAddress = await this.createPlatformApplication(
 					applicationId,
 					pushNotificationsPlatformType,
-					pushNotificationsPlatformCredentials
+					pushNotificationsPlatformCredentials,
+					pushNotificationsPlatformPrincipal
 				);
 				this._applicationMap.set(applicationId, applicationAddress);
 			} catch (err) {
@@ -296,12 +301,14 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param applicationId The application identity.
 	 * @param platformType The type of platform used for the push notifications.
 	 * @param platformCredentials The credentials for the used platform.
+	 * @param platformPrincipal The principal for the used platform, required for some platform types.
 	 * @returns The platform application address.
 	 */
 	private async createPlatformApplication(
 		applicationId: string,
 		platformType: string,
-		platformCredentials: string
+		platformCredentials: string,
+		platformPrincipal?: string
 	): Promise<string> {
 		Guards.stringValue(
 			AwsMessagingPushNotificationConnector.CLASS_NAME,
@@ -332,12 +339,17 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 				message: "platformAppCreating"
 			});
 
+			const attributes: { [key: string]: string } = {
+				PlatformCredential: platformCredentials
+			};
+			if (Is.stringValue(platformPrincipal)) {
+				attributes.PlatformPrincipal = platformPrincipal;
+			}
+
 			const createParams = {
 				Name: applicationId,
 				Platform: platformType,
-				Attributes: {
-					PlatformCredential: platformCredentials
-				}
+				Attributes: attributes
 			};
 
 			const createCommand = new CreatePlatformApplicationCommand(createParams);

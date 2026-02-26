@@ -34,7 +34,8 @@ export const TEST_AWS_CONFIG_PUSH: IAwsPushNotificationConnectorConfig = {
 		{
 			applicationId: process.env.TEST_AWS_APP_ID,
 			pushNotificationsPlatformType: process.env.TEST_AWS_APP_TYPE,
-			pushNotificationsPlatformCredentials: process.env.TEST_AWS_APP_CREDENTIALS
+			pushNotificationsPlatformCredentials: process.env.TEST_AWS_APP_CREDENTIALS,
+			pushNotificationsPlatformPrincipal: process.env.TEST_AWS_APP_PRINCIPAL
 		}
 	]
 };
