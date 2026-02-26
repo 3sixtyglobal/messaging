@@ -1,6 +1,6 @@
 {
-	"packages/messaging-models": "0.0.3-next.2",
-	"packages/messaging-connector-aws": "0.0.3-next.2",
-	"packages/messaging-connector-entity-storage": "0.0.3-next.2",
-	"packages/messaging-service": "0.0.3-next.2"
+	"packages/messaging-models": "0.0.3-next.3",
+	"packages/messaging-connector-aws": "0.0.3-next.3",
+	"packages/messaging-connector-entity-storage": "0.0.3-next.3",
+	"packages/messaging-service": "0.0.3-next.3"
 }

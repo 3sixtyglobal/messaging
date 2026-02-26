@@ -1,5 +1,12 @@
 # @twin.org/messaging-models - Changelog
 
+## [0.0.3-next.3](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.3-next.2...messaging-models-v0.0.3-next.3) (2026-02-26)
+
+
+### Miscellaneous Chores
+
+* **messaging-models:** Synchronize repo versions
+
 ## [0.0.3-next.2](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.3-next.1...messaging-models-v0.0.3-next.2) (2026-01-20)
 
 

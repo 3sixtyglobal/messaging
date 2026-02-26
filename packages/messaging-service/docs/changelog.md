@@ -1,5 +1,19 @@
 # @twin.org/messaging-service - Changelog
 
+## [0.0.3-next.3](https://github.com/twinfoundation/messaging/compare/messaging-service-v0.0.3-next.2...messaging-service-v0.0.3-next.3) (2026-02-26)
+
+
+### Miscellaneous Chores
+
+* **messaging-service:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.3-next.2 to 0.0.3-next.3
+
 ## [0.0.3-next.2](https://github.com/twinfoundation/messaging/compare/messaging-service-v0.0.3-next.1...messaging-service-v0.0.3-next.2) (2026-01-20)
 
 

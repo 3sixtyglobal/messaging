@@ -1,5 +1,19 @@
 # @twin.org/messaging-connector-aws - Changelog
 
+## [0.0.3-next.3](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.3-next.2...messaging-connector-aws-v0.0.3-next.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* dependency update ([#30](https://github.com/twinfoundation/messaging/issues/30)) ([7e6cff1](https://github.com/twinfoundation/messaging/commit/7e6cff13128e1ae67761f93224973ce7b154e678))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.3-next.2 to 0.0.3-next.3
+
 ## [0.0.3-next.2](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.3-next.1...messaging-connector-aws-v0.0.3-next.2) (2026-01-20)
 
 
