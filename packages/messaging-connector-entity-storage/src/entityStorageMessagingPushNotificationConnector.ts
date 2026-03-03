@@ -15,9 +15,7 @@ import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions
 /**
  * Class for connecting to the push notifications messaging operations of the Entity Storage.
  */
-export class EntityStorageMessagingPushNotificationConnector
-	implements IMessagingPushNotificationsConnector
-{
+export class EntityStorageMessagingPushNotificationConnector implements IMessagingPushNotificationsConnector {
 	/**
 	 * The namespace for the connector.
 	 */
