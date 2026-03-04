@@ -14,6 +14,7 @@ runs:
       if: inputs.package == 'packages/messaging-connector-aws' || inputs.package == 'all'
       shell: bash
       run: |
+        docker pull localstack/localstack:latest
         docker run -d \
           --name localstack \
           -p 4866:4566 \
