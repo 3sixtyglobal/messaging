@@ -1,6 +1,6 @@
 # TWIN Messaging Models
 
-Models which define the structure of the messaging connectors.
+This package defines the shared models and factory helpers used by messaging connectors and services.
 
 ## Installation
 

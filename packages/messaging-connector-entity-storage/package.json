@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/messaging-connector-entity-storage",
 	"version": "0.0.3-next.3",
-	"description": "Messaging connector implementation using the Entity Storage",
+	"description": "Provides connectors that persist and manage messaging operations using entity storage.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/messaging.git",

@@ -1,6 +1,6 @@
 # TWIN Messaging Service
 
-Messaging service implementation
+This package implements the messaging service layer that orchestrates delivery workflows across connectors.
 
 ## Installation
 

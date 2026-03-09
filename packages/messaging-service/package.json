@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/messaging-service",
 	"version": "0.0.3-next.3",
-	"description": "Messaging service implementation",
+	"description": "Implements the messaging service layer that orchestrates delivery workflows across connectors.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/messaging.git",

@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/messaging",
 	"version": "0.0.0",
-	"description": "Messaging",
+	"description": "Modular messaging components for shared models, connectors, and service orchestration.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/messaging.git"

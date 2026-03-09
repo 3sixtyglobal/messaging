@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/messaging-models",
 	"version": "0.0.3-next.3",
-	"description": "Models which define the structure of the messaging functions.",
+	"description": "Defines the shared models and factory helpers used by messaging connectors and services.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/messaging.git",

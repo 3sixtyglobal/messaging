@@ -1,21 +1,11 @@
 # TWIN Messaging Connector Entity Storage
 
-Messaging connector implementation using the Entity Storage.
+This package provides connectors that persist and manage messaging operations using entity storage.
 
 ## Installation
 
 ```shell
 npm install @twin.org/messaging-connector-entity-storage
-```
-
-## Testing
-
-The tests developed are functional tests.
-
-You can run the tests as follows:
-
-```sh
-npm run test
 ```
 
 ## Examples
