@@ -1,4 +1,4 @@
-# @twin.org/messaging-models - Changelog
+# Changelog
 
 ## [0.0.3-next.3](https://github.com/twinfoundation/messaging/compare/messaging-models-v0.0.3-next.2...messaging-models-v0.0.3-next.3) (2026-02-26)
 

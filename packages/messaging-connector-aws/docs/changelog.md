@@ -1,4 +1,4 @@
-# @twin.org/messaging-connector-aws - Changelog
+# Changelog
 
 ## [0.0.3-next.3](https://github.com/twinfoundation/messaging/compare/messaging-connector-aws-v0.0.3-next.2...messaging-connector-aws-v0.0.3-next.3) (2026-02-26)
 

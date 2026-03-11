@@ -1,4 +1,4 @@
-# @twin.org/messaging-service - Changelog
+# Changelog
 
 ## [0.0.3-next.3](https://github.com/twinfoundation/messaging/compare/messaging-service-v0.0.3-next.2...messaging-service-v0.0.3-next.3) (2026-02-26)
 
