@@ -4,21 +4,15 @@ Options for the messaging admin service.
 
 ## Properties
 
-### templateEntryStorageConnectorType?
+### templateEntryStorageConnectorType? {#templateentrystorageconnectortype}
 
 > `optional` **templateEntryStorageConnectorType**: `string`
 
 The type of the entity connector to use.
 
-#### Default
-
-```ts
-template-entry
-```
-
 ***
 
-### config?
+### config? {#config}
 
 > `optional` **config**: [`IMessagingAdminServiceConfig`](IMessagingAdminServiceConfig.md)
 

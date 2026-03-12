@@ -8,7 +8,7 @@ Interface describing the SMS messaging connector functionalities
 
 ## Methods
 
-### sendSMS()
+### sendSMS() {#sendsms}
 
 > **sendSMS**(`phoneNumber`, `message`): `Promise`\<`boolean`\>
 

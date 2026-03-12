@@ -8,7 +8,7 @@ Interface describing the messaging admin component.
 
 ## Methods
 
-### setTemplate()
+### setTemplate() {#settemplate}
 
 > **setTemplate**(`templateId`, `locale`, `title`, `content`): `Promise`\<`void`\>
 
@@ -48,7 +48,7 @@ If the template was created or updated successfully.
 
 ***
 
-### getTemplate()
+### getTemplate() {#gettemplate}
 
 > **getTemplate**(`templateId`, `locale`): `Promise`\<\{ `title`: `string`; `content`: `string`; \}\>
 
@@ -76,7 +76,7 @@ The email template.
 
 ***
 
-### removeTemplate()
+### removeTemplate() {#removetemplate}
 
 > **removeTemplate**(`templateId`, `locale`): `Promise`\<`void`\>
 

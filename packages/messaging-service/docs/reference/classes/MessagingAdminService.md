@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -36,7 +36,7 @@ Runtime name for the class.
 
 ## Methods
 
-### className()
+### className() {#classname}
 
 > **className**(): `string`
 
@@ -54,7 +54,7 @@ The class name of the component.
 
 ***
 
-### setTemplate()
+### setTemplate() {#settemplate}
 
 > **setTemplate**(`templateId`, `locale`, `title`, `content`): `Promise`\<`void`\>
 
@@ -98,7 +98,7 @@ Nothing.
 
 ***
 
-### getTemplate()
+### getTemplate() {#gettemplate}
 
 > **getTemplate**(`templateId`, `locale`): `Promise`\<\{ `title`: `string`; `content`: `string`; \}\>
 
@@ -130,7 +130,7 @@ The email template.
 
 ***
 
-### removeTemplate()
+### removeTemplate() {#removetemplate}
 
 > **removeTemplate**(`templateId`, `locale`): `Promise`\<`void`\>
 

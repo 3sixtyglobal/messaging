@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
+### NAMESPACE {#namespace}
 
 > `readonly` `static` **NAMESPACE**: `string` = `"aws"`
 
@@ -36,7 +36,7 @@ The namespace for the connector.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -44,7 +44,7 @@ Runtime name for the class.
 
 ## Methods
 
-### className()
+### className() {#classname}
 
 > **className**(): `string`
 
@@ -62,7 +62,7 @@ The class name of the component.
 
 ***
 
-### start()
+### start() {#start}
 
 > **start**(`nodeLoggingComponentType?`): `Promise`\<`void`\>
 
@@ -88,7 +88,7 @@ Nothing.
 
 ***
 
-### registerDevice()
+### registerDevice() {#registerdevice}
 
 > **registerDevice**(`applicationId`, `deviceToken`): `Promise`\<`string`\>
 
@@ -120,7 +120,7 @@ If the device was registered successfully.
 
 ***
 
-### sendSinglePushNotification()
+### sendSinglePushNotification() {#sendsinglepushnotification}
 
 > **sendSinglePushNotification**(`deviceAddress`, `title`, `message`): `Promise`\<`boolean`\>
 

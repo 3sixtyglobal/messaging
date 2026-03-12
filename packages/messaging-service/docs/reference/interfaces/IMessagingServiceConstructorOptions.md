@@ -4,7 +4,7 @@ Options for the messaging service.
 
 ## Properties
 
-### messagingEmailConnectorType?
+### messagingEmailConnectorType? {#messagingemailconnectortype}
 
 > `optional` **messagingEmailConnectorType**: `string`
 
@@ -12,7 +12,7 @@ The type of the email messaging connector to use, defaults to not configured.
 
 ***
 
-### messagingPushNotificationConnectorType?
+### messagingPushNotificationConnectorType? {#messagingpushnotificationconnectortype}
 
 > `optional` **messagingPushNotificationConnectorType**: `string`
 
@@ -20,7 +20,7 @@ The type of the push notifications messaging connector to use, defaults to not c
 
 ***
 
-### messagingSmsConnectorType?
+### messagingSmsConnectorType? {#messagingsmsconnectortype}
 
 > `optional` **messagingSmsConnectorType**: `string`
 
@@ -28,14 +28,8 @@ The type of the sms messaging connector to use, defaults to not configured.
 
 ***
 
-### messagingAdminComponentType?
+### messagingAdminComponentType? {#messagingadmincomponenttype}
 
 > `optional` **messagingAdminComponentType**: `string`
 
 The type of the messaging admin component to use.
-
-#### Default
-
-```ts
-messaging-admin
-```

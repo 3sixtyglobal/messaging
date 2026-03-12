@@ -8,7 +8,7 @@ Interface describing the push notifications messaging connector functionalities
 
 ## Methods
 
-### registerDevice()
+### registerDevice() {#registerdevice}
 
 > **registerDevice**(`applicationAddress`, `deviceToken`): `Promise`\<`string`\>
 
@@ -36,7 +36,7 @@ The device registered address.
 
 ***
 
-### sendSinglePushNotification()
+### sendSinglePushNotification() {#sendsinglepushnotification}
 
 > **sendSinglePushNotification**(`deviceAddress`, `title`, `message`): `Promise`\<`boolean`\>
 

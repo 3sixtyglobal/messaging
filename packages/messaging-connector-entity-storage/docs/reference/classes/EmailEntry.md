@@ -14,7 +14,7 @@ Call defining an email entry.
 
 ## Properties
 
-### id
+### id {#id}
 
 > **id**: `string`
 
@@ -22,7 +22,7 @@ The id.
 
 ***
 
-### sender
+### sender {#sender}
 
 > **sender**: `string`
 
@@ -30,7 +30,7 @@ The sender email address.
 
 ***
 
-### recipients
+### recipients {#recipients}
 
 > **recipients**: `string`[]
 
@@ -38,7 +38,7 @@ The recipient email addresses.
 
 ***
 
-### ts
+### ts {#ts}
 
 > **ts**: `number`
 
@@ -46,7 +46,7 @@ The timestamp of the email entry.
 
 ***
 
-### message
+### message {#message}
 
 > **message**: `string`
 
@@ -54,7 +54,7 @@ The message.
 
 ***
 
-### subject
+### subject {#subject}
 
 > **subject**: `string`
 
@@ -62,7 +62,7 @@ The subject.
 
 ***
 
-### status
+### status {#status}
 
 > **status**: `string`
 
@@ -70,7 +70,7 @@ The status.
 
 ***
 
-### error?
+### error? {#error}
 
 > `optional` **error**: `IError`
 

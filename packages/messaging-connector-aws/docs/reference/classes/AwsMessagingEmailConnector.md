@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
+### NAMESPACE {#namespace}
 
 > `readonly` `static` **NAMESPACE**: `string` = `"aws"`
 
@@ -36,7 +36,7 @@ The namespace for the connector.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -44,7 +44,7 @@ Runtime name for the class.
 
 ## Methods
 
-### className()
+### className() {#classname}
 
 > **className**(): `string`
 
@@ -62,7 +62,7 @@ The class name of the component.
 
 ***
 
-### sendCustomEmail()
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `subject`, `content`): `Promise`\<`boolean`\>
 
@@ -106,7 +106,7 @@ True if the email was send successfully, otherwise undefined.
 
 ***
 
-### verifyEmailAddress()
+### verifyEmailAddress() {#verifyemailaddress}
 
 > **verifyEmailAddress**(`emailAddress`): `Promise`\<`void`\>
 

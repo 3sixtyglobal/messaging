@@ -8,7 +8,7 @@ Interface describing the email messaging connector functionalities
 
 ## Methods
 
-### sendCustomEmail()
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `subject`, `content`): `Promise`\<`boolean`\>
 

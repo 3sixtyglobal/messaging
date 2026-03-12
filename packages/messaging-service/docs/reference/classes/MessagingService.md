@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -36,7 +36,7 @@ Runtime name for the class.
 
 ## Methods
 
-### className()
+### className() {#classname}
 
 > **className**(): `string`
 
@@ -54,7 +54,7 @@ The class name of the component.
 
 ***
 
-### sendCustomEmail()
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `templateId`, `data`, `locale`): `Promise`\<`boolean`\>
 
@@ -102,7 +102,7 @@ If the email was sent successfully.
 
 ***
 
-### registerDevice()
+### registerDevice() {#registerdevice}
 
 > **registerDevice**(`applicationId`, `deviceToken`): `Promise`\<`string`\>
 
@@ -134,7 +134,7 @@ If the device was registered successfully.
 
 ***
 
-### sendSinglePushNotification()
+### sendSinglePushNotification() {#sendsinglepushnotification}
 
 > **sendSinglePushNotification**(`deviceAddress`, `templateId`, `data`, `locale`): `Promise`\<`boolean`\>
 
@@ -176,7 +176,7 @@ If the notification was sent successfully.
 
 ***
 
-### sendSMS()
+### sendSMS() {#sendsms}
 
 > **sendSMS**(`phoneNumber`, `templateId`, `data`, `locale`): `Promise`\<`boolean`\>
 

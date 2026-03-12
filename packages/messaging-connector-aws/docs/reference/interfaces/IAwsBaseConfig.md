@@ -10,7 +10,7 @@ Base configuration for the AWS Connector.
 
 ## Properties
 
-### region
+### region {#region}
 
 > **region**: `string`
 
@@ -18,7 +18,7 @@ The region for the AWS instance.
 
 ***
 
-### authMode?
+### authMode? {#authmode}
 
 > `optional` **authMode**: `"credentials"` \| `"pod"`
 
@@ -26,15 +26,9 @@ The authentication mode.
 - "credentials": Use access key ID and secret access key.
 - "pod": Use IAM role attached to the pod (e.g., in EKS).
 
-#### Default
-
-```ts
-credentials
-```
-
 ***
 
-### accessKeyId?
+### accessKeyId? {#accesskeyid}
 
 > `optional` **accessKeyId**: `string`
 
@@ -42,7 +36,7 @@ The AWS access key ID.
 
 ***
 
-### secretAccessKey?
+### secretAccessKey? {#secretaccesskey}
 
 > `optional` **secretAccessKey**: `string`
 
@@ -50,7 +44,7 @@ The AWS secret access key.
 
 ***
 
-### endpoint?
+### endpoint? {#endpoint}
 
 > `optional` **endpoint**: `string`
 

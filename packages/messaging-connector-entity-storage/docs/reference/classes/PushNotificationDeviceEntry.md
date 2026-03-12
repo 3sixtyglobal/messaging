@@ -14,7 +14,7 @@ Call defining an push notification device entry.
 
 ## Properties
 
-### id
+### id {#id}
 
 > **id**: `string`
 
@@ -22,7 +22,7 @@ The id.
 
 ***
 
-### applicationId
+### applicationId {#applicationid}
 
 > **applicationId**: `string`
 
@@ -30,7 +30,7 @@ The applicationId.
 
 ***
 
-### deviceToken
+### deviceToken {#devicetoken}
 
 > **deviceToken**: `string`
 
@@ -38,7 +38,7 @@ The device token.
 
 ***
 
-### ts
+### ts {#ts}
 
 > **ts**: `number`
 
@@ -46,7 +46,7 @@ The timestamp of the push notification device entry.
 
 ***
 
-### status
+### status {#status}
 
 > **status**: `string`
 
@@ -54,7 +54,7 @@ The status.
 
 ***
 
-### error?
+### error? {#error}
 
 > `optional` **error**: `IError`
 

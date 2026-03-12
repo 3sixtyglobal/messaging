@@ -8,7 +8,7 @@ Interface describing the messaging component.
 
 ## Methods
 
-### sendCustomEmail()
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `templateId`, `data`, `locale`): `Promise`\<`boolean`\>
 
@@ -52,7 +52,7 @@ If the email was sent successfully.
 
 ***
 
-### registerDevice()
+### registerDevice() {#registerdevice}
 
 > **registerDevice**(`applicationAddress`, `deviceToken`): `Promise`\<`string`\>
 
@@ -80,7 +80,7 @@ The device registered address.
 
 ***
 
-### sendSinglePushNotification()
+### sendSinglePushNotification() {#sendsinglepushnotification}
 
 > **sendSinglePushNotification**(`deviceAddress`, `templateId`, `data`, `locale`): `Promise`\<`boolean`\>
 
@@ -118,7 +118,7 @@ If the notification was sent successfully.
 
 ***
 
-### sendSMS()
+### sendSMS() {#sendsms}
 
 > **sendSMS**(`phoneNumber`, `templateId`, `data`, `locale`): `Promise`\<`boolean`\>
 
