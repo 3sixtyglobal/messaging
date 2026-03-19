@@ -6,7 +6,7 @@ Options for the AWS messaging SMS connector.
 
 ### loggingComponentType? {#loggingcomponenttype}
 
-> `optional` **loggingComponentType**: `string`
+> `optional` **loggingComponentType?**: `string`
 
 The type of logging component to use, defaults to no logging.
 

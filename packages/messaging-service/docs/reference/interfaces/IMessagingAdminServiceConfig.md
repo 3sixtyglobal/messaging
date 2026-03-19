@@ -6,6 +6,12 @@ Options for the messaging service.
 
 ### defaultLocale? {#defaultlocale}
 
-> `optional` **defaultLocale**: `string`
+> `optional` **defaultLocale?**: `string`
 
 The default locale to use for the messaging service.
+
+#### Default
+
+```ts
+en
+```

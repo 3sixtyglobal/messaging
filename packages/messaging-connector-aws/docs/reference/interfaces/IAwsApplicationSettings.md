@@ -30,6 +30,6 @@ The credentials for the push notifications platform.
 
 ### pushNotificationsPlatformPrincipal? {#pushnotificationsplatformprincipal}
 
-> `optional` **pushNotificationsPlatformPrincipal**: `string`
+> `optional` **pushNotificationsPlatformPrincipal?**: `string`
 
 The principal for the push notifications platform (required for APNS and some platform types).

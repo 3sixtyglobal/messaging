@@ -72,6 +72,6 @@ The status.
 
 ### error? {#error}
 
-> `optional` **error**: `IError`
+> `optional` **error?**: `IError`
 
 The error.

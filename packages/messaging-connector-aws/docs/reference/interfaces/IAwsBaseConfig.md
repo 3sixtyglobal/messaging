@@ -20,17 +20,23 @@ The region for the AWS instance.
 
 ### authMode? {#authmode}
 
-> `optional` **authMode**: `"credentials"` \| `"pod"`
+> `optional` **authMode?**: `"credentials"` \| `"pod"`
 
 The authentication mode.
 - "credentials": Use access key ID and secret access key.
 - "pod": Use IAM role attached to the pod (e.g., in EKS).
 
+#### Default
+
+```ts
+credentials
+```
+
 ***
 
 ### accessKeyId? {#accesskeyid}
 
-> `optional` **accessKeyId**: `string`
+> `optional` **accessKeyId?**: `string`
 
 The AWS access key ID.
 
@@ -38,7 +44,7 @@ The AWS access key ID.
 
 ### secretAccessKey? {#secretaccesskey}
 
-> `optional` **secretAccessKey**: `string`
+> `optional` **secretAccessKey?**: `string`
 
 The AWS secret access key.
 
@@ -46,6 +52,6 @@ The AWS secret access key.
 
 ### endpoint? {#endpoint}
 
-> `optional` **endpoint**: `string`
+> `optional` **endpoint?**: `string`
 
 AWS endpoint, not usually required but could be used for local testing.
