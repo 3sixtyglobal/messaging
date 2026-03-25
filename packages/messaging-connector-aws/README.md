@@ -18,7 +18,7 @@ The AWS SNS simulator cannot send real SMS messages or push notifications, but i
 To run AWS locally:
 
 ```shell
-docker run -p 4866:4566 --name twin-messaging-aws -d localstack/localstack -e AWS_DEFAULT_REGION='eu-central-1' -e AWS_ACCESS_KEY_ID='test' -e AWS_SECRET_ACCESS_KEY='test' -e SERVICE='SNS,SES'
+docker run -p 4866:4566 --name twin-messaging-aws -d -e AWS_DEFAULT_REGION='eu-central-1' -e AWS_ACCESS_KEY_ID='test' -e AWS_SECRET_ACCESS_KEY='test' -e SERVICE='SNS,SES' -e LOCALSTACK_AUTH_TOKEN=ls-********* localstack/localstack
 ```
 
 Afterwards, run the tests with:
