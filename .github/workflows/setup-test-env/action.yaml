@@ -14,23 +14,12 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Write Test Environment Variables
+    - name: Start Moto
       if: inputs.package == 'packages/messaging-connector-aws' || inputs.package == 'all'
       shell: bash
       run: |
-        echo "${{ inputs.test_env_vars }}" > /tmp/test_env_vars.txt
-
-    - name: Start LocalStack
-      if: inputs.package == 'packages/messaging-connector-aws' || inputs.package == 'all'
-      shell: bash
-      run: |
-        docker pull localstack/localstack:latest
+        docker pull motoserver/moto:latest
         docker run -d \
-          --name localstack \
-          -p 4866:4566 \
-          -e AWS_DEFAULT_REGION=eu-central-1 \
-          -e AWS_ACCESS_KEY_ID=test \
-          -e AWS_SECRET_ACCESS_KEY=test \
-          -e SERVICES=sns,ses \
-          --env-file=/tmp/test_env_vars.txt \
-          localstack/localstack:latest
+          --name moto \
+          -p 5151:5000 \
+          motoserver/moto:latest
