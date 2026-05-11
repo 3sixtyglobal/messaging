@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.4](https://github.com/iotaledger/twin-messaging/compare/messaging-models-v0.0.3-next.3...messaging-models-v0.0.3-next.4) (2026-05-11)
+
+
+### Features
+
+* typescript 6 update ([0aabd3e](https://github.com/iotaledger/twin-messaging/commit/0aabd3e05fbdf1cbc5df34cf24c461a75abc9d7e))
+
 ## [0.0.3-next.3](https://github.com/iotaledger/twin-messaging/compare/messaging-models-v0.0.3-next.2...messaging-models-v0.0.3-next.3) (2026-02-26)
 
 
