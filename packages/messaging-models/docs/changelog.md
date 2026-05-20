@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.5](https://github.com/iotaledger/twin-messaging/compare/messaging-models-v0.0.3-next.4...messaging-models-v0.0.3-next.5) (2026-05-20)
+
+
+### Features
+
+* update dependencies ([eda66c5](https://github.com/iotaledger/twin-messaging/commit/eda66c5c670f36f1ba86a8f768e4781b629c88ff))
+
 ## [0.0.3-next.4](https://github.com/iotaledger/twin-messaging/compare/messaging-models-v0.0.3-next.3...messaging-models-v0.0.3-next.4) (2026-05-11)
 
 
