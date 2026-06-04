@@ -303,6 +303,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param platformCredentials The credentials for the used platform.
 	 * @param platformPrincipal The principal for the used platform, required for some platform types.
 	 * @returns The platform application address.
+	 * @internal
 	 */
 	private async createPlatformApplication(
 		applicationId: string,
@@ -377,6 +378,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * Checks if the platform application exists.
 	 * @param appName The name of the app.
 	 * @returns The platform application address if it exists, otherwise undefined.
+	 * @internal
 	 */
 	private async checkPlatformApplication(appName: string): Promise<string | undefined> {
 		Guards.stringValue(AwsMessagingPushNotificationConnector.CLASS_NAME, nameof(appName), appName);
@@ -414,6 +416,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param applicationAddress The application address.
 	 * @param deviceToken The device token.
 	 * @returns The device address if it exists, otherwise undefined.
+	 * @internal
 	 */
 	private async checkIfDeviceTokenExists(
 		applicationAddress: string,

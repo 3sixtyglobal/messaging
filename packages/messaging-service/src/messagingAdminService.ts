@@ -21,6 +21,7 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 
 	/**
 	 * Default locale for the messaging service.
+	 * @internal
 	 */
 	private static readonly _DEFAULT_LOCALE: string = "en";
 
