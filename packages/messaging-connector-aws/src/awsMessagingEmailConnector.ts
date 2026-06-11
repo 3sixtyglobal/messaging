@@ -78,7 +78,7 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 			};
 		}
 
-		this._logging = ComponentFactory.getIfExists(options.loggingComponentType ?? "logging");
+		this._logging = ComponentFactory.getIfExists(options.loggingComponentType);
 
 		this._config = options.config;
 		this._config.endpoint = Is.stringValue(this._config.endpoint)

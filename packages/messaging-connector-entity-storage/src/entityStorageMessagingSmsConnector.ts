@@ -42,7 +42,7 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	 * @param options The options for the connector.
 	 */
 	constructor(options?: IEntityStorageMessagingSmsConnectorConstructorOptions) {
-		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
+		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType);
 		this._messagingSmsEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingSmsEntryStorageConnectorType ?? nameofKebabCase<SmsEntry>()
 		);

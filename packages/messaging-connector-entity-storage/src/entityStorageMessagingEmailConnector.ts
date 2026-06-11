@@ -42,7 +42,7 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	 * @param options The options for the connector.
 	 */
 	constructor(options?: IEntityStorageMessagingEmailConnectorConstructorOptions) {
-		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
+		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType);
 		this._messagingEmailEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingEmailEntryStorageConnectorType ?? nameofKebabCase<EmailEntry>()
 		);

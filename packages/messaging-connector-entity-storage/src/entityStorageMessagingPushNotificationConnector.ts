@@ -50,7 +50,7 @@ export class EntityStorageMessagingPushNotificationConnector implements IMessagi
 	 * @param options The options for the connector.
 	 */
 	constructor(options?: IEntityStorageMessagingPushNotificationConnectorConstructorOptions) {
-		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType ?? "logging");
+		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType);
 		this._messagingDeviceEntryStorage = EntityStorageConnectorFactory.get(
 			options?.messagingDeviceEntryStorageConnectorType ??
 				nameofKebabCase<PushNotificationDeviceEntry>()

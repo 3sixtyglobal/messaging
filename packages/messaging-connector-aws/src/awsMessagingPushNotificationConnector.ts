@@ -98,7 +98,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			options.config.applicationsSettings
 		);
 
-		this._logging = ComponentFactory.getIfExists(options.loggingComponentType ?? "logging");
+		this._logging = ComponentFactory.getIfExists(options.loggingComponentType);
 
 		this._applicationMap = new Map<string, string>();
 		this._config = options.config;
