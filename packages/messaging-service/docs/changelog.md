@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.6](https://github.com/iotaledger/twin-messaging/compare/messaging-service-v0.0.3-next.5...messaging-service-v0.0.3-next.6) (2026-06-11)
+
+
+### Miscellaneous Chores
+
+* **messaging-service:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.3-next.5 to 0.0.3-next.6
+
 ## [0.0.3-next.5](https://github.com/iotaledger/twin-messaging/compare/messaging-service-v0.0.3-next.4...messaging-service-v0.0.3-next.5) (2026-05-20)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.6](https://github.com/iotaledger/twin-messaging/compare/messaging-models-v0.0.3-next.5...messaging-models-v0.0.3-next.6) (2026-06-11)
+
+
+### Miscellaneous Chores
+
+* **messaging-models:** Synchronize repo versions
+
 ## [0.0.3-next.5](https://github.com/iotaledger/twin-messaging/compare/messaging-models-v0.0.3-next.4...messaging-models-v0.0.3-next.5) (2026-05-20)
 
 

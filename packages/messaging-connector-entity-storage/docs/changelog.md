@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.6](https://github.com/iotaledger/twin-messaging/compare/messaging-connector-entity-storage-v0.0.3-next.5...messaging-connector-entity-storage-v0.0.3-next.6) (2026-06-11)
+
+
+### Features
+
+* remove default logging ([bc15968](https://github.com/iotaledger/twin-messaging/commit/bc15968b82f1efcb174aa69fd9b590f92c01fc14))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.0.3-next.5 to 0.0.3-next.6
+
 ## [0.0.3-next.5](https://github.com/iotaledger/twin-messaging/compare/messaging-connector-entity-storage-v0.0.3-next.4...messaging-connector-entity-storage-v0.0.3-next.5) (2026-05-20)
 
 
