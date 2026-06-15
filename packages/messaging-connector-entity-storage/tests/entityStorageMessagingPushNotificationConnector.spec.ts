@@ -15,14 +15,16 @@ describe("EntityStorageMessagingPushNotificationConnector", () => {
 			"push-notification-device-entry",
 			() =>
 				new MemoryEntityStorageConnector<PushNotificationDeviceEntry>({
-					entitySchema: nameof<PushNotificationDeviceEntry>()
+					entitySchema: nameof<PushNotificationDeviceEntry>(),
+					config: { storageKey: "push-notification-device-entry" }
 				})
 		);
 		EntityStorageConnectorFactory.register(
 			"push-notification-message-entry",
 			() =>
 				new MemoryEntityStorageConnector<PushNotificationMessageEntry>({
-					entitySchema: nameof<PushNotificationMessageEntry>()
+					entitySchema: nameof<PushNotificationMessageEntry>(),
+					config: { storageKey: "push-notification-message-entry" }
 				})
 		);
 	});

@@ -14,7 +14,8 @@ describe("EntityStorageMessagingSmsConnector", () => {
 			"sms-entry",
 			() =>
 				new MemoryEntityStorageConnector<SmsEntry>({
-					entitySchema: nameof<SmsEntry>()
+					entitySchema: nameof<SmsEntry>(),
+					config: { storageKey: "sms-entry" }
 				})
 		);
 	});

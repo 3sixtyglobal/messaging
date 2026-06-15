@@ -26,7 +26,8 @@ describe("MessagingService", () => {
 		ComponentFactory.register("messaging-admin", () => new MessagingAdminService());
 
 		templateStorageMemory = new MemoryEntityStorageConnector<TemplateEntry>({
-			entitySchema: nameof<TemplateEntry>()
+			entitySchema: nameof<TemplateEntry>(),
+			config: { storageKey: "template-entry" }
 		});
 		EntityStorageConnectorFactory.register("template-entry", () => templateStorageMemory);
 	});

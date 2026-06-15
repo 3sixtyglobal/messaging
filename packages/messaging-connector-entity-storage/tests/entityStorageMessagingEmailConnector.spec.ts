@@ -14,7 +14,8 @@ describe("EntityStorageMessagingEmailConnector", () => {
 			"email-entry",
 			() =>
 				new MemoryEntityStorageConnector<EmailEntry>({
-					entitySchema: nameof<EmailEntry>()
+					entitySchema: nameof<EmailEntry>(),
+					config: { storageKey: "email-entry" }
 				})
 		);
 	});
