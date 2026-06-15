@@ -105,7 +105,7 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	 * @param recipients An array of recipients email addresses.
 	 * @param subject The subject of the email.
 	 * @param content The html content of the email.
-	 * @returns True if the email was send successfully, otherwise undefined.
+	 * @returns True if the email was sent successfully.
 	 */
 	public async sendCustomEmail(
 		sender: string,
@@ -171,6 +171,7 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	/**
 	 * Verify an email address using AWS SES.
 	 * @param emailAddress The email address to verify.
+	 * @returns A promise that resolves when the verification request has been submitted.
 	 */
 	public async verifyEmailAddress(emailAddress: string): Promise<void> {
 		const command = new VerifyEmailIdentityCommand({ EmailAddress: emailAddress });

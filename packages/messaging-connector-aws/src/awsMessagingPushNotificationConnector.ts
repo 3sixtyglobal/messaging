@@ -121,9 +121,9 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	}
 
 	/**
-	 * The component needs to be started when the node is initialized.
+	 * Starts the connector by registering all configured platform applications with AWS SNS.
 	 * @param nodeLoggingComponentType The node logging component type.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when all platform applications have been registered.
 	 */
 	public async start(nodeLoggingComponentType?: string): Promise<void> {
 		const nodeLogging = ComponentFactory.getIfExists<ILoggingComponent>(nodeLoggingComponentType);
@@ -162,10 +162,10 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	}
 
 	/**
-	 * Registers a device to an specific app in order to send notifications to it.
+	 * Registers a device to a specific application in order to send notifications to it.
 	 * @param applicationId The application address.
 	 * @param deviceToken The device token.
-	 * @returns If the device was registered successfully.
+	 * @returns The endpoint ARN assigned to the registered device.
 	 */
 	public async registerDevice(applicationId: string, deviceToken: string): Promise<string> {
 		Guards.stringValue(
@@ -234,7 +234,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param deviceAddress The address of the device.
 	 * @param title The title of the notification.
 	 * @param message The message to send.
-	 * @returns If the notification was sent successfully.
+	 * @returns True if the notification was sent successfully.
 	 */
 	public async sendSinglePushNotification(
 		deviceAddress: string,

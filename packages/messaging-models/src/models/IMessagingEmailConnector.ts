@@ -3,7 +3,7 @@
 import type { IComponent } from "@twin.org/core";
 
 /**
- * Interface describing the email messaging connector functionalities
+ * Interface describing the email messaging connector functionalities.
  */
 export interface IMessagingEmailConnector extends IComponent {
 	/**
@@ -12,7 +12,7 @@ export interface IMessagingEmailConnector extends IComponent {
 	 * @param recipients An array of recipients email addresses.
 	 * @param subject The subject of the email.
 	 * @param content The html content of the email.
-	 * @returns If the email was sent successfully.
+	 * @returns True if the email was sent successfully.
 	 */
 	sendCustomEmail(
 		sender: string,

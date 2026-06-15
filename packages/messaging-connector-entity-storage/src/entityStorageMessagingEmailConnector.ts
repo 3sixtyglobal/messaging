@@ -57,12 +57,12 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	}
 
 	/**
-	 * Store a custom email using Entity Storage.
+	 * Store a custom email using entity storage.
 	 * @param sender The sender email address.
 	 * @param recipients An array of recipients email addresses.
 	 * @param subject The subject of the email.
 	 * @param content The html content of the email.
-	 * @returns True if the email was send successfully, otherwise undefined.
+	 * @returns True when the email entry has been stored successfully.
 	 */
 	public async sendCustomEmail(
 		sender: string,

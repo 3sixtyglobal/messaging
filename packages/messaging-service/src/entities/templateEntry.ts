@@ -3,7 +3,7 @@
 import { entity, property, SortDirection } from "@twin.org/entity";
 
 /**
- * Call defining a template message entry.
+ * Class defining a message template entry.
  */
 @entity()
 export class TemplateEntry {

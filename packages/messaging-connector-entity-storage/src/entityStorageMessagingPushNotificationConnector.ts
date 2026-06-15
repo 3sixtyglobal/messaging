@@ -70,10 +70,10 @@ export class EntityStorageMessagingPushNotificationConnector implements IMessagi
 	}
 
 	/**
-	 * Registers a device to an specific app in order to send notifications to it.
+	 * Registers a device to a specific application in order to send notifications to it.
 	 * @param applicationId The application address.
 	 * @param deviceToken The device token.
-	 * @returns If the device was registered successfully.
+	 * @returns The identifier assigned to the registered device entry.
 	 */
 	public async registerDevice(applicationId: string, deviceToken: string): Promise<string> {
 		Guards.stringValue(
@@ -121,7 +121,7 @@ export class EntityStorageMessagingPushNotificationConnector implements IMessagi
 	 * @param deviceAddress The address of the device.
 	 * @param title The title of the notification.
 	 * @param message The message to send.
-	 * @returns If the notification was sent successfully.
+	 * @returns True when the notification entry has been stored successfully.
 	 */
 	public async sendSinglePushNotification(
 		deviceAddress: string,

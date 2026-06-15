@@ -4,7 +4,7 @@ import type { IError } from "@twin.org/core";
 import { entity, property, SortDirection } from "@twin.org/entity";
 
 /**
- * Call defining an email entry.
+ * Class defining an email entry.
  */
 @entity()
 export class EmailEntry {

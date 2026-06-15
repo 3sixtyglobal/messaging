@@ -12,7 +12,7 @@ export interface IMessagingAdminComponent extends IComponent {
 	 * @param locale The locale of the template.
 	 * @param title The title of the template.
 	 * @param content The content of the template.
-	 * @returns If the template was created or updated successfully.
+	 * @returns A promise that resolves when the template has been stored.
 	 */
 	setTemplate(templateId: string, locale: string, title: string, content: string): Promise<void>;
 
@@ -28,7 +28,7 @@ export interface IMessagingAdminComponent extends IComponent {
 	 * Remove a template.
 	 * @param templateId The id of the template.
 	 * @param locale The locale of the template.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the template has been removed.
 	 */
 	removeTemplate(templateId: string, locale: string): Promise<void>;
 }

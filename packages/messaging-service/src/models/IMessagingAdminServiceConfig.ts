@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
- * Options for the messaging service.
+ * Configuration for the messaging admin service.
  */
 export interface IMessagingAdminServiceConfig {
 	/**

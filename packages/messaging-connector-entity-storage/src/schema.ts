@@ -8,11 +8,11 @@ import { PushNotificationMessageEntry } from "./entities/pushNotificationMessage
 import { SmsEntry } from "./entities/smsEntry.js";
 
 /**
- * Initialize the schema for the messaging connector entity storage.
- * @param options The options for the initialisation.
- * @param options.email Should we register email schemas.
- * @param options.sms Should we register sms schemas.
- * @param options.pushNotification Should we register push notification schemas.
+ * Registers entity schemas required by the messaging entity-storage connector.
+ * @param options Controls which schema groups are registered.
+ * @param options.email Whether to register email schemas.
+ * @param options.sms Whether to register SMS schemas.
+ * @param options.pushNotification Whether to register push notification schemas.
  */
 export function initSchema(options?: {
 	email?: boolean;

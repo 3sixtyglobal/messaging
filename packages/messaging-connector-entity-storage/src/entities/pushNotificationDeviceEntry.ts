@@ -4,7 +4,7 @@ import type { IError } from "@twin.org/core";
 import { entity, property, SortDirection } from "@twin.org/entity";
 
 /**
- * Call defining an push notification device entry.
+ * Class defining a push notification device entry.
  */
 @entity()
 export class PushNotificationDeviceEntry {

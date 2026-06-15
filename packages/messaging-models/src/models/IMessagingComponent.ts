@@ -13,7 +13,7 @@ export interface IMessagingComponent extends IComponent {
 	 * @param templateId The id of the email template.
 	 * @param data The data to populate the email template.
 	 * @param locale The locale of the email template.
-	 * @returns If the email was sent successfully.
+	 * @returns True if the email was sent successfully.
 	 */
 	sendCustomEmail(
 		sender: string,
@@ -24,10 +24,10 @@ export interface IMessagingComponent extends IComponent {
 	): Promise<boolean>;
 
 	/**
-	 * Registers a device to an specific app in order to send notifications to it.
+	 * Registers a device to a specific application in order to send notifications to it.
 	 * @param applicationAddress The application address.
 	 * @param deviceToken The device token.
-	 * @returns The device registered address.
+	 * @returns The address assigned to the registered device.
 	 */
 	registerDevice(applicationAddress: string, deviceToken: string): Promise<string>;
 
@@ -37,7 +37,7 @@ export interface IMessagingComponent extends IComponent {
 	 * @param templateId The id of the push notification template.
 	 * @param data The data to populate the push notification template.
 	 * @param locale The locale of the push notification template.
-	 * @returns If the notification was sent successfully.
+	 * @returns True if the notification was sent successfully.
 	 */
 	sendSinglePushNotification(
 		deviceAddress: string,
@@ -52,7 +52,7 @@ export interface IMessagingComponent extends IComponent {
 	 * @param templateId The id of the SMS template.
 	 * @param data The data to populate the SMS template.
 	 * @param locale The locale of the SMS template.
-	 * @returns If the SMS was sent successfully.
+	 * @returns True if the SMS was sent successfully.
 	 */
 	sendSMS(
 		phoneNumber: string,

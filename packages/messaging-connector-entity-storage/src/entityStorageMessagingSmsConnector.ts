@@ -60,7 +60,7 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	 * Send a SMS message to a phone number.
 	 * @param phoneNumber The recipient phone number.
 	 * @param message The message to send.
-	 * @returns If the SMS was sent successfully.
+	 * @returns True when the SMS entry has been stored successfully.
 	 */
 	public async sendSMS(phoneNumber: string, message: string): Promise<boolean> {
 		Guards.stringValue(

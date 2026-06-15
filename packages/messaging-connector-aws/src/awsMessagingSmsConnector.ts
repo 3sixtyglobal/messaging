@@ -102,7 +102,7 @@ export class AwsMessagingSmsConnector implements IMessagingSmsConnector {
 	 * Send a SMS message to a phone number.
 	 * @param phoneNumber The recipient phone number.
 	 * @param message The message to send.
-	 * @returns If the SMS was sent successfully.
+	 * @returns True if the SMS was sent successfully.
 	 */
 	public async sendSMS(phoneNumber: string, message: string): Promise<boolean> {
 		Guards.stringValue(AwsMessagingSmsConnector.CLASS_NAME, nameof(phoneNumber), phoneNumber);

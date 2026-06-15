@@ -11,7 +11,7 @@ import { TemplateEntry } from "./entities/templateEntry.js";
 import type { IMessagingAdminServiceConstructorOptions } from "./models/IMessagingAdminServiceConstructorOptions.js";
 
 /**
- * Service for performing email messaging operations to a connector.
+ * Service for managing message templates stored via entity storage.
  */
 export class MessagingAdminService implements IMessagingAdminComponent {
 	/**
@@ -39,7 +39,7 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 
 	/**
 	 * Create a new instance of MessagingAdminService.
-	 * @param options The options for the connector.
+	 * @param options The options for the service.
 	 */
 	constructor(options?: IMessagingAdminServiceConstructorOptions) {
 		this._entityStorageConnector = EntityStorageConnectorFactory.get(
@@ -63,7 +63,7 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 	 * @param locale The locale of the template.
 	 * @param title The title of the template.
 	 * @param content The content of the template.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the template has been stored.
 	 */
 	public async setTemplate(
 		templateId: string,
@@ -129,7 +129,7 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 	 * Remove a template.
 	 * @param templateId The id of the template.
 	 * @param locale The locale of the template.
-	 * @returns Nothing
+	 * @returns A promise that resolves when the template has been removed.
 	 */
 	public async removeTemplate(templateId: string, locale: string): Promise<void> {
 		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(templateId), templateId);
