@@ -19,6 +19,10 @@ describe("MessagingAdminService", () => {
 		EntityStorageConnectorFactory.register("template-entry", () => templateStorageMemory);
 	});
 
+	afterEach(async () => {
+		await templateStorageMemory.teardown();
+	});
+
 	test("can construct", async () => {
 		const service = new MessagingAdminService();
 		expect(service).toBeDefined();
@@ -84,7 +88,7 @@ describe("MessagingAdminService", () => {
 	test("creates or updates template successfully with valid inputs", async () => {
 		const service = new MessagingAdminService();
 		await service.setTemplate("templateId", "en", "Test Title", "Test Content");
-		expect(templateStorageMemory.getStore()).toEqual([
+		expect(await templateStorageMemory.getStore()).toEqual([
 			{
 				content: "Test Content",
 				dateCreated: expect.any(String),
