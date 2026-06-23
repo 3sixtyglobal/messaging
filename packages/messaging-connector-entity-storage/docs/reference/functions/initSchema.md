@@ -2,31 +2,31 @@
 
 > **initSchema**(`options?`): `void`
 
-Initialize the schema for the messaging connector entity storage.
+Registers entity schemas required by the messaging entity-storage connector.
 
 ## Parameters
 
 ### options?
 
-The options for the initialisation.
+Controls which schema groups are registered.
 
 #### email?
 
 `boolean`
 
-Should we register email schemas.
+Whether to register email schemas.
 
 #### sms?
 
 `boolean`
 
-Should we register sms schemas.
+Whether to register SMS schemas.
 
 #### pushNotification?
 
 `boolean`
 
-Should we register push notification schemas.
+Whether to register push notification schemas.
 
 ## Returns
 

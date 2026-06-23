@@ -1,6 +1,6 @@
 # Interface: IMessagingAdminServiceConfig
 
-Options for the messaging service.
+Configuration for the messaging admin service.
 
 ## Properties
 

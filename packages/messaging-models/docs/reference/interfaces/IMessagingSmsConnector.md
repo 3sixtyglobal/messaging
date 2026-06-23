@@ -1,6 +1,6 @@
 # Interface: IMessagingSmsConnector
 
-Interface describing the SMS messaging connector functionalities
+Interface describing the SMS messaging connector functionalities.
 
 ## Extends
 
@@ -32,4 +32,4 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the SMS was sent successfully.
+True if the SMS was sent successfully.

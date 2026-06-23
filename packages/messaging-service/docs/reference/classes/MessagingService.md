@@ -1,6 +1,6 @@
 # Class: MessagingService
 
-Service for performing email messaging operations to a connector.
+Service for dispatching messages via configured email, push notification, and SMS connectors.
 
 ## Implements
 
@@ -20,7 +20,7 @@ Create a new instance of MessagingService.
 
 [`IMessagingServiceConstructorOptions`](../interfaces/IMessagingServiceConstructorOptions.md)
 
-The options for the connector.
+The options for the service.
 
 #### Returns
 
@@ -94,7 +94,7 @@ The locale of the email template.
 
 `Promise`\<`boolean`\>
 
-If the email was sent successfully.
+True if the email was sent successfully.
 
 #### Implementation of
 
@@ -106,7 +106,7 @@ If the email was sent successfully.
 
 > **registerDevice**(`applicationId`, `deviceToken`): `Promise`\<`string`\>
 
-Registers a device to an specific app in order to send notifications to it.
+Registers a device to a specific application in order to send notifications to it.
 
 #### Parameters
 
@@ -126,7 +126,7 @@ The device token.
 
 `Promise`\<`string`\>
 
-If the device was registered successfully.
+The address assigned to the registered device.
 
 #### Implementation of
 
@@ -168,7 +168,7 @@ The locale of the push notification template.
 
 `Promise`\<`boolean`\>
 
-If the notification was sent successfully.
+True if the notification was sent successfully.
 
 #### Implementation of
 
@@ -210,7 +210,7 @@ The locale of the SMS template.
 
 `Promise`\<`boolean`\>
 
-If the SMS was sent successfully.
+True if the SMS was sent successfully.
 
 #### Implementation of
 

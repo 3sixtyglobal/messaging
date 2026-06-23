@@ -98,7 +98,7 @@ The html content of the email.
 
 `Promise`\<`boolean`\>
 
-True if the email was send successfully, otherwise undefined.
+True if the email was sent successfully.
 
 #### Implementation of
 
@@ -123,3 +123,5 @@ The email address to verify.
 #### Returns
 
 `Promise`\<`void`\>
+
+A promise that resolves when the verification request has been submitted.

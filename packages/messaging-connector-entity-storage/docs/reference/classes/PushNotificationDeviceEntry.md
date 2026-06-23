@@ -1,6 +1,6 @@
 # Class: PushNotificationDeviceEntry
 
-Call defining an push notification device entry.
+Class defining a push notification device entry.
 
 ## Constructors
 

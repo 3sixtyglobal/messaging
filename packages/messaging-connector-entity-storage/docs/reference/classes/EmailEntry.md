@@ -1,6 +1,6 @@
 # Class: EmailEntry
 
-Call defining an email entry.
+Class defining an email entry.
 
 ## Constructors
 

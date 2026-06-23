@@ -1,6 +1,6 @@
 # Class: SmsEntry
 
-Call defining an sms entry.
+Class defining an SMS entry.
 
 ## Constructors
 

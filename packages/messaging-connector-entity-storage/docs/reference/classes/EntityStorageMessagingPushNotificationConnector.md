@@ -66,7 +66,7 @@ The class name of the component.
 
 > **registerDevice**(`applicationId`, `deviceToken`): `Promise`\<`string`\>
 
-Registers a device to an specific app in order to send notifications to it.
+Registers a device to a specific application in order to send notifications to it.
 
 #### Parameters
 
@@ -86,7 +86,7 @@ The device token.
 
 `Promise`\<`string`\>
 
-If the device was registered successfully.
+The identifier assigned to the registered device entry.
 
 #### Implementation of
 
@@ -124,7 +124,7 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the notification was sent successfully.
+True when the notification entry has been stored successfully.
 
 #### Implementation of
 

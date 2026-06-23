@@ -86,7 +86,7 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the SMS was sent successfully.
+True if the SMS was sent successfully.
 
 #### Implementation of
 

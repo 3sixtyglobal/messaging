@@ -2,7 +2,7 @@
 
 > **initSchema**(): `void`
 
-Initialize the schema for the messaging service.
+Registers entity schemas required by the messaging service.
 
 ## Returns
 

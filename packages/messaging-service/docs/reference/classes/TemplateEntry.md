@@ -1,6 +1,6 @@
 # Class: TemplateEntry
 
-Call defining a template message entry.
+Class defining a message template entry.
 
 ## Constructors
 

@@ -44,7 +44,7 @@ The content of the template.
 
 `Promise`\<`void`\>
 
-If the template was created or updated successfully.
+A promise that resolves when the template has been stored.
 
 ***
 
@@ -100,4 +100,4 @@ The locale of the template.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the template has been removed.

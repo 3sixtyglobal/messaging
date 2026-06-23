@@ -66,7 +66,7 @@ The class name of the component.
 
 > **start**(`nodeLoggingComponentType?`): `Promise`\<`void`\>
 
-The component needs to be started when the node is initialized.
+Starts the connector by registering all configured platform applications with AWS SNS.
 
 #### Parameters
 
@@ -80,7 +80,7 @@ The node logging component type.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when all platform applications have been registered.
 
 #### Implementation of
 
@@ -92,7 +92,7 @@ Nothing.
 
 > **registerDevice**(`applicationId`, `deviceToken`): `Promise`\<`string`\>
 
-Registers a device to an specific app in order to send notifications to it.
+Registers a device to a specific application in order to send notifications to it.
 
 #### Parameters
 
@@ -112,7 +112,7 @@ The device token.
 
 `Promise`\<`string`\>
 
-If the device was registered successfully.
+The endpoint ARN assigned to the registered device.
 
 #### Implementation of
 
@@ -150,7 +150,7 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the notification was sent successfully.
+True if the notification was sent successfully.
 
 #### Implementation of
 

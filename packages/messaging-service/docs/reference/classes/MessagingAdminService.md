@@ -1,6 +1,6 @@
 # Class: MessagingAdminService
 
-Service for performing email messaging operations to a connector.
+Service for managing message templates stored via entity storage.
 
 ## Implements
 
@@ -20,7 +20,7 @@ Create a new instance of MessagingAdminService.
 
 [`IMessagingAdminServiceConstructorOptions`](../interfaces/IMessagingAdminServiceConstructorOptions.md)
 
-The options for the connector.
+The options for the service.
 
 #### Returns
 
@@ -90,7 +90,7 @@ The content of the template.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the template has been stored.
 
 #### Implementation of
 
@@ -154,7 +154,7 @@ The locale of the template.
 
 `Promise`\<`void`\>
 
-Nothing
+A promise that resolves when the template has been removed.
 
 #### Implementation of
 

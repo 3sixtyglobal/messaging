@@ -66,7 +66,7 @@ The class name of the component.
 
 > **sendCustomEmail**(`sender`, `recipients`, `subject`, `content`): `Promise`\<`boolean`\>
 
-Store a custom email using Entity Storage.
+Store a custom email using entity storage.
 
 #### Parameters
 
@@ -98,7 +98,7 @@ The html content of the email.
 
 `Promise`\<`boolean`\>
 
-True if the email was send successfully, otherwise undefined.
+True when the email entry has been stored successfully.
 
 #### Implementation of
 
