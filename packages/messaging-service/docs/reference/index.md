@@ -3,10 +3,13 @@
 ## Classes
 
 - [TemplateEntry](classes/TemplateEntry.md)
+- [MessagingAdminService](classes/MessagingAdminService.md)
 - [MessagingService](classes/MessagingService.md)
 
 ## Interfaces
 
+- [IMessagingAdminServiceConfig](interfaces/IMessagingAdminServiceConfig.md)
+- [IMessagingAdminServiceConstructorOptions](interfaces/IMessagingAdminServiceConstructorOptions.md)
 - [IMessagingServiceConstructorOptions](interfaces/IMessagingServiceConstructorOptions.md)
 
 ## Functions

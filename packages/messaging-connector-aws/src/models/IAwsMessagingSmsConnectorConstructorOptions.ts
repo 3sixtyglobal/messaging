@@ -1,15 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAwsSmsConnectorConfig } from "./IAwsSmsConnectorConfig";
+import type { IAwsSmsConnectorConfig } from "./IAwsSmsConnectorConfig.js";
 
 /**
  * Options for the AWS messaging SMS connector.
  */
 export interface IAwsMessagingSmsConnectorConstructorOptions {
 	/**
-	 * The type of logging connector to use, defaults to no logging.
+	 * The type of logging component to use, defaults to no logging.
 	 */
-	loggingConnectorType?: string;
+	loggingComponentType?: string;
 
 	/**
 	 * The configuration for the connector.

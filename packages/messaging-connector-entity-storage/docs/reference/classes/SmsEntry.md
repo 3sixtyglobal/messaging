@@ -1,6 +1,6 @@
 # Class: SmsEntry
 
-Call defining an sms entry.
+Class defining an SMS entry.
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Call defining an sms entry.
 
 ## Properties
 
-### id
+### id {#id}
 
 > **id**: `string`
 
@@ -22,7 +22,7 @@ The id.
 
 ***
 
-### phoneNumber
+### phoneNumber {#phonenumber}
 
 > **phoneNumber**: `string`
 
@@ -30,7 +30,7 @@ The phone number to deliver the message.
 
 ***
 
-### ts
+### ts {#ts}
 
 > **ts**: `number`
 
@@ -38,7 +38,7 @@ The timestamp of the sms entry.
 
 ***
 
-### message
+### message {#message}
 
 > **message**: `string`
 
@@ -46,7 +46,7 @@ The message.
 
 ***
 
-### status
+### status {#status}
 
 > **status**: `string`
 
@@ -54,8 +54,8 @@ The status.
 
 ***
 
-### error?
+### error? {#error}
 
-> `optional` **error**: `IError`
+> `optional` **error?**: `IError`
 
 The error.

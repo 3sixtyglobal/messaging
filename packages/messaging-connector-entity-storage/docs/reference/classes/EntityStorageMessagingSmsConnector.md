@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
+### NAMESPACE {#namespace}
 
 > `readonly` `static` **NAMESPACE**: `string` = `"entity-storage"`
 
@@ -36,19 +36,33 @@ The namespace for the connector.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
-#### Implementation of
-
-`IMessagingSmsConnector.CLASS_NAME`
-
 ## Methods
 
-### sendSMS()
+### className() {#classname}
+
+> **className**(): `string`
+
+Returns the class name of the component.
+
+#### Returns
+
+`string`
+
+The class name of the component.
+
+#### Implementation of
+
+`IMessagingSmsConnector.className`
+
+***
+
+### sendSMS() {#sendsms}
 
 > **sendSMS**(`phoneNumber`, `message`): `Promise`\<`boolean`\>
 
@@ -72,7 +86,7 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the SMS was sent successfully.
+True when the SMS entry has been stored successfully.
 
 #### Implementation of
 

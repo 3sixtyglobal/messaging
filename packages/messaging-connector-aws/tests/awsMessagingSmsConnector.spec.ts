@@ -1,7 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-/* eslint-disable max-classes-per-file */
-import { I18n } from "@twin.org/core";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import {
@@ -11,27 +9,25 @@ import {
 } from "@twin.org/logging-connector-entity-storage";
 import { LoggingConnectorFactory } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
-import { TEST_AWS_CONFIG } from "./setupTestEnv";
-import { AwsMessagingSmsConnector } from "../src/awsMessagingSmsConnector";
-import type { IAwsSmsConnectorConfig } from "../src/models/IAwsSmsConnectorConfig";
+import { TEST_AWS_CONFIG } from "./setupTestEnv.js";
+import { AwsMessagingSmsConnector } from "../src/awsMessagingSmsConnector.js";
+import type { IAwsSmsConnectorConfig } from "../src/models/IAwsSmsConnectorConfig.js";
 
 let memoryEntityStorage: MemoryEntityStorageConnector<LogEntry>;
 const configuration: IAwsSmsConnectorConfig = TEST_AWS_CONFIG;
 
 describe("AwsMessagingSmsConnector", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", await import("../locales/en.json"));
-
 		initSchema();
 	});
 
 	beforeEach(async () => {
 		memoryEntityStorage = new MemoryEntityStorageConnector<LogEntry>({
-			entitySchema: nameof<LogEntry>()
+			entitySchema: nameof<LogEntry>(),
+			config: { storageKey: "log-entry" }
 		});
 		EntityStorageConnectorFactory.register("log-entry", () => memoryEntityStorage);
 		LoggingConnectorFactory.register("logging", () => new EntityStorageLoggingConnector());
-		LoggingConnectorFactory.register("node-logging", () => new EntityStorageLoggingConnector());
 	});
 
 	test("can fail to construct when there are no options", async () => {

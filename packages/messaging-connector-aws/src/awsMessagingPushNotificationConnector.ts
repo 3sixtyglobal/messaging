@@ -9,13 +9,13 @@ import {
 	PublishCommand,
 	SNSClient
 } from "@aws-sdk/client-sns";
-import { GeneralError, Guards, Is } from "@twin.org/core";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
+import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
-import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "./models/IAwsMessagingPushNotificationConnectorConstructorOptions";
-import type { IAwsPushNotificationConnectorConfig } from "./models/IAwsPushNotificationConnectorConfig";
+import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "./models/IAwsMessagingPushNotificationConnectorConstructorOptions.js";
+import type { IAwsPushNotificationConnectorConfig } from "./models/IAwsPushNotificationConnectorConfig.js";
 
 /**
  * Class for connecting to the push notifications messaging operations of the AWS services.
@@ -29,13 +29,13 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<AwsMessagingPushNotificationConnector>();
+	public static readonly CLASS_NAME: string = nameof<AwsMessagingPushNotificationConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The configuration for the client connector.
@@ -60,32 +60,45 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param options The options for the connector.
 	 */
 	constructor(options: IAwsMessagingPushNotificationConnectorConstructorOptions) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.object(AwsMessagingPushNotificationConnector.CLASS_NAME, nameof(options), options);
 		Guards.object<IAwsPushNotificationConnectorConfig>(
-			this.CLASS_NAME,
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
 			nameof(options.config),
 			options.config
 		);
-		Guards.stringValue(this.CLASS_NAME, nameof(options.config.region), options.config.region);
 		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.config.accessKeyId),
-			options.config.accessKeyId
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(options.config.region),
+			options.config.region
 		);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.config.secretAccessKey),
-			options.config.secretAccessKey
-		);
+
+		options.config.authMode ??= "credentials";
+
+		let credentials;
+		if (options.config.authMode === "credentials") {
+			Guards.stringValue(
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
+				nameof(options.config.accessKeyId),
+				options.config.accessKeyId
+			);
+			Guards.stringValue(
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
+				nameof(options.config.secretAccessKey),
+				options.config.secretAccessKey
+			);
+			credentials = {
+				accessKeyId: options.config.accessKeyId,
+				secretAccessKey: options.config.secretAccessKey
+			};
+		}
+
 		Guards.arrayValue(
-			this.CLASS_NAME,
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
 			nameof(options.config.applicationsSettings),
 			options.config.applicationsSettings
 		);
 
-		if (Is.stringValue(options.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
-		}
+		this._logging = ComponentFactory.getIfExists(options.loggingComponentType);
 
 		this._applicationMap = new Map<string, string>();
 		this._config = options.config;
@@ -95,82 +108,93 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 		this._client = new SNSClient({
 			endpoint: this._config.endpoint,
 			region: this._config.region,
-			credentials: {
-				accessKeyId: this._config.accessKeyId,
-				secretAccessKey: this._config.secretAccessKey
-			}
+			credentials
 		});
 	}
 
 	/**
-	 * The component needs to be started when the node is initialized.
-	 * @param nodeIdentity The identity of the node starting the component.
-	 * @param nodeLoggingConnectorType The node logging connector type, defaults to "node-logging".
-	 * @returns Nothing.
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
 	 */
-	public async start(nodeIdentity: string, nodeLoggingConnectorType?: string): Promise<void> {
-		try {
-			const nodeLogging = LoggingConnectorFactory.getIfExists(
-				nodeLoggingConnectorType ?? "node-logging"
-			);
+	public className(): string {
+		return AwsMessagingPushNotificationConnector.CLASS_NAME;
+	}
 
-			await nodeLogging?.log({
-				level: "info",
-				source: this.CLASS_NAME,
-				ts: Date.now(),
-				message: "nodeStarting"
-			});
+	/**
+	 * Starts the connector by registering all configured platform applications with AWS SNS.
+	 * @param nodeLoggingComponentType The node logging component type.
+	 * @returns A promise that resolves when all platform applications have been registered.
+	 */
+	public async start(nodeLoggingComponentType?: string): Promise<void> {
+		const nodeLogging = ComponentFactory.getIfExists<ILoggingComponent>(nodeLoggingComponentType);
 
-			for (const app of this._config.applicationsSettings) {
-				const {
+		await nodeLogging?.log({
+			level: "info",
+			source: AwsMessagingPushNotificationConnector.CLASS_NAME,
+			ts: Date.now(),
+			message: "registeringApplications"
+		});
+
+		for (const app of this._config.applicationsSettings) {
+			const {
+				applicationId,
+				pushNotificationsPlatformType,
+				pushNotificationsPlatformCredentials,
+				pushNotificationsPlatformPrincipal
+			} = app;
+			try {
+				const applicationAddress = await this.createPlatformApplication(
 					applicationId,
 					pushNotificationsPlatformType,
-					pushNotificationsPlatformCredentials
-				} = app;
-				try {
-					const applicationAddress = await this.createPlatformApplication(
-						applicationId,
-						pushNotificationsPlatformType,
-						pushNotificationsPlatformCredentials
-					);
-					this._applicationMap.set(applicationId, applicationAddress);
-				} catch (err) {
-					throw new GeneralError(
-						this.CLASS_NAME,
-						"applicationRegistrationFailed",
-						{ property: "applicationId", value: applicationId },
-						err
-					);
-				}
+					pushNotificationsPlatformCredentials,
+					pushNotificationsPlatformPrincipal
+				);
+				this._applicationMap.set(applicationId, applicationAddress);
+			} catch (err) {
+				throw new GeneralError(
+					AwsMessagingPushNotificationConnector.CLASS_NAME,
+					"applicationRegistrationFailed",
+					{ applicationId },
+					err
+				);
 			}
-		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "applicationRegistrationFailed", undefined, err);
 		}
 	}
 
 	/**
-	 * Registers a device to an specific app in order to send notifications to it.
+	 * Registers a device to a specific application in order to send notifications to it.
 	 * @param applicationId The application address.
 	 * @param deviceToken The device token.
-	 * @returns If the device was registered successfully.
+	 * @returns The endpoint ARN assigned to the registered device.
 	 */
 	public async registerDevice(applicationId: string, deviceToken: string): Promise<string> {
-		Guards.stringValue(this.CLASS_NAME, nameof(applicationId), applicationId);
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceToken), deviceToken);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(applicationId),
+			applicationId
+		);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(deviceToken),
+			deviceToken
+		);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "deviceRegistering"
 			});
 
 			const applicationArn = this._applicationMap.get(applicationId);
 			if (Is.empty(applicationArn)) {
-				throw new GeneralError(this.CLASS_NAME, "applicationIdNotFound", {
-					property: "applicationId",
-					value: applicationId
-				});
+				throw new GeneralError(
+					AwsMessagingPushNotificationConnector.CLASS_NAME,
+					"applicationIdNotFound",
+					{
+						applicationId
+					}
+				);
 			}
 
 			const createEndpointParams = {
@@ -186,17 +210,20 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			const data = await this._client.send(command);
 
 			if (!Is.stringValue(data.EndpointArn)) {
-				throw new GeneralError(this.CLASS_NAME, "deviceTokenRegisterFailed", {
-					property: "applicationId",
-					value: applicationId
-				});
+				throw new GeneralError(
+					AwsMessagingPushNotificationConnector.CLASS_NAME,
+					"deviceTokenRegisterFailed",
+					{
+						applicationId
+					}
+				);
 			}
 			return data.EndpointArn;
 		} catch (err) {
 			throw new GeneralError(
-				this.CLASS_NAME,
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
 				"deviceTokenRegisterFailed",
-				{ property: "applicationId", value: applicationId },
+				{ applicationId },
 				err
 			);
 		}
@@ -207,20 +234,24 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param deviceAddress The address of the device.
 	 * @param title The title of the notification.
 	 * @param message The message to send.
-	 * @returns If the notification was sent successfully.
+	 * @returns True if the notification was sent successfully.
 	 */
 	public async sendSinglePushNotification(
 		deviceAddress: string,
 		title: string,
 		message: string
 	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceAddress), deviceAddress);
-		Guards.stringValue(this.CLASS_NAME, nameof(title), title);
-		Guards.stringValue(this.CLASS_NAME, nameof(message), message);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(deviceAddress),
+			deviceAddress
+		);
+		Guards.stringValue(AwsMessagingPushNotificationConnector.CLASS_NAME, nameof(title), title);
+		Guards.stringValue(AwsMessagingPushNotificationConnector.CLASS_NAME, nameof(message), message);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "pushNotificationSending"
 			});
@@ -243,12 +274,12 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			if (data.$metadata.httpStatusCode !== HttpStatusCode.ok) {
 				await this._logging?.log({
 					level: "error",
-					source: this.CLASS_NAME,
+					source: AwsMessagingPushNotificationConnector.CLASS_NAME,
 					ts: Date.now(),
 					message: "sendPushNotificationFailed"
 				});
 				throw new GeneralError(
-					this.CLASS_NAME,
+					AwsMessagingPushNotificationConnector.CLASS_NAME,
 					"sendPushNotificationFailed",
 					{ value: deviceAddress },
 					data
@@ -257,7 +288,7 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			return true;
 		} catch (err) {
 			throw new GeneralError(
-				this.CLASS_NAME,
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
 				"sendPushNotificationFailed",
 				{ value: deviceAddress },
 				err
@@ -270,16 +301,31 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param applicationId The application identity.
 	 * @param platformType The type of platform used for the push notifications.
 	 * @param platformCredentials The credentials for the used platform.
+	 * @param platformPrincipal The principal for the used platform, required for some platform types.
 	 * @returns The platform application address.
+	 * @internal
 	 */
 	private async createPlatformApplication(
 		applicationId: string,
 		platformType: string,
-		platformCredentials: string
+		platformCredentials: string,
+		platformPrincipal?: string
 	): Promise<string> {
-		Guards.stringValue(this.CLASS_NAME, nameof(applicationId), applicationId);
-		Guards.stringValue(this.CLASS_NAME, nameof(platformType), platformType);
-		Guards.stringValue(this.CLASS_NAME, nameof(platformCredentials), platformCredentials);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(applicationId),
+			applicationId
+		);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(platformType),
+			platformType
+		);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(platformCredentials),
+			platformCredentials
+		);
 		try {
 			const existingArn = await this.checkPlatformApplication(applicationId);
 			if (Is.stringValue(existingArn)) {
@@ -289,17 +335,22 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "platformAppCreating"
 			});
 
+			const attributes: { [key: string]: string } = {
+				PlatformCredential: platformCredentials
+			};
+			if (Is.stringValue(platformPrincipal)) {
+				attributes.PlatformPrincipal = platformPrincipal;
+			}
+
 			const createParams = {
 				Name: applicationId,
 				Platform: platformType,
-				Attributes: {
-					PlatformCredential: platformCredentials
-				}
+				Attributes: attributes
 			};
 
 			const createCommand = new CreatePlatformApplicationCommand(createParams);
@@ -308,9 +359,18 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 				this._applicationMap.set(applicationId, createData.PlatformApplicationArn);
 				return createData.PlatformApplicationArn;
 			}
-			throw new GeneralError(this.CLASS_NAME, "platformAppCreationFailed", undefined);
+			throw new GeneralError(
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
+				"platformAppCreationFailed",
+				{ applicationId }
+			);
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "platformAppCreationFailed", undefined, err);
+			throw new GeneralError(
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
+				"platformAppCreationFailed",
+				{ applicationId },
+				err
+			);
 		}
 	}
 
@@ -318,13 +378,14 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * Checks if the platform application exists.
 	 * @param appName The name of the app.
 	 * @returns The platform application address if it exists, otherwise undefined.
+	 * @internal
 	 */
 	private async checkPlatformApplication(appName: string): Promise<string | undefined> {
-		Guards.stringValue(this.CLASS_NAME, nameof(appName), appName);
+		Guards.stringValue(AwsMessagingPushNotificationConnector.CLASS_NAME, nameof(appName), appName);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "platformAppChecking"
 			});
@@ -341,7 +402,12 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			}
 			return undefined;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "platformAppCheckFailed", undefined, err);
+			throw new GeneralError(
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
+				"platformAppCheckFailed",
+				undefined,
+				err
+			);
 		}
 	}
 
@@ -350,17 +416,26 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 	 * @param applicationAddress The application address.
 	 * @param deviceToken The device token.
 	 * @returns The device address if it exists, otherwise undefined.
+	 * @internal
 	 */
 	private async checkIfDeviceTokenExists(
 		applicationAddress: string,
 		deviceToken: string
 	): Promise<string | undefined> {
-		Guards.stringValue(this.CLASS_NAME, nameof(applicationAddress), applicationAddress);
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceToken), deviceToken);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(applicationAddress),
+			applicationAddress
+		);
+		Guards.stringValue(
+			AwsMessagingPushNotificationConnector.CLASS_NAME,
+			nameof(deviceToken),
+			deviceToken
+		);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingPushNotificationConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "deviceTokenChecking"
 			});
@@ -379,7 +454,12 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 			}
 			return undefined;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "deviceTokenCheckFailed", undefined, err);
+			throw new GeneralError(
+				AwsMessagingPushNotificationConnector.CLASS_NAME,
+				"deviceTokenCheckFailed",
+				undefined,
+				err
+			);
 		}
 	}
 }

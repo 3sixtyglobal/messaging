@@ -1,6 +1,6 @@
 # Class: PushNotificationMessageEntry
 
-Call defining an push notification message entry.
+Class defining a push notification message entry.
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Call defining an push notification message entry.
 
 ## Properties
 
-### id
+### id {#id}
 
 > **id**: `string`
 
@@ -22,7 +22,7 @@ The id.
 
 ***
 
-### deviceAddress
+### deviceAddress {#deviceaddress}
 
 > **deviceAddress**: `string`
 
@@ -30,7 +30,7 @@ The device address.
 
 ***
 
-### title
+### title {#title}
 
 > **title**: `string`
 
@@ -38,7 +38,7 @@ The title.
 
 ***
 
-### message
+### message {#message}
 
 > **message**: `string`
 
@@ -46,7 +46,7 @@ The message.
 
 ***
 
-### ts
+### ts {#ts}
 
 > **ts**: `number`
 
@@ -54,7 +54,7 @@ The timestamp of the push notification entry.
 
 ***
 
-### status
+### status {#status}
 
 > **status**: `string`
 
@@ -62,8 +62,8 @@ The status.
 
 ***
 
-### error?
+### error? {#error}
 
-> `optional` **error**: `IError`
+> `optional` **error?**: `IError`
 
 The error.

@@ -1,7 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-/* eslint-disable max-classes-per-file */
-import { I18n } from "@twin.org/core";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import {
@@ -11,27 +9,25 @@ import {
 } from "@twin.org/logging-connector-entity-storage";
 import { LoggingConnectorFactory } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
-import { TEST_AWS_CONFIG_PUSH } from "./setupTestEnv";
-import { AwsMessagingPushNotificationConnector } from "../src/awsMessagingPushNotificationConnector";
-import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig";
+import { TEST_AWS_CONFIG_PUSH } from "./setupTestEnv.js";
+import { AwsMessagingPushNotificationConnector } from "../src/awsMessagingPushNotificationConnector.js";
+import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig.js";
 
 let memoryEntityStorage: MemoryEntityStorageConnector<LogEntry>;
 const configuration: IAwsPushNotificationConnectorConfig = TEST_AWS_CONFIG_PUSH;
 
 describe("AwsMessagingPushNotificationConnector", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", await import("../locales/en.json"));
-
 		initSchema();
 	});
 
 	beforeEach(async () => {
 		memoryEntityStorage = new MemoryEntityStorageConnector<LogEntry>({
-			entitySchema: nameof<LogEntry>()
+			entitySchema: nameof<LogEntry>(),
+			config: { storageKey: "log-entry" }
 		});
 		EntityStorageConnectorFactory.register("log-entry", () => memoryEntityStorage);
 		LoggingConnectorFactory.register("logging", () => new EntityStorageLoggingConnector());
-		LoggingConnectorFactory.register("node-logging", () => new EntityStorageLoggingConnector());
 	});
 
 	test("can fail to construct when there are no options", async () => {
@@ -64,8 +60,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 		).rejects.toMatchObject({
 			name: "GuardError",
 			properties: {
-				property: "applicationId",
-				value: "undefined"
+				property: "applicationId"
 			}
 		});
 	});
@@ -90,7 +85,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 			config: configuration
 		});
 		const applicationId = "TestApp";
-		await messagingConnector.start("");
+		await messagingConnector.start();
 		const deviceToken = "testDeviceToken";
 		const result = await messagingConnector.registerDevice(applicationId, deviceToken);
 		expect(result).toBeDefined();
@@ -108,8 +103,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 		).rejects.toMatchObject({
 			name: "GeneralError",
 			properties: {
-				property: "applicationId",
-				value: applicationId
+				applicationId: "TestApp"
 			}
 		});
 	});
@@ -176,7 +170,7 @@ describe("AwsMessagingPushNotificationConnector", () => {
 			config: configuration
 		});
 		const applicationId = "TestApp";
-		await messagingConnector.start("");
+		await messagingConnector.start();
 		const deviceToken = "testDeviceToken";
 		const deviceAddress = await messagingConnector.registerDevice(applicationId, deviceToken);
 		const result = await messagingConnector.sendSinglePushNotification(

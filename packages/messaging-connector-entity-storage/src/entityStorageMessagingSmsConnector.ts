@@ -1,15 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Converter, GeneralError, Guards, Is, RandomHelper, StringHelper } from "@twin.org/core";
+import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingSmsConnector } from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
-import type { SmsEntry } from "./entities/smsEntry";
-import type { IEntityStorageMessagingSmsConnectorConstructorOptions } from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import type { SmsEntry } from "./entities/smsEntry.js";
+import type { IEntityStorageMessagingSmsConnectorConstructorOptions } from "./models/IEntityStorageMessagingSmsConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the SMS messaging operations of the Entity Storage.
@@ -23,13 +23,13 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EntityStorageMessagingSmsConnector>();
+	public static readonly CLASS_NAME: string = nameof<EntityStorageMessagingSmsConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The entity storage for the sms entries.
@@ -42,27 +42,37 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 	 * @param options The options for the connector.
 	 */
 	constructor(options?: IEntityStorageMessagingSmsConnectorConstructorOptions) {
-		if (Is.stringValue(options?.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
-		}
+		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType);
 		this._messagingSmsEntryStorage = EntityStorageConnectorFactory.get(
-			options?.messagingSmsEntryStorageConnectorType ?? StringHelper.kebabCase(nameof<SmsEntry>())
+			options?.messagingSmsEntryStorageConnectorType ?? nameofKebabCase<SmsEntry>()
 		);
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return EntityStorageMessagingSmsConnector.CLASS_NAME;
 	}
 
 	/**
 	 * Send a SMS message to a phone number.
 	 * @param phoneNumber The recipient phone number.
 	 * @param message The message to send.
-	 * @returns If the SMS was sent successfully.
+	 * @returns True when the SMS entry has been stored successfully.
 	 */
 	public async sendSMS(phoneNumber: string, message: string): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(phoneNumber), phoneNumber);
-		Guards.stringValue(this.CLASS_NAME, nameof(message), message);
+		Guards.stringValue(
+			EntityStorageMessagingSmsConnector.CLASS_NAME,
+			nameof(phoneNumber),
+			phoneNumber
+		);
+		Guards.stringValue(EntityStorageMessagingSmsConnector.CLASS_NAME, nameof(message), message);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: EntityStorageMessagingSmsConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "smsSending"
 			});
@@ -81,7 +91,12 @@ export class EntityStorageMessagingSmsConnector implements IMessagingSmsConnecto
 
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendSMSFailed", undefined, err);
+			throw new GeneralError(
+				EntityStorageMessagingSmsConnector.CLASS_NAME,
+				"sendSMSFailed",
+				undefined,
+				err
+			);
 		}
 	}
 }

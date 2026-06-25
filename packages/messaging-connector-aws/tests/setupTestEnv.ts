@@ -3,11 +3,14 @@
 import path from "node:path";
 import { Guards } from "@twin.org/core";
 import * as dotenv from "dotenv";
-import type { IAwsEmailConnectorConfig } from "../src/models/IAwsEmailConnectorConfig";
-import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig";
-import type { IAwsSmsConnectorConfig } from "../src/models/IAwsSmsConnectorConfig";
+import type { IAwsEmailConnectorConfig } from "../src/models/IAwsEmailConnectorConfig.js";
+import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig.js";
+import type { IAwsSmsConnectorConfig } from "../src/models/IAwsSmsConnectorConfig.js";
 
-dotenv.config({ path: [path.join(__dirname, ".env"), path.join(__dirname, ".env.dev")] });
+dotenv.config({
+	path: [path.join(__dirname, ".env"), path.join(__dirname, ".env.dev")],
+	quiet: true
+});
 
 console.debug("Setting up test environment from .env and .env.dev files");
 
@@ -31,7 +34,8 @@ export const TEST_AWS_CONFIG_PUSH: IAwsPushNotificationConnectorConfig = {
 		{
 			applicationId: process.env.TEST_AWS_APP_ID,
 			pushNotificationsPlatformType: process.env.TEST_AWS_APP_TYPE,
-			pushNotificationsPlatformCredentials: process.env.TEST_AWS_APP_CREDENTIALS
+			pushNotificationsPlatformCredentials: process.env.TEST_AWS_APP_CREDENTIALS,
+			pushNotificationsPlatformPrincipal: process.env.TEST_AWS_APP_PRINCIPAL
 		}
 	]
 };

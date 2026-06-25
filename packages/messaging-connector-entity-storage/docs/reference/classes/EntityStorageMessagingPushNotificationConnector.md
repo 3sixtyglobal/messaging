@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
+### NAMESPACE {#namespace}
 
 > `readonly` `static` **NAMESPACE**: `string` = `"entity-storage"`
 
@@ -36,23 +36,37 @@ The namespace for the connector.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
-#### Implementation of
-
-`IMessagingPushNotificationsConnector.CLASS_NAME`
-
 ## Methods
 
-### registerDevice()
+### className() {#classname}
+
+> **className**(): `string`
+
+Returns the class name of the component.
+
+#### Returns
+
+`string`
+
+The class name of the component.
+
+#### Implementation of
+
+`IMessagingPushNotificationsConnector.className`
+
+***
+
+### registerDevice() {#registerdevice}
 
 > **registerDevice**(`applicationId`, `deviceToken`): `Promise`\<`string`\>
 
-Registers a device to an specific app in order to send notifications to it.
+Registers a device to a specific application in order to send notifications to it.
 
 #### Parameters
 
@@ -72,7 +86,7 @@ The device token.
 
 `Promise`\<`string`\>
 
-If the device was registered successfully.
+The identifier assigned to the registered device entry.
 
 #### Implementation of
 
@@ -80,7 +94,7 @@ If the device was registered successfully.
 
 ***
 
-### sendSinglePushNotification()
+### sendSinglePushNotification() {#sendsinglepushnotification}
 
 > **sendSinglePushNotification**(`deviceAddress`, `title`, `message`): `Promise`\<`boolean`\>
 
@@ -110,7 +124,7 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the notification was sent successfully.
+True when the notification entry has been stored successfully.
 
 #### Implementation of
 

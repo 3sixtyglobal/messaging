@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
+### NAMESPACE {#namespace}
 
 > `readonly` `static` **NAMESPACE**: `string` = `"entity-storage"`
 
@@ -36,23 +36,37 @@ The namespace for the connector.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
-#### Implementation of
-
-`IMessagingEmailConnector.CLASS_NAME`
-
 ## Methods
 
-### sendCustomEmail()
+### className() {#classname}
+
+> **className**(): `string`
+
+Returns the class name of the component.
+
+#### Returns
+
+`string`
+
+The class name of the component.
+
+#### Implementation of
+
+`IMessagingEmailConnector.className`
+
+***
+
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `subject`, `content`): `Promise`\<`boolean`\>
 
-Store a custom email using Entity Storage.
+Store a custom email using entity storage.
 
 #### Parameters
 
@@ -84,7 +98,7 @@ The html content of the email.
 
 `Promise`\<`boolean`\>
 
-True if the email was send successfully, otherwise undefined.
+True when the email entry has been stored successfully.
 
 #### Implementation of
 

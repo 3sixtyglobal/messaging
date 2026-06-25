@@ -1,6 +1,6 @@
 # Interface: IMessagingPushNotificationsConnector
 
-Interface describing the push notifications messaging connector functionalities
+Interface describing the push notifications messaging connector functionalities.
 
 ## Extends
 
@@ -8,11 +8,11 @@ Interface describing the push notifications messaging connector functionalities
 
 ## Methods
 
-### registerDevice()
+### registerDevice() {#registerdevice}
 
 > **registerDevice**(`applicationAddress`, `deviceToken`): `Promise`\<`string`\>
 
-Registers a device to an specific app in order to send notifications to it.
+Registers a device to a specific application in order to send notifications to it.
 
 #### Parameters
 
@@ -32,11 +32,11 @@ The device token.
 
 `Promise`\<`string`\>
 
-The device registered address.
+The address assigned to the registered device.
 
 ***
 
-### sendSinglePushNotification()
+### sendSinglePushNotification() {#sendsinglepushnotification}
 
 > **sendSinglePushNotification**(`deviceAddress`, `title`, `message`): `Promise`\<`boolean`\>
 
@@ -66,4 +66,4 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the notification was sent successfully.
+True if the notification was sent successfully.

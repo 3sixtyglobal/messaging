@@ -4,17 +4,17 @@ Options for the entity storage messaging email connector.
 
 ## Properties
 
-### loggingConnectorType?
+### loggingComponentType? {#loggingcomponenttype}
 
-> `optional` **loggingConnectorType**: `string`
+> `optional` **loggingComponentType?**: `string`
 
-The type of logging connector to use, defaults to no logging.
+The type of logging component to use, defaults to no logging.
 
 ***
 
-### messagingEmailEntryStorageConnectorType?
+### messagingEmailEntryStorageConnectorType? {#messagingemailentrystorageconnectortype}
 
-> `optional` **messagingEmailEntryStorageConnectorType**: `string`
+> `optional` **messagingEmailEntryStorageConnectorType?**: `string`
 
 The type of entity storage connector to use for the email entries.
 

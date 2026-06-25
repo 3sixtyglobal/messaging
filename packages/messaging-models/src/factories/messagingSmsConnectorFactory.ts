@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { Factory } from "@twin.org/core";
-import type { IMessagingSmsConnector } from "../models/IMessagingSmsConnector";
+import type { IMessagingSmsConnector } from "../models/IMessagingSmsConnector.js";
 
 /**
  * Factory for creating messaging sms connectors.

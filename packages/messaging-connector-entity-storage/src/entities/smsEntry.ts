@@ -4,7 +4,7 @@ import type { IError } from "@twin.org/core";
 import { entity, property, SortDirection } from "@twin.org/entity";
 
 /**
- * Call defining an sms entry.
+ * Class defining an SMS entry.
  */
 @entity()
 export class SmsEntry {

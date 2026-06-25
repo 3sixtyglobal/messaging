@@ -4,38 +4,38 @@ Options for the messaging service.
 
 ## Properties
 
-### messagingEmailConnectorType?
+### messagingEmailConnectorType? {#messagingemailconnectortype}
 
-> `optional` **messagingEmailConnectorType**: `string`
+> `optional` **messagingEmailConnectorType?**: `string`
 
 The type of the email messaging connector to use, defaults to not configured.
 
 ***
 
-### messagingPushNotificationConnectorType?
+### messagingPushNotificationConnectorType? {#messagingpushnotificationconnectortype}
 
-> `optional` **messagingPushNotificationConnectorType**: `string`
+> `optional` **messagingPushNotificationConnectorType?**: `string`
 
 The type of the push notifications messaging connector to use, defaults to not configured.
 
 ***
 
-### messagingSmsConnectorType?
+### messagingSmsConnectorType? {#messagingsmsconnectortype}
 
-> `optional` **messagingSmsConnectorType**: `string`
+> `optional` **messagingSmsConnectorType?**: `string`
 
 The type of the sms messaging connector to use, defaults to not configured.
 
 ***
 
-### templateEntryStorageConnectorType?
+### messagingAdminComponentType? {#messagingadmincomponenttype}
 
-> `optional` **templateEntryStorageConnectorType**: `string`
+> `optional` **messagingAdminComponentType?**: `string`
 
-The type of the entity connector to use.
+The type of the messaging admin component to use.
 
 #### Default
 
 ```ts
-template-entry
+messaging-admin
 ```

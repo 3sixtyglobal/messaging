@@ -1,13 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { SESClient, SendEmailCommand, VerifyEmailAddressCommand } from "@aws-sdk/client-ses";
-import { GeneralError, Guards, Is } from "@twin.org/core";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
+import { SESClient, SendEmailCommand, VerifyEmailIdentityCommand } from "@aws-sdk/client-ses";
+import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
-import type { IAwsEmailConnectorConfig } from "./models/IAwsEmailConnectorConfig";
-import type { IAwsMessagingEmailConnectorConstructorOptions } from "./models/IAwsMessagingEmailConnectorConstructorOptions";
+import type { IAwsEmailConnectorConfig } from "./models/IAwsEmailConnectorConfig.js";
+import type { IAwsMessagingEmailConnectorConstructorOptions } from "./models/IAwsMessagingEmailConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the email messaging operations of the AWS services.
@@ -21,13 +21,13 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<AwsMessagingEmailConnector>();
+	public static readonly CLASS_NAME: string = nameof<AwsMessagingEmailConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The configuration for the client connector.
@@ -46,27 +46,39 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	 * @param options The options for the connector.
 	 */
 	constructor(options: IAwsMessagingEmailConnectorConstructorOptions) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.object(AwsMessagingEmailConnector.CLASS_NAME, nameof(options), options);
 		Guards.object<IAwsEmailConnectorConfig>(
-			this.CLASS_NAME,
+			AwsMessagingEmailConnector.CLASS_NAME,
 			nameof(options.config),
 			options.config
 		);
-		Guards.stringValue(this.CLASS_NAME, nameof(options.config.region), options.config.region);
 		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.config.accessKeyId),
-			options.config.accessKeyId
-		);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.config.secretAccessKey),
-			options.config.secretAccessKey
+			AwsMessagingEmailConnector.CLASS_NAME,
+			nameof(options.config.region),
+			options.config.region
 		);
 
-		if (Is.stringValue(options.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
+		options.config.authMode ??= "credentials";
+
+		let credentials;
+		if (options.config.authMode === "credentials") {
+			Guards.stringValue(
+				AwsMessagingEmailConnector.CLASS_NAME,
+				nameof(options.config.accessKeyId),
+				options.config.accessKeyId
+			);
+			Guards.stringValue(
+				AwsMessagingEmailConnector.CLASS_NAME,
+				nameof(options.config.secretAccessKey),
+				options.config.secretAccessKey
+			);
+			credentials = {
+				accessKeyId: options.config.accessKeyId,
+				secretAccessKey: options.config.secretAccessKey
+			};
 		}
+
+		this._logging = ComponentFactory.getIfExists(options.loggingComponentType);
 
 		this._config = options.config;
 		this._config.endpoint = Is.stringValue(this._config.endpoint)
@@ -75,11 +87,16 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 		this._client = new SESClient({
 			endpoint: this._config.endpoint,
 			region: this._config.region,
-			credentials: {
-				accessKeyId: this._config.accessKeyId,
-				secretAccessKey: this._config.secretAccessKey
-			}
+			credentials
 		});
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return AwsMessagingEmailConnector.CLASS_NAME;
 	}
 
 	/**
@@ -88,7 +105,7 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 	 * @param recipients An array of recipients email addresses.
 	 * @param subject The subject of the email.
 	 * @param content The html content of the email.
-	 * @returns True if the email was send successfully, otherwise undefined.
+	 * @returns True if the email was sent successfully.
 	 */
 	public async sendCustomEmail(
 		sender: string,
@@ -96,22 +113,20 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 		subject: string,
 		content: string
 	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(sender), sender);
-		Guards.arrayValue(this.CLASS_NAME, nameof(recipients), recipients);
-		Guards.stringValue(this.CLASS_NAME, nameof(subject), subject);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
+		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(sender), sender);
+		Guards.arrayValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(recipients), recipients);
+		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(subject), subject);
+		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(content), content);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: AwsMessagingEmailConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "emailSending",
 				data: {
 					type: "Custom Email"
 				}
 			});
-			const command = new VerifyEmailAddressCommand({ EmailAddress: sender });
-			await this._client.send(command);
 			const result = await this._client.send(
 				new SendEmailCommand({
 					Destination: { ToAddresses: recipients },
@@ -131,15 +146,35 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 			if (result.$metadata.httpStatusCode !== HttpStatusCode.ok) {
 				await this._logging?.log({
 					level: "error",
-					source: this.CLASS_NAME,
+					source: AwsMessagingEmailConnector.CLASS_NAME,
 					ts: Date.now(),
 					message: "sendCustomEmailFailed"
 				});
-				throw new GeneralError(this.CLASS_NAME, "sendCustomEmailFailed", undefined, result);
+				throw new GeneralError(
+					AwsMessagingEmailConnector.CLASS_NAME,
+					"sendCustomEmailFailed",
+					undefined,
+					result
+				);
 			}
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendCustomEmailFailed", undefined, err);
+			throw new GeneralError(
+				AwsMessagingEmailConnector.CLASS_NAME,
+				"sendCustomEmailFailed",
+				undefined,
+				err
+			);
 		}
+	}
+
+	/**
+	 * Verify an email address using AWS SES.
+	 * @param emailAddress The email address to verify.
+	 * @returns A promise that resolves when the verification request has been submitted.
+	 */
+	public async verifyEmailAddress(emailAddress: string): Promise<void> {
+		const command = new VerifyEmailIdentityCommand({ EmailAddress: emailAddress });
+		await this._client.send(command);
 	}
 }

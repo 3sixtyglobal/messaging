@@ -19,4 +19,9 @@ export interface IAwsApplicationSettings {
 	 * The credentials for the push notifications platform.
 	 */
 	pushNotificationsPlatformCredentials: string;
+
+	/**
+	 * The principal for the push notifications platform (required for APNS and some platform types).
+	 */
+	pushNotificationsPlatformPrincipal?: string;
 }

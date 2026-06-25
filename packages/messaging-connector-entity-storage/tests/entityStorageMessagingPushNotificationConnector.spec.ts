@@ -3,10 +3,10 @@
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { PushNotificationDeviceEntry } from "../src/entities/pushNotificationDeviceEntry";
-import type { PushNotificationMessageEntry } from "../src/entities/pushNotificationMessageEntry";
-import { EntityStorageMessagingPushNotificationConnector } from "../src/entityStorageMessagingPushNotificationConnector";
-import { initSchema } from "../src/schema";
+import type { PushNotificationDeviceEntry } from "../src/entities/pushNotificationDeviceEntry.js";
+import type { PushNotificationMessageEntry } from "../src/entities/pushNotificationMessageEntry.js";
+import { EntityStorageMessagingPushNotificationConnector } from "../src/entityStorageMessagingPushNotificationConnector.js";
+import { initSchema } from "../src/schema.js";
 
 describe("EntityStorageMessagingPushNotificationConnector", () => {
 	beforeAll(() => {
@@ -15,14 +15,16 @@ describe("EntityStorageMessagingPushNotificationConnector", () => {
 			"push-notification-device-entry",
 			() =>
 				new MemoryEntityStorageConnector<PushNotificationDeviceEntry>({
-					entitySchema: nameof<PushNotificationDeviceEntry>()
+					entitySchema: nameof<PushNotificationDeviceEntry>(),
+					config: { storageKey: "push-notification-device-entry" }
 				})
 		);
 		EntityStorageConnectorFactory.register(
 			"push-notification-message-entry",
 			() =>
 				new MemoryEntityStorageConnector<PushNotificationMessageEntry>({
-					entitySchema: nameof<PushNotificationMessageEntry>()
+					entitySchema: nameof<PushNotificationMessageEntry>(),
+					config: { storageKey: "push-notification-message-entry" }
 				})
 		);
 	});

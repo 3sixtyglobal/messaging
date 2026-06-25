@@ -1,11 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, Guards, Is } from "@twin.org/core";
+import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
 import {
-	EntityStorageConnectorFactory,
-	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
-import {
+	type IMessagingAdminComponent,
 	MessagingEmailConnectorFactory,
 	MessagingPushNotificationsConnectorFactory,
 	MessagingSmsConnectorFactory,
@@ -15,22 +12,16 @@ import {
 	type IMessagingSmsConnector
 } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import { TemplateEntry } from "./entities/templateEntry";
-import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions";
+import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions.js";
 
 /**
- * Service for performing email messaging operations to a connector.
+ * Service for dispatching messages via configured email, push notification, and SMS connectors.
  */
 export class MessagingService implements IMessagingComponent {
 	/**
-	 * The namespace for the service.
-	 */
-	public static readonly NAMESPACE: string = "messaging";
-
-	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<MessagingService>();
+	public static readonly CLASS_NAME: string = nameof<MessagingService>();
 
 	/**
 	 * Emails messaging connector used by the service.
@@ -51,14 +42,14 @@ export class MessagingService implements IMessagingComponent {
 	private readonly _smsMessagingConnector?: IMessagingSmsConnector;
 
 	/**
-	 * Entity storage connector used by the service.
+	 * The admin component for the messaging.
 	 * @internal
 	 */
-	private readonly _entityStorageConnector: IEntityStorageConnector<TemplateEntry>;
+	private readonly _messagingAdminComponent: IMessagingAdminComponent;
 
 	/**
 	 * Create a new instance of MessagingService.
-	 * @param options The options for the connector.
+	 * @param options The options for the service.
 	 */
 	constructor(options?: IMessagingServiceConstructorOptions) {
 		if (Is.stringValue(options?.messagingEmailConnectorType)) {
@@ -79,9 +70,17 @@ export class MessagingService implements IMessagingComponent {
 			);
 		}
 
-		this._entityStorageConnector = EntityStorageConnectorFactory.get(
-			options?.templateEntryStorageConnectorType ?? "template-entry"
+		this._messagingAdminComponent = ComponentFactory.get(
+			options?.messagingAdminComponentType ?? "messaging-admin"
 		);
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return MessagingService.CLASS_NAME;
 	}
 
 	/**
@@ -91,7 +90,7 @@ export class MessagingService implements IMessagingComponent {
 	 * @param templateId The id of the email template.
 	 * @param data The data to populate the email template.
 	 * @param locale The locale of the email template.
-	 * @returns If the email was sent successfully.
+	 * @returns True if the email was sent successfully.
 	 */
 	public async sendCustomEmail(
 		sender: string,
@@ -101,16 +100,16 @@ export class MessagingService implements IMessagingComponent {
 		locale: string
 	): Promise<boolean> {
 		if (Is.empty(this._emailMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredEmailMessagingConnector");
+			throw new GeneralError(MessagingService.CLASS_NAME, "notConfiguredEmailMessagingConnector");
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(sender), sender);
-		Guards.arrayValue(this.CLASS_NAME, nameof(recipients), recipients);
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.object(this.CLASS_NAME, nameof(data), data);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(sender), sender);
+		Guards.arrayValue(MessagingService.CLASS_NAME, nameof(recipients), recipients);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.object(MessagingService.CLASS_NAME, nameof(data), data);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
-		const template = await this.getTemplate(templateId, locale);
+		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._emailMessagingConnector.sendCustomEmail(
@@ -122,18 +121,21 @@ export class MessagingService implements IMessagingComponent {
 	}
 
 	/**
-	 * Registers a device to an specific app in order to send notifications to it.
+	 * Registers a device to a specific application in order to send notifications to it.
 	 * @param applicationId The application address.
 	 * @param deviceToken The device token.
-	 * @returns If the device was registered successfully.
+	 * @returns The address assigned to the registered device.
 	 */
 	public async registerDevice(applicationId: string, deviceToken: string): Promise<string> {
 		if (Is.empty(this._pushNotificationMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredPushNotificationMessagingConnector");
+			throw new GeneralError(
+				MessagingService.CLASS_NAME,
+				"notConfiguredPushNotificationMessagingConnector"
+			);
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(applicationId), applicationId);
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceToken), deviceToken);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(applicationId), applicationId);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(deviceToken), deviceToken);
 
 		return this._pushNotificationMessagingConnector.registerDevice(applicationId, deviceToken);
 	}
@@ -144,7 +146,7 @@ export class MessagingService implements IMessagingComponent {
 	 * @param templateId The id of the push notification template.
 	 * @param data The data to populate the push notification template.
 	 * @param locale The locale of the push notification template.
-	 * @returns If the notification was sent successfully.
+	 * @returns True if the notification was sent successfully.
 	 */
 	public async sendSinglePushNotification(
 		deviceAddress: string,
@@ -153,15 +155,18 @@ export class MessagingService implements IMessagingComponent {
 		locale: string
 	): Promise<boolean> {
 		if (Is.empty(this._pushNotificationMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredPushNotificationMessagingConnector");
+			throw new GeneralError(
+				MessagingService.CLASS_NAME,
+				"notConfiguredPushNotificationMessagingConnector"
+			);
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(deviceAddress), deviceAddress);
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.object(this.CLASS_NAME, nameof(data), data);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(deviceAddress), deviceAddress);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.object(MessagingService.CLASS_NAME, nameof(data), data);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
-		const template = await this.getTemplate(templateId, locale);
+		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._pushNotificationMessagingConnector.sendSinglePushNotification(
@@ -177,7 +182,7 @@ export class MessagingService implements IMessagingComponent {
 	 * @param templateId The id of the SMS template.
 	 * @param data The data to populate the SMS template.
 	 * @param locale The locale of the SMS template.
-	 * @returns If the SMS was sent successfully.
+	 * @returns True if the SMS was sent successfully.
 	 */
 	public async sendSMS(
 		phoneNumber: string,
@@ -186,77 +191,28 @@ export class MessagingService implements IMessagingComponent {
 		locale: string
 	): Promise<boolean> {
 		if (Is.empty(this._smsMessagingConnector)) {
-			throw new GeneralError(this.CLASS_NAME, "notConfiguredSmsMessagingConnector");
+			throw new GeneralError(MessagingService.CLASS_NAME, "notConfiguredSmsMessagingConnector");
 		}
 
-		Guards.stringValue(this.CLASS_NAME, nameof(phoneNumber), phoneNumber);
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.object(this.CLASS_NAME, nameof(data), data);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(phoneNumber), phoneNumber);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(templateId), templateId);
+		Guards.object(MessagingService.CLASS_NAME, nameof(data), data);
+		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
-		const template = await this.getTemplate(templateId, locale);
+		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._smsMessagingConnector.sendSMS(phoneNumber, populatedTemplate.content);
 	}
 
 	/**
-	 * Create or update a template.
-	 * @param templateId The id of the template.
-	 * @param locale The locale of the template.
-	 * @param title The title of the template.
-	 * @param content The content of the template.
-	 * @returns If the template was created or updated successfully.
-	 */
-	public async createOrUpdateTemplate(
-		templateId: string,
-		locale: string,
-		title: string,
-		content: string
-	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(templateId), templateId);
-		Guards.stringValue(this.CLASS_NAME, nameof(locale), locale);
-		Guards.stringValue(this.CLASS_NAME, nameof(title), title);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
-
-		const templateEntry = new TemplateEntry();
-		templateEntry.id = `${templateId}:${locale}`;
-		templateEntry.ts = Date.now();
-		templateEntry.title = title;
-		templateEntry.content = content;
-
-		await this._entityStorageConnector.set(templateEntry);
-		return true;
-	}
-
-	/**
-	 * Get the email template by id and locale.
-	 * @param templateId The id of the email template.
-	 * @param locale The locale of the email template.
-	 * @returns The email template.
-	 * @internal
-	 */
-	private async getTemplate(
-		templateId: string,
-		locale: string
-	): Promise<{ title: string; content: string }> {
-		const entityId = `${templateId}:${locale}`;
-		const templateInfo = await this._entityStorageConnector.get(entityId);
-
-		if (!templateInfo) {
-			throw new GeneralError(this.CLASS_NAME, "getTemplateFailed", { templateId, locale });
-		}
-		return templateInfo;
-	}
-
-	/**
-	 * Populate the template with data.
+	 * Populates a template by replacing placeholders with the provided data values.
 	 * @param template The template.
 	 * @param template.title The title of the template.
 	 * @param template.content The content of the template.
 	 * @param data The data to populate the template.
+	 * @returns The template with all placeholders replaced.
 	 * @internal
-	 * @returns The populated template.
 	 */
 	private populateTemplate(
 		template: { title: string; content: string },

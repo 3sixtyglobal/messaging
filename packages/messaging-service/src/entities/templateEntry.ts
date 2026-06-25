@@ -3,7 +3,7 @@
 import { entity, property, SortDirection } from "@twin.org/entity";
 
 /**
- * Call defining a template message entry.
+ * Class defining a message template entry.
  */
 @entity()
 export class TemplateEntry {
@@ -28,6 +28,6 @@ export class TemplateEntry {
 	/**
 	 * The timestamp of the template entry.
 	 */
-	@property({ type: "integer", format: "uint64", sortDirection: SortDirection.Descending })
-	public ts!: number;
+	@property({ type: "string", format: "date-time", sortDirection: SortDirection.Descending })
+	public dateCreated!: string;
 }

@@ -28,7 +28,7 @@ The options for the connector.
 
 ## Properties
 
-### NAMESPACE
+### NAMESPACE {#namespace}
 
 > `readonly` `static` **NAMESPACE**: `string` = `"aws"`
 
@@ -36,19 +36,33 @@ The namespace for the connector.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
-#### Implementation of
-
-`IMessagingEmailConnector.CLASS_NAME`
-
 ## Methods
 
-### sendCustomEmail()
+### className() {#classname}
+
+> **className**(): `string`
+
+Returns the class name of the component.
+
+#### Returns
+
+`string`
+
+The class name of the component.
+
+#### Implementation of
+
+`IMessagingEmailConnector.className`
+
+***
+
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `subject`, `content`): `Promise`\<`boolean`\>
 
@@ -84,8 +98,30 @@ The html content of the email.
 
 `Promise`\<`boolean`\>
 
-True if the email was send successfully, otherwise undefined.
+True if the email was sent successfully.
 
 #### Implementation of
 
 `IMessagingEmailConnector.sendCustomEmail`
+
+***
+
+### verifyEmailAddress() {#verifyemailaddress}
+
+> **verifyEmailAddress**(`emailAddress`): `Promise`\<`void`\>
+
+Verify an email address using AWS SES.
+
+#### Parameters
+
+##### emailAddress
+
+`string`
+
+The email address to verify.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the verification request has been submitted.

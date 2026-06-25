@@ -4,15 +4,15 @@ Options for the AWS messaging push notification connector.
 
 ## Properties
 
-### loggingConnectorType?
+### loggingComponentType? {#loggingcomponenttype}
 
-> `optional` **loggingConnectorType**: `string`
+> `optional` **loggingComponentType?**: `string`
 
-The type of logging connector to use, defaults to no logging.
+The type of logging component to use, defaults to no logging.
 
 ***
 
-### config
+### config {#config}
 
 > **config**: [`IAwsPushNotificationConnectorConfig`](IAwsPushNotificationConnectorConfig.md)
 

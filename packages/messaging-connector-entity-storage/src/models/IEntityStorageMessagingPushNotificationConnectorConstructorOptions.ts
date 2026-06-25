@@ -6,9 +6,9 @@
  */
 export interface IEntityStorageMessagingPushNotificationConnectorConstructorOptions {
 	/**
-	 * The type of logging connector to use, defaults to no logging.
+	 * The type of logging component to use, defaults to no logging.
 	 */
-	loggingConnectorType?: string;
+	loggingComponentType?: string;
 
 	/**
 	 * The type of entity storage connector to use for the push notifications entries.

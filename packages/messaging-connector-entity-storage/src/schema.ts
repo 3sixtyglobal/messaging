@@ -2,17 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { EntitySchemaFactory, EntitySchemaHelper } from "@twin.org/entity";
 import { nameof } from "@twin.org/nameof";
-import { EmailEntry } from "./entities/emailEntry";
-import { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry";
-import { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry";
-import { SmsEntry } from "./entities/smsEntry";
+import { EmailEntry } from "./entities/emailEntry.js";
+import { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry.js";
+import { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry.js";
+import { SmsEntry } from "./entities/smsEntry.js";
 
 /**
- * Initialize the schema for the messaging connector entity storage.
- * @param options The options for the initialisation.
- * @param options.email Should we register email schemas.
- * @param options.sms Should we register sms schemas.
- * @param options.pushNotification Should we register push notification schemas.
+ * Registers entity schemas required by the messaging entity-storage connector.
+ * @param options Controls which schema groups are registered.
+ * @param options.email Whether to register email schemas.
+ * @param options.sms Whether to register SMS schemas.
+ * @param options.pushNotification Whether to register push notification schemas.
  */
 export function initSchema(options?: {
 	email?: boolean;

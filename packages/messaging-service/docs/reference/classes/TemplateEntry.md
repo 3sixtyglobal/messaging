@@ -1,6 +1,6 @@
 # Class: TemplateEntry
 
-Call defining a template message entry.
+Class defining a message template entry.
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Call defining a template message entry.
 
 ## Properties
 
-### id
+### id {#id}
 
 > **id**: `string`
 
@@ -22,7 +22,7 @@ The id.
 
 ***
 
-### title
+### title {#title}
 
 > **title**: `string`
 
@@ -30,7 +30,7 @@ The title.
 
 ***
 
-### content
+### content {#content}
 
 > **content**: `string`
 
@@ -38,8 +38,8 @@ The content.
 
 ***
 
-### ts
+### dateCreated {#datecreated}
 
-> **ts**: `number`
+> **dateCreated**: `string`
 
 The timestamp of the template entry.

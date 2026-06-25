@@ -1,11 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { EntitySchemaFactory, EntitySchemaHelper } from "@twin.org/entity";
+import { ComponentFactory } from "@twin.org/core";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
-import {
-	EntityStorageConnectorFactory,
-	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
+import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import {
 	MessagingEmailConnectorFactory,
 	MessagingPushNotificationsConnectorFactory,
@@ -15,10 +12,26 @@ import {
 	type IMessagingSmsConnector
 } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import { TemplateEntry } from "../src/entities/templateEntry";
-import { MessagingService } from "../src/messagingService";
+import type { TemplateEntry } from "../src/entities/templateEntry.js";
+import { MessagingAdminService } from "../src/messagingAdminService.js";
+import { MessagingService } from "../src/messagingService.js";
+import { initSchema } from "../src/schema.js";
+
+let templateStorageMemory: MemoryEntityStorageConnector<TemplateEntry>;
 
 describe("MessagingService", () => {
+	beforeEach(() => {
+		initSchema();
+
+		ComponentFactory.register("messaging-admin", () => new MessagingAdminService());
+
+		templateStorageMemory = new MemoryEntityStorageConnector<TemplateEntry>({
+			entitySchema: nameof<TemplateEntry>(),
+			config: { storageKey: "template-entry" }
+		});
+		EntityStorageConnectorFactory.register("template-entry", () => templateStorageMemory);
+	});
+
 	test("Can create an instance", async () => {
 		MessagingEmailConnectorFactory.register(
 			"messaging-email",
@@ -31,10 +44,6 @@ describe("MessagingService", () => {
 		MessagingSmsConnectorFactory.register(
 			"messaging-sms",
 			() => ({}) as unknown as IMessagingSmsConnector
-		);
-		EntityStorageConnectorFactory.register(
-			"template-entry",
-			() => ({}) as unknown as IEntityStorageConnector
 		);
 		const service = new MessagingService();
 		expect(service).toBeDefined();
@@ -174,15 +183,14 @@ describe("MessagingService", () => {
 					sendCustomEmail: async () => true
 				}) as unknown as IMessagingEmailConnector
 		);
-		const mockStorage = {
-			get: async (templateId: string) => ({
-				id: templateId,
-				title: "Test Title",
-				content: "Hello, {{name}}"
-			})
-		} as unknown as IEntityStorageConnector;
 
-		EntityStorageConnectorFactory.register("template-entry", () => mockStorage);
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Test Title",
+			content: "Hello, {{name}}"
+		});
+
 		const service = new MessagingService({
 			messagingEmailConnectorType: "messaging-email"
 		});
@@ -347,15 +355,14 @@ describe("MessagingService", () => {
 					sendSinglePushNotification: async () => true
 				}) as unknown as IMessagingPushNotificationsConnector
 		);
-		const mockStorage = {
-			get: async (templateId: string) => ({
-				id: templateId,
-				title: "Test Title",
-				content: "Hello, {{name}}"
-			})
-		} as unknown as IEntityStorageConnector;
 
-		EntityStorageConnectorFactory.register("template-entry", () => mockStorage);
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Test Title",
+			content: "Hello, {{name}}"
+		});
+
 		const service = new MessagingService({
 			messagingPushNotificationConnectorType: "messaging-push-notification"
 		});
@@ -451,112 +458,18 @@ describe("MessagingService", () => {
 					sendSMS: async () => true
 				}) as unknown as IMessagingSmsConnector
 		);
-		const mockStorage = {
-			get: async (templateId: string) => ({
-				id: templateId,
-				title: "Test Title",
-				content: "Hello, {{name}}"
-			})
-		} as unknown as IEntityStorageConnector;
 
-		EntityStorageConnectorFactory.register("template-entry", () => mockStorage);
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Test Title",
+			content: "Hello, {{name}}"
+		});
+
 		const service = new MessagingService({
 			messagingSmsConnectorType: "messaging-sms"
 		});
 		const result = await service.sendSMS("1234567890", "templateId", { name: "name" }, "en");
-		expect(result).toBe(true);
-	});
-
-	test("throws error when creating or updating template with invalid templateId", async () => {
-		const service = new MessagingService();
-		await expect(
-			service.createOrUpdateTemplate(
-				undefined as unknown as string,
-				"en",
-				"Test Title",
-				"Test Content"
-			)
-		).rejects.toMatchObject({
-			name: "GuardError",
-			properties: {
-				property: "templateId",
-				value: "undefined"
-			}
-		});
-	});
-
-	test("throws error when creating or updating template with invalid locale", async () => {
-		const service = new MessagingService();
-		await expect(
-			service.createOrUpdateTemplate(
-				"templateId",
-				undefined as unknown as string,
-				"Test Title",
-				"Test Content"
-			)
-		).rejects.toMatchObject({
-			name: "GuardError",
-			properties: {
-				property: "locale",
-				value: "undefined"
-			}
-		});
-	});
-
-	test("throws error when creating or updating template with invalid title", async () => {
-		const service = new MessagingService();
-		await expect(
-			service.createOrUpdateTemplate(
-				"templateId",
-				"en",
-				undefined as unknown as string,
-				"Test Content"
-			)
-		).rejects.toMatchObject({
-			name: "GuardError",
-			properties: {
-				property: "title",
-				value: "undefined"
-			}
-		});
-	});
-
-	test("throws error when creating or updating template with invalid content", async () => {
-		const service = new MessagingService();
-		await expect(
-			service.createOrUpdateTemplate(
-				"templateId",
-				"en",
-				"Test Title",
-				undefined as unknown as string
-			)
-		).rejects.toMatchObject({
-			name: "GuardError",
-			properties: {
-				property: "content",
-				value: "undefined"
-			}
-		});
-	});
-
-	test("creates or updates template successfully with valid inputs", async () => {
-		EntitySchemaFactory.register(nameof<TemplateEntry>(), () =>
-			EntitySchemaHelper.getSchema(TemplateEntry)
-		);
-		EntityStorageConnectorFactory.register(
-			"template-entry",
-			() =>
-				new MemoryEntityStorageConnector<TemplateEntry>({
-					entitySchema: nameof<TemplateEntry>()
-				})
-		);
-		const service = new MessagingService();
-		const result = await service.createOrUpdateTemplate(
-			"templateId",
-			"en",
-			"Test Title",
-			"Test Content"
-		);
 		expect(result).toBe(true);
 	});
 });

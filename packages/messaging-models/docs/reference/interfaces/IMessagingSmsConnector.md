@@ -1,6 +1,6 @@
 # Interface: IMessagingSmsConnector
 
-Interface describing the SMS messaging connector functionalities
+Interface describing the SMS messaging connector functionalities.
 
 ## Extends
 
@@ -8,7 +8,7 @@ Interface describing the SMS messaging connector functionalities
 
 ## Methods
 
-### sendSMS()
+### sendSMS() {#sendsms}
 
 > **sendSMS**(`phoneNumber`, `message`): `Promise`\<`boolean`\>
 
@@ -32,4 +32,4 @@ The message to send.
 
 `Promise`\<`boolean`\>
 
-If the SMS was sent successfully.
+True if the SMS was sent successfully.

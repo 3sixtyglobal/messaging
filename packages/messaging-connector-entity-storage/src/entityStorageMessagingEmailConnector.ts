@@ -1,15 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Converter, GeneralError, Guards, Is, RandomHelper, StringHelper } from "@twin.org/core";
+import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
-import { LoggingConnectorFactory, type ILoggingConnector } from "@twin.org/logging-models";
+import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
-import type { EmailEntry } from "./entities/emailEntry";
-import type { IEntityStorageMessagingEmailConnectorConstructorOptions } from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import type { EmailEntry } from "./entities/emailEntry.js";
+import type { IEntityStorageMessagingEmailConnectorConstructorOptions } from "./models/IEntityStorageMessagingEmailConnectorConstructorOptions.js";
 
 /**
  * Class for connecting to the email messaging operations of the Entity Storage.
@@ -23,13 +23,13 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EntityStorageMessagingEmailConnector>();
+	public static readonly CLASS_NAME: string = nameof<EntityStorageMessagingEmailConnector>();
 
 	/**
-	 * The logging connector.
+	 * The logging component.
 	 * @internal
 	 */
-	protected readonly _logging?: ILoggingConnector;
+	protected readonly _logging?: ILoggingComponent;
 
 	/**
 	 * The entity storage for the emails entries.
@@ -42,22 +42,27 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 	 * @param options The options for the connector.
 	 */
 	constructor(options?: IEntityStorageMessagingEmailConnectorConstructorOptions) {
-		if (Is.stringValue(options?.loggingConnectorType)) {
-			this._logging = LoggingConnectorFactory.get(options.loggingConnectorType);
-		}
+		this._logging = ComponentFactory.getIfExists(options?.loggingComponentType);
 		this._messagingEmailEntryStorage = EntityStorageConnectorFactory.get(
-			options?.messagingEmailEntryStorageConnectorType ??
-				StringHelper.kebabCase(nameof<EmailEntry>())
+			options?.messagingEmailEntryStorageConnectorType ?? nameofKebabCase<EmailEntry>()
 		);
 	}
 
 	/**
-	 * Store a custom email using Entity Storage.
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return EntityStorageMessagingEmailConnector.CLASS_NAME;
+	}
+
+	/**
+	 * Store a custom email using entity storage.
 	 * @param sender The sender email address.
 	 * @param recipients An array of recipients email addresses.
 	 * @param subject The subject of the email.
 	 * @param content The html content of the email.
-	 * @returns True if the email was send successfully, otherwise undefined.
+	 * @returns True when the email entry has been stored successfully.
 	 */
 	public async sendCustomEmail(
 		sender: string,
@@ -65,14 +70,18 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 		subject: string,
 		content: string
 	): Promise<boolean> {
-		Guards.stringValue(this.CLASS_NAME, nameof(sender), sender);
-		Guards.arrayValue(this.CLASS_NAME, nameof(recipients), recipients);
-		Guards.stringValue(this.CLASS_NAME, nameof(subject), subject);
-		Guards.stringValue(this.CLASS_NAME, nameof(content), content);
+		Guards.stringValue(EntityStorageMessagingEmailConnector.CLASS_NAME, nameof(sender), sender);
+		Guards.arrayValue(
+			EntityStorageMessagingEmailConnector.CLASS_NAME,
+			nameof(recipients),
+			recipients
+		);
+		Guards.stringValue(EntityStorageMessagingEmailConnector.CLASS_NAME, nameof(subject), subject);
+		Guards.stringValue(EntityStorageMessagingEmailConnector.CLASS_NAME, nameof(content), content);
 		try {
 			await this._logging?.log({
 				level: "info",
-				source: this.CLASS_NAME,
+				source: EntityStorageMessagingEmailConnector.CLASS_NAME,
 				ts: Date.now(),
 				message: "emailSending",
 				data: {
@@ -96,7 +105,12 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 
 			return true;
 		} catch (err) {
-			throw new GeneralError(this.CLASS_NAME, "sendCustomEmailFailed", undefined, err);
+			throw new GeneralError(
+				EntityStorageMessagingEmailConnector.CLASS_NAME,
+				"sendCustomEmailFailed",
+				undefined,
+				err
+			);
 		}
 	}
 }

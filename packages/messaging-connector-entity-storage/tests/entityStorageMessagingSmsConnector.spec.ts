@@ -3,9 +3,9 @@
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { SmsEntry } from "../src/entities/smsEntry";
-import { EntityStorageMessagingSmsConnector } from "../src/entityStorageMessagingSmsConnector";
-import { initSchema } from "../src/schema";
+import type { SmsEntry } from "../src/entities/smsEntry.js";
+import { EntityStorageMessagingSmsConnector } from "../src/entityStorageMessagingSmsConnector.js";
+import { initSchema } from "../src/schema.js";
 
 describe("EntityStorageMessagingSmsConnector", () => {
 	beforeAll(() => {
@@ -14,7 +14,8 @@ describe("EntityStorageMessagingSmsConnector", () => {
 			"sms-entry",
 			() =>
 				new MemoryEntityStorageConnector<SmsEntry>({
-					entitySchema: nameof<SmsEntry>()
+					entitySchema: nameof<SmsEntry>(),
+					config: { storageKey: "sms-entry" }
 				})
 		);
 	});

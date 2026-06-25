@@ -4,17 +4,17 @@ Options for the entity storage messaging push notification connector.
 
 ## Properties
 
-### loggingConnectorType?
+### loggingComponentType? {#loggingcomponenttype}
 
-> `optional` **loggingConnectorType**: `string`
+> `optional` **loggingComponentType?**: `string`
 
-The type of logging connector to use, defaults to no logging.
+The type of logging component to use, defaults to no logging.
 
 ***
 
-### messagingDeviceEntryStorageConnectorType?
+### messagingDeviceEntryStorageConnectorType? {#messagingdeviceentrystorageconnectortype}
 
-> `optional` **messagingDeviceEntryStorageConnectorType**: `string`
+> `optional` **messagingDeviceEntryStorageConnectorType?**: `string`
 
 The type of entity storage connector to use for the push notifications entries.
 
@@ -26,9 +26,9 @@ push-notification-device-entry
 
 ***
 
-### messagingMessageEntryStorageConnectorType?
+### messagingMessageEntryStorageConnectorType? {#messagingmessageentrystorageconnectortype}
 
-> `optional` **messagingMessageEntryStorageConnectorType**: `string`
+> `optional` **messagingMessageEntryStorageConnectorType?**: `string`
 
 The type of entity storage connector to use for the push notifications entries.
 

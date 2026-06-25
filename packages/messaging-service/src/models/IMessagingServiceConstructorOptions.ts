@@ -21,8 +21,8 @@ export interface IMessagingServiceConstructorOptions {
 	messagingSmsConnectorType?: string;
 
 	/**
-	 * The type of the entity connector to use.
-	 * @default template-entry
+	 * The type of the messaging admin component to use.
+	 * @default messaging-admin
 	 */
-	templateEntryStorageConnectorType?: string;
+	messagingAdminComponentType?: string;
 }

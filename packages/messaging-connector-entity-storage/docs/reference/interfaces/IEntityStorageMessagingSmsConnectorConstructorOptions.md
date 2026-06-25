@@ -4,17 +4,17 @@ Options for the entity storage messaging SMS connector.
 
 ## Properties
 
-### loggingConnectorType?
+### loggingComponentType? {#loggingcomponenttype}
 
-> `optional` **loggingConnectorType**: `string`
+> `optional` **loggingComponentType?**: `string`
 
-The type of logging connector to use, defaults to no logging.
+The type of logging component to use, defaults to no logging.
 
 ***
 
-### messagingSmsEntryStorageConnectorType?
+### messagingSmsEntryStorageConnectorType? {#messagingsmsentrystorageconnectortype}
 
-> `optional` **messagingSmsEntryStorageConnectorType**: `string`
+> `optional` **messagingSmsEntryStorageConnectorType?**: `string`
 
 The type of entity storage connector to use for the sms entries.
 

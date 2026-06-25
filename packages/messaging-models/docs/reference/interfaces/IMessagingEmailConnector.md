@@ -1,6 +1,6 @@
 # Interface: IMessagingEmailConnector
 
-Interface describing the email messaging connector functionalities
+Interface describing the email messaging connector functionalities.
 
 ## Extends
 
@@ -8,7 +8,7 @@ Interface describing the email messaging connector functionalities
 
 ## Methods
 
-### sendCustomEmail()
+### sendCustomEmail() {#sendcustomemail}
 
 > **sendCustomEmail**(`sender`, `recipients`, `subject`, `content`): `Promise`\<`boolean`\>
 
@@ -44,4 +44,4 @@ The html content of the email.
 
 `Promise`\<`boolean`\>
 
-If the email was sent successfully.
+True if the email was sent successfully.
