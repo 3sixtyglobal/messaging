@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0](https://github.com/iotaledger/twin-messaging/compare/messaging-service-v0.9.0...messaging-service-v0.9.0) (2026-06-25)
+
+
+### Features
+
+* release to production ([cc714a7](https://github.com/iotaledger/twin-messaging/commit/cc714a7e1db251ab8e1a158f7753387a56d60271))
+* release to production ([#40](https://github.com/iotaledger/twin-messaging/issues/40)) ([08faed5](https://github.com/iotaledger/twin-messaging/commit/08faed56591b92e54aae3696e9a9e6186d2631bb))
+
 ## [0.9.0-next.1](https://github.com/iotaledger/twin-messaging/compare/messaging-service-v0.9.0-next.0...messaging-service-v0.9.0-next.1) (2026-06-23)
 
 
