@@ -8,7 +8,7 @@ import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPush
 import type { IAwsSmsConnectorConfig } from "../src/models/IAwsSmsConnectorConfig.js";
 
 dotenv.config({
-	path: [path.join(__dirname, ".env"), path.join(__dirname, ".env.dev")],
+	path: [path.join(__dirname, ".env.dev"), path.join(__dirname, ".env")],
 	quiet: true
 });
 
