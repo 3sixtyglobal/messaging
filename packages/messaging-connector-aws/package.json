@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/messaging-connector-aws",
-	"version": "0.9.1-next.1",
+	"version": "0.9.2-next.0",
 	"description": "Provides connectors for sending email, SMS, and push notifications through AWS messaging services.",
 	"repository": {
 		"type": "git",
@@ -33,7 +33,7 @@
 		"@twin.org/core": "next",
 		"@twin.org/entity": "next",
 		"@twin.org/logging-models": "next",
-		"@twin.org/messaging-models": "0.9.1-next.1",
+		"@twin.org/messaging-models": "0.9.2-next.0",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next"
 	},

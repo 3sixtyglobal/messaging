@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.1](https://github.com/iotaledger/twin-messaging/compare/messaging-connector-entity-storage-v0.9.1...messaging-connector-entity-storage-v0.9.1) (2026-07-27)
+
+
+### Features
+
+* release to production ([cc714a7](https://github.com/iotaledger/twin-messaging/commit/cc714a7e1db251ab8e1a158f7753387a56d60271))
+* release to production ([#40](https://github.com/iotaledger/twin-messaging/issues/40)) ([08faed5](https://github.com/iotaledger/twin-messaging/commit/08faed56591b92e54aae3696e9a9e6186d2631bb))
+* release to production ([#46](https://github.com/iotaledger/twin-messaging/issues/46)) ([8249641](https://github.com/iotaledger/twin-messaging/commit/8249641730f007fdb7f8a52ead9916f3938b9f63))
+
 ## [0.9.1-next.1](https://github.com/iotaledger/twin-messaging/compare/messaging-connector-entity-storage-v0.9.1-next.0...messaging-connector-entity-storage-v0.9.1-next.1) (2026-06-26)
 
 
