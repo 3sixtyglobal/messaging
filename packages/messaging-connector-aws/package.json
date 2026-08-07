@@ -28,8 +28,8 @@
 		"dist:no-test": "npm run clean && npm run build && npm run test:build"
 	},
 	"dependencies": {
-		"@aws-sdk/client-ses": "3.1092.0",
-		"@aws-sdk/client-sns": "3.1092.0",
+		"@aws-sdk/client-ses": "3.1105.0",
+		"@aws-sdk/client-sns": "3.1105.0",
 		"@twin.org/core": "next",
 		"@twin.org/entity": "next",
 		"@twin.org/logging-models": "next",
@@ -38,13 +38,14 @@
 		"@twin.org/web": "next"
 	},
 	"devDependencies": {
+		"@twin.org/entity-storage-connector-memory": "next",
+		"@twin.org/entity-storage-models": "next",
 		"@twin.org/logging-connector-entity-storage": "next",
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
 		"@twin.org/validate-locales": "next",
-		"@types/node": "26.1.1",
+		"@types/node": "26.1.2",
 		"@vitest/coverage-v8": "4.1.10",
-		"concurrently": "10.0.3",
 		"copyfiles": "2.4.1",
 		"dotenv": "17.4.2",
 		"nodemon": "3.1.14",
