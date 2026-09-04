@@ -4,16 +4,16 @@ Constructor options for the mailbox service.
 
 ## Properties
 
-### mailboxStorageConnectorType? {#mailboxstorageconnectortype}
+### mailboxEntityStorageType? {#mailboxentitystoragetype}
 
-> `optional` **mailboxStorageConnectorType?**: `string`
+> `optional` **mailboxEntityStorageType?**: `string`
 
 The type of the entity storage connector to use for mailbox entries.
 
 #### Default
 
 ```ts
-"mailbox-entry"
+mailbox
 ```
 
 ***
@@ -27,7 +27,7 @@ The type of the vault connector used to store secure config fields.
 #### Default
 
 ```ts
-"vault"
+vault
 ```
 
 ***
@@ -41,7 +41,7 @@ The component type for the mail storage component.
 #### Default
 
 ```ts
-"mail-storage"
+mail-storage
 ```
 
 ***
@@ -55,7 +55,7 @@ The component type for logging.
 #### Default
 
 ```ts
-"logging"
+logging
 ```
 
 ***
@@ -69,7 +69,7 @@ The component type for telemetry.
 #### Default
 
 ```ts
-"telemetry"
+telemetry
 ```
 
 ***
@@ -83,5 +83,5 @@ The component type for the platform component used to enumerate tenant partition
 #### Default
 
 ```ts
-"platform"
+platform
 ```

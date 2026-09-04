@@ -22,6 +22,6 @@ The MIME content type of the attachment.
 
 ### data {#data}
 
-> **data**: `Uint8Array`
+> **data**: `string`
 
-The raw attachment data.
+The attachment data encoded as a base64 string.

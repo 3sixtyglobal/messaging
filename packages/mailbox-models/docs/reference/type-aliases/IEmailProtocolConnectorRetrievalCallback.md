@@ -1,8 +1,8 @@
 # Type Alias: IEmailProtocolConnectorRetrievalCallback
 
-> **IEmailProtocolConnectorRetrievalCallback** = (`mailboxId`, `messages`, `updatedState`, `error?`) => `Promise`\<`void`\>
+> **IEmailProtocolConnectorRetrievalCallback** = (`mailboxId`, `message`, `updatedState`, `retrievalError?`) => `Promise`\<`boolean`\>
 
-Callback invoked by a protocol connector to deliver retrieved messages or report a retrieval failure.
+Callback invoked by a protocol connector to persist a single retrieved message.
 
 ## Parameters
 
@@ -12,24 +12,24 @@ Callback invoked by a protocol connector to deliver retrieved messages or report
 
 The identifier of the mailbox this retrieval belongs to.
 
-### messages
+### message
 
-[`IEmail`](../interfaces/IEmail.md)[]
+[`IEmail`](../interfaces/IEmail.md) \| `undefined`
 
-The messages retrieved during this poll cycle.
+The message to persist.
 
 ### updatedState
 
 `unknown`
 
-The connector state to persist on the mailbox entity after this poll.
+The connector state to persist on the mailbox entity after this message.
 
-### error?
+### retrievalError?
 
 `IError`
 
-Optional structured error if retrieval failed; stored as retrievalError on the mailbox.
-
 ## Returns
 
-`Promise`\<`void`\>
+`Promise`\<`boolean`\>
+
+True if the message was persisted successfully; false causes the connector to exit the polling loop.

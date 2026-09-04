@@ -1,4 +1,4 @@
-# Class: MailboxEntry
+# Class: Mailbox
 
 Entity class representing a mailbox stored in entity storage.
 
@@ -6,11 +6,11 @@ Entity class representing a mailbox stored in entity storage.
 
 ### Constructor
 
-> **new MailboxEntry**(): `MailboxEntry`
+> **new Mailbox**(): `Mailbox`
 
 #### Returns
 
-`MailboxEntry`
+`Mailbox`
 
 ## Properties
 
@@ -54,6 +54,14 @@ Whether this mailbox is active and should be polled.
 
 ***
 
+### state? {#state}
+
+> `optional` **state?**: `unknown`
+
+The connector-owned runtime state for this mailbox.
+
+***
+
 ### requiresAuth? {#requiresauth}
 
 > `optional` **requiresAuth?**: `boolean`
@@ -86,14 +94,6 @@ The last error returned by the retrieval callback.
 
 ***
 
-### tenantId {#tenantid}
-
-> **tenantId**: `string`
-
-The tenant identifier captured at creation time.
-
-***
-
 ### nodeId {#nodeid}
 
 > **nodeId**: `string`
@@ -102,8 +102,8 @@ The node identifier captured at creation time.
 
 ***
 
-### state? {#state}
+### tenantId? {#tenantid}
 
-> `optional` **state?**: `unknown`
+> `optional` **tenantId?**: `string`
 
-The connector-owned runtime state for this mailbox.
+The tenant identifier captured at creation time. Absent on single-tenant nodes.

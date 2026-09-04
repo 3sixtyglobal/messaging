@@ -4,8 +4,14 @@ Configuration for the mail storage service.
 
 ## Properties
 
-### retentionDays? {#retentiondays}
+### retentionMinutes? {#retentionminutes}
 
-> `optional` **retentionDays?**: `number`
+> `optional` **retentionMinutes?**: `number`
 
-The number of days to retain stored emails before pruning.
+The number of minutes to retain stored emails before pruning.
+
+#### Default
+
+```ts
+1440 (1 day)
+```

@@ -4,8 +4,10 @@ Runtime state persisted between poll cycles for a POP3 connector.
 
 ## Properties
 
-### lastMessageNumber? {#lastmessagenumber}
+### seenUidls? {#seenuidls}
 
-> `optional` **lastMessageNumber?**: `number`
+> `optional` **seenUidls?**: `string`[]
 
-The highest message number seen in the last successful poll.
+The set of unique IDs (UIDLs) already retrieved from the server.
+Populated via the POP3 UIDL command, which assigns a stable per-message identifier
+that remains constant across sessions regardless of message numbering changes.

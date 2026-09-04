@@ -1,4 +1,4 @@
-# Interface: IMailbox\<TConfig, TState\>
+# Interface: IMailbox\<TConfig, TState, TAuthState\>
 
 Interface describing a mailbox configuration.
 
@@ -11,6 +11,10 @@ Interface describing a mailbox configuration.
 ### TState
 
 `TState` = `unknown`
+
+### TAuthState
+
+`TAuthState` = `unknown`
 
 ## Properties
 
@@ -72,7 +76,7 @@ Whether this mailbox is awaiting re-authentication.
 
 ### authState? {#authstate}
 
-> `optional` **authState?**: `unknown`
+> `optional` **authState?**: `TAuthState`
 
 Optional protocol-specific state produced during the auth flow, such as an OAuth URL or code.
 

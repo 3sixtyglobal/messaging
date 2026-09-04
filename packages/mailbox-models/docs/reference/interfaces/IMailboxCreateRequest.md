@@ -6,6 +6,6 @@ Request to create a new mailbox.
 
 ### body {#body}
 
-> **body**: `Omit`\<[`IMailbox`](IMailbox.md), `"id"` \| `"state"` \| `"authError"` \| `"retrievalError"`\>
+> **body**: `Pick`\<[`IMailbox`](IMailbox.md), `"name"` \| `"connectorType"` \| `"config"` \| `"enabled"`\>
 
 The mailbox to create.

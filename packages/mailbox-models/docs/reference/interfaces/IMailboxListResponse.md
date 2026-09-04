@@ -12,7 +12,7 @@ The result body.
 
 #### mailboxes
 
-> **mailboxes**: [`IMailbox`](IMailbox.md)\<`unknown`, `unknown`\>[]
+> **mailboxes**: [`IMailbox`](IMailbox.md)\<`unknown`, `unknown`, `unknown`\>[]
 
 The list of mailboxes.
 

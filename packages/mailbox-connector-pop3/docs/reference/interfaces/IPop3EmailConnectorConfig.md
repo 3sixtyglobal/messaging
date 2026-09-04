@@ -84,14 +84,9 @@ true
 
 ***
 
-### batchSize? {#batchsize}
+### mutexTimeoutMs? {#mutextimeoutms}
 
-> `optional` **batchSize?**: `number`
+> `optional` **mutexTimeoutMs?**: `number`
 
-Maximum number of messages to deliver to the retrieval callback per batch.
-
-#### Default
-
-```ts
-5
-```
+Maximum time in milliseconds to wait for the poll mutex before skipping the tick.
+When not set, the mutex waits based on the system default.

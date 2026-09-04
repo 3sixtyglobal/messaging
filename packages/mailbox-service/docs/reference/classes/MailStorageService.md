@@ -54,6 +54,42 @@ The class name.
 
 ***
 
+### start() {#start}
+
+> **start**(): `Promise`\<`void`\>
+
+Start the component and schedule retention cleanup when configured.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the component has started.
+
+#### Implementation of
+
+`IMailStorageComponent.start`
+
+***
+
+### stop() {#stop}
+
+> **stop**(): `Promise`\<`void`\>
+
+Stop the component and remove the retention cleanup task.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the component has stopped.
+
+#### Implementation of
+
+`IMailStorageComponent.stop`
+
+***
+
 ### store() {#store}
 
 > **store**(`mailboxId`, `email`): `Promise`\<`string`\>

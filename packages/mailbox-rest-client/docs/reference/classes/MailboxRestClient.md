@@ -78,7 +78,7 @@ Add a new mailbox.
 
 ##### mailbox
 
-`Omit`\<`IMailbox`, `"id"` \| `"state"` \| `"authError"` \| `"retrievalError"`\>
+`Pick`\<`IMailbox`, `"name"` \| `"connectorType"` \| `"config"` \| `"enabled"`\>
 
 The mailbox configuration to add.
 
@@ -148,7 +148,7 @@ A promise that resolves when the mailbox has been removed.
 
 ### getMailbox() {#getmailbox}
 
-> **getMailbox**(`id`): `Promise`\<`IMailbox`\<`unknown`, `unknown`\>\>
+> **getMailbox**(`id`): `Promise`\<`IMailbox`\<`unknown`, `unknown`, `unknown`\>\>
 
 Retrieve a mailbox by its identifier.
 
@@ -162,7 +162,7 @@ The identifier of the mailbox to retrieve.
 
 #### Returns
 
-`Promise`\<`IMailbox`\<`unknown`, `unknown`\>\>
+`Promise`\<`IMailbox`\<`unknown`, `unknown`, `unknown`\>\>
 
 The mailbox.
 
@@ -174,7 +174,7 @@ The mailbox.
 
 ### listMailboxes() {#listmailboxes}
 
-> **listMailboxes**(`cursor?`, `limit?`): `Promise`\<\{ `mailboxes`: `IMailbox`\<`unknown`, `unknown`\>[]; `cursor?`: `string`; \}\>
+> **listMailboxes**(`cursor?`, `limit?`): `Promise`\<\{ `mailboxes`: `IMailbox`\<`unknown`, `unknown`, `unknown`\>[]; `cursor?`: `string`; \}\>
 
 List all mailboxes with optional cursor-based pagination.
 
@@ -194,10 +194,36 @@ An optional maximum number of results to return.
 
 #### Returns
 
-`Promise`\<\{ `mailboxes`: `IMailbox`\<`unknown`, `unknown`\>[]; `cursor?`: `string`; \}\>
+`Promise`\<\{ `mailboxes`: `IMailbox`\<`unknown`, `unknown`, `unknown`\>[]; `cursor?`: `string`; \}\>
 
 A page of mailboxes and an optional cursor for the next page.
 
 #### Implementation of
 
 `IMailboxComponent.listMailboxes`
+
+***
+
+### getSchema() {#getschema}
+
+> **getSchema**(`connectorType`): `Promise`\<`IMailboxConfigField`[]\>
+
+Get the configuration schema for a connector type.
+
+#### Parameters
+
+##### connectorType
+
+`string`
+
+The connector type to get the schema for.
+
+#### Returns
+
+`Promise`\<`IMailboxConfigField`[]\>
+
+The configuration field definitions for the connector.
+
+#### Implementation of
+
+`IMailboxComponent.getSchema`

@@ -1,4 +1,4 @@
-# Class: EmailEntry
+# Class: StoredEmail
 
 Entity class representing a received email stored in entity storage.
 
@@ -6,11 +6,11 @@ Entity class representing a received email stored in entity storage.
 
 ### Constructor
 
-> **new EmailEntry**(): `EmailEntry`
+> **new StoredEmail**(): `StoredEmail`
 
 #### Returns
 
-`EmailEntry`
+`StoredEmail`
 
 ## Properties
 

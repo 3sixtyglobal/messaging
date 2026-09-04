@@ -4,16 +4,30 @@ Constructor options for the mail storage service.
 
 ## Properties
 
-### emailStorageConnectorType? {#emailstorageconnectortype}
+### storedEmailEntityStorageType? {#storedemailentitystoragetype}
 
-> `optional` **emailStorageConnectorType?**: `string`
+> `optional` **storedEmailEntityStorageType?**: `string`
 
 The type of the entity storage connector to use for email entries.
 
 #### Default
 
 ```ts
-"email-entry"
+stored-email
+```
+
+***
+
+### taskSchedulerComponentType? {#taskschedulercomponenttype}
+
+> `optional` **taskSchedulerComponentType?**: `string`
+
+The component type for the task scheduler used for retention cleanup.
+
+#### Default
+
+```ts
+task-scheduler
 ```
 
 ***
@@ -27,7 +41,7 @@ The component type for logging.
 #### Default
 
 ```ts
-"logging"
+logging
 ```
 
 ***

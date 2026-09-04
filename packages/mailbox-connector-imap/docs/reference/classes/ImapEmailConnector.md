@@ -1,6 +1,6 @@
 # Class: ImapEmailConnector
 
-IMAP email protocol connector. Polls configured folders for new messages using imapflow and postal-mime.
+IMAP email protocol connector. Polls configured folders for new messages using imapflow.
 
 ## Implements
 

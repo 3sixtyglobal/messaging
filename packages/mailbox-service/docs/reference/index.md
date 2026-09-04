@@ -2,8 +2,8 @@
 
 ## Classes
 
-- [EmailEntry](classes/EmailEntry.md)
-- [MailboxEntry](classes/MailboxEntry.md)
+- [Mailbox](classes/Mailbox.md)
+- [StoredEmail](classes/StoredEmail.md)
 - [MailStorageService](classes/MailStorageService.md)
 - [MailboxService](classes/MailboxService.md)
 

@@ -1,6 +1,6 @@
 # Class: Pop3EmailConnector
 
-POP3 email protocol connector. Polls for new messages using node-pop3 and postal-mime.
+POP3 email protocol connector. Polls for new messages using node-pop3.
 
 ## Implements
 
