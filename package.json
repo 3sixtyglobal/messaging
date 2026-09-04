@@ -55,9 +55,15 @@
 		"release-please": "17.10.4"
 	},
 	"workspaces": [
+		"packages/mailbox-models",
+		"packages/mailbox-service",
+		"packages/mailbox-rest-client",
+		"packages/mailbox-connector-pop3",
+		"packages/mailbox-connector-imap",
 		"packages/messaging-models",
 		"packages/messaging-connector-aws",
 		"packages/messaging-connector-entity-storage",
+		"packages/messaging-connector-smtp",
 		"packages/messaging-service"
 	],
 	"type": "module",

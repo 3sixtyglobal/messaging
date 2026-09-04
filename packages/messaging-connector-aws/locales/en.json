@@ -12,7 +12,7 @@
 			"platformAppCreating": "Creating platform application"
 		},
 		"awsMessagingEmailConnector": {
-			"emailSending": "Sending email of type {type}"
+			"emailSending": "Sending email \"{subject}\""
 		}
 	},
 	"error": {

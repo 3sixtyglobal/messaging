@@ -103,7 +103,17 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 		try {
 			// First try to get the template for the requested locale
 			templateEntry = await this._entityStorageConnector.get(`${templateId}:${locale}`);
-		} catch {}
+		} catch (err) {
+			throw new GeneralError(
+				MessagingAdminService.CLASS_NAME,
+				"getTemplateFailed",
+				{
+					templateId,
+					locale
+				},
+				err
+			);
+		}
 
 		// If the template is not found for the requested locale, try to get it for the default locale
 		// only if the requested locale is different from the default locale
@@ -112,7 +122,17 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 				templateEntry = await this._entityStorageConnector.get(
 					`${templateId}:${this._defaultLocale}`
 				);
-			} catch {}
+			} catch (err) {
+				throw new GeneralError(
+					MessagingAdminService.CLASS_NAME,
+					"getTemplateFailed",
+					{
+						templateId,
+						locale: this._defaultLocale
+					},
+					err
+				);
+			}
 		}
 
 		if (Is.empty(templateEntry)) {

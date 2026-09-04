@@ -18,7 +18,25 @@
 		"**/wordlists/**",
 		"changelog.md"
 	],
-	"words": ["abbrev", "autorelease", "hotfixes", "nameof", "sesv", "Stiftung"],
+	"words": [
+		"abbrev",
+		"autorelease",
+		"authenticationfailed",
+		"hotfixes",
+		"greenmail",
+		"imapflow",
+		"htpasswd",
+		"nameof",
+		"RETR",
+		"sesv",
+		"UIDL",
+		"uidl",
+		"Uidl",
+		"seenUidls",
+		"serverUidls",
+		"STARTTLS",
+		"Stiftung"
+	],
 	"ignoreRegExpList": [
 		"/from\\s+(['\"]).*\\1/",
 		"/eslint-disable.*/",

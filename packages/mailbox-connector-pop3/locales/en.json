@@ -1,0 +1,21 @@
+{
+	"error": {
+		"pop3EmailConnector": {
+			"pollFailed": "Poll failed"
+		}
+	},
+	"info": {
+		"pop3EmailConnector": {
+			"emailReceived": "Email received \"{subject}\""
+		}
+	},
+	"pop3EmailConnectorConfigSchema": {
+		"host": "Host",
+		"port": "Port",
+		"secure": "Secure",
+		"username": "Username",
+		"password": "Password",
+		"pollingIntervalMinutes": "Polling Interval (Minutes)",
+		"retainMessages": "Retain Messages"
+	}
+}

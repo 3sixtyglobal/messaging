@@ -20,6 +20,45 @@ runs:
       run: |
         docker pull motoserver/moto:latest
         docker run -d \
-          --name moto \
+          --name twin-messaging-aws \
           -p 5151:5000 \
           motoserver/moto:latest
+
+    - name: Start GreenMail for SMTP connector
+      if: inputs.package == 'packages/messaging-connector-smtp' || inputs.package == 'all'
+      shell: bash
+      run: |
+        docker pull greenmail/standalone:2.1.3
+        docker run -d \
+          --name twin-messaging-smtp \
+          -p 52025:3025 \
+          -p 58026:8080 \
+          -p 52143:3143 \
+          -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost" \
+          greenmail/standalone:2.1.3
+
+    - name: Start GreenMail for POP3 connector
+      if: inputs.package == 'packages/mailbox-connector-pop3' || inputs.package == 'all'
+      shell: bash
+      run: |
+        docker pull greenmail/standalone:2.1.3
+        docker run -d \
+          --name twin-messaging-pop3 \
+          -p 51025:3025 \
+          -p 58025:8080 \
+          -p 51110:3110 \
+          -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost" \
+          greenmail/standalone:2.1.3
+
+    - name: Start GreenMail for IMAP connector
+      if: inputs.package == 'packages/mailbox-connector-imap' || inputs.package == 'all'
+      shell: bash
+      run: |
+        docker pull greenmail/standalone:2.1.3
+        docker run -d \
+          --name twin-messaging-imap \
+          -p 53025:3025 \
+          -p 58027:8080 \
+          -p 53143:3143 \
+          -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost" \
+          greenmail/standalone:2.1.3

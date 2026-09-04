@@ -389,17 +389,21 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 				ts: Date.now(),
 				message: "platformAppChecking"
 			});
-			const listCommand = new ListPlatformApplicationsCommand({});
-			const data = await this._client.send(listCommand);
-			if (Is.arrayValue(data.PlatformApplications)) {
-				const existingApplication = data.PlatformApplications.find(app =>
-					app.PlatformApplicationArn?.includes(appName)
+			let nextToken: string | undefined;
+			do {
+				const data = await this._client.send(
+					new ListPlatformApplicationsCommand({ NextToken: nextToken })
 				);
-
-				if (Is.stringValue(existingApplication?.PlatformApplicationArn)) {
-					return existingApplication.PlatformApplicationArn;
+				if (Is.arrayValue(data.PlatformApplications)) {
+					const existingApplication = data.PlatformApplications.find(app =>
+						app.PlatformApplicationArn?.includes(appName)
+					);
+					if (Is.stringValue(existingApplication?.PlatformApplicationArn)) {
+						return existingApplication.PlatformApplicationArn;
+					}
 				}
-			}
+				nextToken = data.NextToken;
+			} while (Is.stringValue(nextToken));
 			return undefined;
 		} catch (err) {
 			throw new GeneralError(
@@ -439,19 +443,24 @@ export class AwsMessagingPushNotificationConnector implements IMessagingPushNoti
 				ts: Date.now(),
 				message: "deviceTokenChecking"
 			});
-			const command = new ListEndpointsByPlatformApplicationCommand({
-				PlatformApplicationArn: applicationAddress
-			});
-			const data: ListEndpointsByPlatformApplicationResponse = await this._client.send(command);
-			if (Is.arrayValue(data.Endpoints)) {
-				const existingEndpoint = data.Endpoints.find(
-					endpoint => endpoint.Attributes?.Token === deviceToken
+			let nextToken: string | undefined;
+			do {
+				const data: ListEndpointsByPlatformApplicationResponse = await this._client.send(
+					new ListEndpointsByPlatformApplicationCommand({
+						PlatformApplicationArn: applicationAddress,
+						NextToken: nextToken
+					})
 				);
-
-				if (!Is.empty(existingEndpoint)) {
-					return existingEndpoint.EndpointArn;
+				if (Is.arrayValue(data.Endpoints)) {
+					const existingEndpoint = data.Endpoints.find(
+						endpoint => endpoint.Attributes?.Token === deviceToken
+					);
+					if (!Is.empty(existingEndpoint)) {
+						return existingEndpoint.EndpointArn;
+					}
 				}
-			}
+				nextToken = data.NextToken;
+			} while (Is.stringValue(nextToken));
 			return undefined;
 		} catch (err) {
 			throw new GeneralError(

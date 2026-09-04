@@ -85,7 +85,7 @@ export class EntityStorageMessagingEmailConnector implements IMessagingEmailConn
 				ts: Date.now(),
 				message: "emailSending",
 				data: {
-					type: "Custom Email"
+					subject
 				}
 			});
 

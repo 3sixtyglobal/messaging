@@ -1,0 +1,12 @@
+{
+	"info": {
+		"smtpMessagingEmailConnector": {
+			"emailSending": "Sending email \"{subject}\""
+		}
+	},
+	"error": {
+		"smtpMessagingEmailConnector": {
+			"sendCustomEmailFailed": "Failed to send custom email"
+		}
+	}
+}

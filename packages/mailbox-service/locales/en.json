@@ -1,0 +1,21 @@
+{
+	"error": {
+		"mailboxService": {
+			"mailboxNotFound": "Mailbox {notFoundId} was not found.",
+			"schemaNotFound": "No schema is registered for connector type {notFoundId}.",
+			"unknownConnectorType": "No connector is registered for connector type {connectorType}.",
+			"connectorTypeCannotChange": "The connector type of a mailbox cannot be changed.",
+			"retrievalCallbackFailed": "The retrieval callback for mailbox {mailboxId} failed"
+		},
+		"mailStorageService": {
+			"emailNotFound": "Email {notFoundId} was not found.",
+			"retentionCleanupFailed": "Failed to remove expired emails."
+		}
+	},
+	"warn": {
+		"mailboxService": {
+			"consumerNotificationFailed": "Failed to notify consumer {consumerName}.",
+			"startConnectorFailed": "Failed to start connector for mailbox {mailboxId}."
+		}
+	}
+}

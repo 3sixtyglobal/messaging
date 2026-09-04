@@ -1,0 +1,82 @@
+// Copyright 2026 IOTA Stiftung.
+// SPDX-License-Identifier: Apache-2.0.
+import type { IError } from "@twin.org/core";
+import { entity, property } from "@twin.org/entity";
+
+/**
+ * Entity class representing a mailbox stored in entity storage.
+ */
+@entity()
+export class Mailbox {
+	/**
+	 * The unique identifier for the mailbox.
+	 */
+	@property({ type: "string", isPrimary: true })
+	public id!: string;
+
+	/**
+	 * The display name for the mailbox.
+	 */
+	@property({ type: "string" })
+	public name!: string;
+
+	/**
+	 * The connector type identifying which connector handles this mailbox.
+	 */
+	@property({ type: "string" })
+	public connectorType!: string;
+
+	/**
+	 * The connector-owned configuration for this mailbox.
+	 */
+	@property({ type: "object", optional: true })
+	public config?: unknown;
+
+	/**
+	 * Whether this mailbox is active and should be polled.
+	 */
+	@property({ type: "boolean" })
+	public enabled!: boolean;
+
+	/**
+	 * The connector-owned runtime state for this mailbox.
+	 */
+	@property({ type: "object", optional: true })
+	public state?: unknown;
+
+	/**
+	 * Whether this mailbox is awaiting re-authentication.
+	 */
+	@property({ type: "boolean", optional: true })
+	public requiresAuth?: boolean;
+
+	/**
+	 * Optional protocol-specific state produced during the auth flow, such as an OAuth URL or code.
+	 */
+	@property({ type: "object", optional: true })
+	public authState?: unknown;
+
+	/**
+	 * The last error returned by the authentication callback.
+	 */
+	@property({ type: "object", optional: true })
+	public authError?: IError;
+
+	/**
+	 * The last error returned by the retrieval callback.
+	 */
+	@property({ type: "object", optional: true })
+	public retrievalError?: IError;
+
+	/**
+	 * The node identifier captured at creation time.
+	 */
+	@property({ type: "string" })
+	public nodeId!: string;
+
+	/**
+	 * The tenant identifier captured at creation time. Absent on single-tenant nodes.
+	 */
+	@property({ type: "string", optional: true })
+	public tenantId?: string;
+}

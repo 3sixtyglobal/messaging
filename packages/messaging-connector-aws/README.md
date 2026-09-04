@@ -8,7 +8,7 @@ This package provides connectors for sending email, SMS, and push notifications 
 npm install @twin.org/messaging-connector-aws
 ```
 
-## Moto
+## Testing
 
 To perform testing of this component it may be necessary to launch a local instance to communicate with.
 
@@ -17,12 +17,6 @@ The AWS SNS simulator cannot send real SMS messages or push notifications, but i
 
 ```shell
 docker run -p 5151:5000 --name twin-messaging-aws -d motoserver/moto
-```
-
-Afterwards, run the tests with:
-
-```shell
-npm run test
 ```
 
 ## Examples

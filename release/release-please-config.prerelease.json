@@ -22,8 +22,32 @@
 			"package-name": "messaging-connector-entity-storage",
 			"changelog-path": "docs/changelog.md"
 		},
+		"packages/messaging-connector-smtp": {
+			"package-name": "messaging-connector-smtp",
+			"changelog-path": "docs/changelog.md"
+		},
 		"packages/messaging-service": {
 			"package-name": "messaging-service",
+			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-models": {
+			"package-name": "mailbox-models",
+			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-service": {
+			"package-name": "mailbox-service",
+			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-rest-client": {
+			"package-name": "mailbox-rest-client",
+			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-connector-pop3": {
+			"package-name": "mailbox-connector-pop3",
+			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-connector-imap": {
+			"package-name": "mailbox-connector-imap",
 			"changelog-path": "docs/changelog.md"
 		}
 	},
@@ -36,7 +60,13 @@
 				"messaging-models",
 				"messaging-connector-aws",
 				"messaging-connector-entity-storage",
-				"messaging-service"
+				"messaging-connector-smtp",
+				"messaging-service",
+				"mailbox-models",
+				"mailbox-service",
+				"mailbox-rest-client",
+				"mailbox-connector-pop3",
+				"mailbox-connector-imap"
 			]
 		}
 	]

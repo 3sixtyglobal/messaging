@@ -1,0 +1,19 @@
+// Copyright 2026 IOTA Stiftung.
+// SPDX-License-Identifier: Apache-2.0.
+import type { IError } from "@twin.org/core";
+
+/**
+ * Callback invoked by a protocol connector to report the outcome of an authentication attempt.
+ * @param mailboxId The identifier of the mailbox this authentication attempt belongs to.
+ * @param updatedState Optional connector state to persist on the mailbox entity.
+ * @param requiresAuth True if authentication failed due to invalid or expired credentials.
+ * @param authState Optional protocol-specific state produced during the auth flow, such as an OAuth URL or code.
+ * @param authError Optional structured error covering all failure types (auth, connection, timeout, etc.).
+ */
+export type IEmailProtocolConnectorAuthCallback<TAuthState = unknown> = (
+	mailboxId: string,
+	updatedState: unknown | undefined,
+	requiresAuth: boolean,
+	authState?: TAuthState,
+	authError?: IError
+) => Promise<void>;

@@ -223,9 +223,10 @@ export class MessagingService implements IMessagingComponent {
 
 		for (const key in data) {
 			const value = data[key];
-			const placeholder = `{{${key}}}`;
-			populatedTitle = populatedTitle.replace(new RegExp(placeholder, "g"), value);
-			populatedContent = populatedContent.replace(new RegExp(placeholder, "g"), value);
+			const escapedKey = key.replace(/[$()*+.?[\\\]^{|}]/g, "\\$&");
+			const placeholder = new RegExp(`\\{\\{${escapedKey}\\}\\}`, "g");
+			populatedTitle = populatedTitle.replace(placeholder, () => value);
+			populatedContent = populatedContent.replace(placeholder, () => value);
 		}
 
 		return {
