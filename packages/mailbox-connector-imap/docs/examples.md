@@ -5,16 +5,14 @@ A polling connector for email ingestion via the IMAP protocol, with per-folder U
 ## ImapEmailConnector
 
 ```typescript
-import {
-  ImapEmailConnector,
-  ImapEmailConnectorConfigSchema
-} from '@twin.org/mailbox-connector-imap';
+import { ImapEmailConnector, initSchema } from '@twin.org/mailbox-connector-imap';
 import {
   EmailProtocolConnectorFactory,
-  EmailProtocolConnectorSchemaFactory
+  EmailProtocolConnectorConfigSchemaFactory,
+  EmailProtocolConnectorStateSchemaFactory
 } from '@twin.org/mailbox-models';
 
-// Register the connector and its config schema with the shared factories
+// Register the connector with the shared factory
 EmailProtocolConnectorFactory.register(
   ImapEmailConnector.NAMESPACE,
   () =>
@@ -27,13 +25,18 @@ EmailProtocolConnectorFactory.register(
     })
 );
 
-EmailProtocolConnectorSchemaFactory.register(
-  ImapEmailConnector.NAMESPACE,
-  () => ImapEmailConnectorConfigSchema
-);
+// The connector registers its config and state schemas when it is constructed. Call initSchema
+// at startup as well, so a mailbox which is stored but not currently polled still has its
+// secure properties recognised
+initSchema();
 
-const schema = EmailProtocolConnectorSchemaFactory.get(ImapEmailConnector.NAMESPACE);
+const schema = EmailProtocolConnectorConfigSchemaFactory.get(ImapEmailConnector.NAMESPACE);
 console.log(schema.find(f => f.isSecure)?.propertyKey); // "password"
+
+const stateSchema = EmailProtocolConnectorStateSchemaFactory.get(ImapEmailConnector.NAMESPACE);
+console.log(stateSchema.map(f => f.propertyKey)); // ["folders"]
+// The credentials are configured, so no state property needs vaulting
+console.log(stateSchema.filter(f => f.isSecure)); // []
 ```
 
 ```typescript

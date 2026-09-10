@@ -1,6 +1,8 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IPlatformComponent } from "@twin.org/api-models";
 import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
+import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
 import { ComponentFactory } from "@twin.org/core";
 import { ComparisonOperator } from "@twin.org/entity";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
@@ -52,6 +54,15 @@ function makeScheduler(): {
 	};
 }
 
+function makePlatformComponent(): IPlatformComponent {
+	return {
+		className: () => "TestPlatform",
+		isMultiTenant: () => false,
+		execute: async (method: () => Promise<void>) => method(),
+		getLocalOriginContext: async () => undefined
+	};
+}
+
 describe("MailStorageService", () => {
 	let emailStorage: MemoryEntityStorageConnector<StoredEmail>;
 	let testScheduler: ReturnType<typeof makeScheduler>;
@@ -66,6 +77,7 @@ describe("MailStorageService", () => {
 		EntityStorageConnectorFactory.register("stored-email", () => emailStorage);
 		testScheduler = makeScheduler();
 		ComponentFactory.register("task-scheduler", () => testScheduler.scheduler);
+		ComponentFactory.register("platform", makePlatformComponent);
 		service = new MailStorageService({ storedEmailEntityStorageType: "stored-email" });
 	});
 
@@ -141,6 +153,7 @@ describe("MailStorageService", () => {
 			[{ nextTriggerTime: Date.now(), intervalMinutes: 30 }],
 			expect.any(Function)
 		);
+		// 30 minutes before the mocked now, not 30 days.
 		expect(querySpy).toHaveBeenNthCalledWith(
 			1,
 			{
@@ -148,7 +161,7 @@ describe("MailStorageService", () => {
 					{
 						property: "receivedAt",
 						comparison: ComparisonOperator.LessThan,
-						value: "2026-01-02T00:00:00.000Z"
+						value: "2026-01-31T23:30:00.000Z"
 					}
 				]
 			},
@@ -158,6 +171,107 @@ describe("MailStorageService", () => {
 		);
 		expect(querySpy).toHaveBeenNthCalledWith(2, expect.any(Object), undefined, ["id"], "next");
 		expect(removeBatchSpy).toHaveBeenCalledWith(["old-1", "old-2"]);
+	});
+
+	test("retention period is measured in minutes", async () => {
+		const retentionMinutes = 30;
+		const minutesAgo = (minutes: number): string => {
+			const offsetMs = minutes * 60_000;
+			return new Date(Date.now() - offsetMs).toISOString();
+		};
+
+		const minuteScheduler = makeScheduler();
+		ComponentFactory.register("task-scheduler", () => minuteScheduler.scheduler);
+
+		const minuteService = new MailStorageService({
+			storedEmailEntityStorageType: "stored-email",
+			config: { retentionMinutes }
+		});
+
+		const expiredId = await minuteService.store(TEST_MAILBOX_ID, TEST_EMAIL);
+		const liveId = await minuteService.store(TEST_MAILBOX_ID, TEST_EMAIL);
+
+		const expired = await emailStorage.get(expiredId);
+		if (expired) {
+			expired.receivedAt = minutesAgo(retentionMinutes + 1);
+			await emailStorage.set(expired);
+		}
+		const live = await emailStorage.get(liveId);
+		if (live) {
+			live.receivedAt = minutesAgo(retentionMinutes - 1);
+			await emailStorage.set(live);
+		}
+
+		await minuteService.start();
+		await minuteScheduler.runPending();
+
+		// Just over the window goes, just under it stays.
+		await expect(minuteService.get(expiredId)).rejects.toThrow("mailStorageService.emailNotFound");
+		await expect(minuteService.get(liveId)).resolves.toBeDefined();
+	});
+
+	test("retention sweep runs for every tenant partition", async () => {
+		const tenants = ["tenant-a", "tenant-b"];
+		const sweptTenants: string[] = [];
+
+		const partitionedStorage = new MemoryEntityStorageConnector<StoredEmail>({
+			entitySchema: nameof<StoredEmail>(),
+			partitionContextIds: [ContextIdKeys.Tenant],
+			config: { storageKey: "partitioned-stored-email" }
+		});
+		EntityStorageConnectorFactory.register("partitioned-stored-email", () => partitionedStorage);
+
+		ComponentFactory.register("tenant-platform", () => {
+			const platform = {
+				className: () => "TenantPlatform",
+				isMultiTenant: () => true,
+				execute: async (method: () => Promise<void>) => {
+					for (const tenant of tenants) {
+						await ContextIdStore.run({ [ContextIdKeys.Tenant]: tenant }, async () => {
+							const contextIds = await ContextIdStore.getContextIds();
+							sweptTenants.push((contextIds?.[ContextIdKeys.Tenant] as string) ?? "");
+							await method();
+						});
+					}
+				},
+				getLocalOriginContext: async () => undefined
+			};
+			return platform;
+		});
+
+		const partitionedScheduler = makeScheduler();
+		ComponentFactory.register("task-scheduler", () => partitionedScheduler.scheduler);
+
+		const partitionedService = new MailStorageService({
+			storedEmailEntityStorageType: "partitioned-stored-email",
+			platformComponentType: "tenant-platform",
+			config: { retentionMinutes: 30 }
+		});
+
+		// One expired email per tenant, each in its own partition.
+		for (const tenant of tenants) {
+			await ContextIdStore.run({ [ContextIdKeys.Tenant]: tenant }, async () => {
+				const id = await partitionedService.store(TEST_MAILBOX_ID, TEST_EMAIL);
+				const stored = await partitionedStorage.get(id);
+				if (stored) {
+					stored.receivedAt = new Date(0).toISOString();
+					await partitionedStorage.set(stored);
+				}
+			});
+		}
+
+		// The sweep fires with no tenant in context, so only the platform fan-out can reach them.
+		await partitionedService.start();
+		await partitionedScheduler.runPending();
+
+		expect(sweptTenants).toEqual(tenants);
+
+		for (const tenant of tenants) {
+			await ContextIdStore.run({ [ContextIdKeys.Tenant]: tenant }, async () => {
+				const remaining = await partitionedService.query(new Date(0).toISOString());
+				expect(remaining.emails).toHaveLength(0);
+			});
+		}
 	});
 
 	test("stop removes the configured retention task", async () => {

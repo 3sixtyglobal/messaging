@@ -25,6 +25,12 @@ export interface IMailStorageServiceConstructorOptions {
 	loggingComponentType?: string;
 
 	/**
+	 * The component type for the platform component used to enumerate tenant partitions.
+	 * @default platform
+	 */
+	platformComponentType?: string;
+
+	/**
 	 * Optional configuration for the mail storage service.
 	 */
 	config?: IMailStorageServiceConfig;

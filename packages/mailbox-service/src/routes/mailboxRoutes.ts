@@ -4,7 +4,6 @@ import {
 	HttpContextIdKeys,
 	HttpHeaderHelper,
 	HttpUrlHelper,
-	type ICreatedResponse,
 	type IHttpRequestContext,
 	type INoContentResponse,
 	type IRestRoute,
@@ -14,15 +13,18 @@ import { ContextIdStore } from "@twin.org/context";
 import { Coerce, ComponentFactory, Guards } from "@twin.org/core";
 import type {
 	IMailboxComponent,
+	IMailboxCompleteAuthRequest,
 	IMailboxConnectorSchemaRequest,
 	IMailboxConnectorSchemaResponse,
 	IMailboxCreateRequest,
+	IMailboxCreateResponse,
 	IMailboxGetRequest,
 	IMailboxGetResponse,
 	IMailboxListRequest,
 	IMailboxListResponse,
 	IMailboxRemoveRequest,
-	IMailboxUpdateRequest
+	IMailboxUpdateRequest,
+	IMailboxUpdateResponse
 } from "@twin.org/mailbox-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpMethod, HttpStatusCode, type IHttpHeaders } from "@twin.org/web";
@@ -89,7 +91,43 @@ export function generateRestRoutesMailbox(
 		]
 	};
 
-	const mailboxCreateRoute: IRestRoute<IMailboxCreateRequest, ICreatedResponse> = {
+	// This is the URI registered with the external provider, so its path is fixed for the whole
+	// deployment and carries no mailbox identifier. The mailbox is correlated from the state the
+	// connector placed in the flow, which the provider returns alongside its own parameters.
+	const mailboxCompleteAuthRoute: IRestRoute<IMailboxCompleteAuthRequest, INoContentResponse> = {
+		operationId: "mailboxCompleteAuth",
+		summary: "Complete an authentication flow an external provider has redirected back from.",
+		tag: tagsMailbox[0].name,
+		method: HttpMethod.GET,
+		path: `${baseRouteName}/authcallback`,
+		handler: async (httpRequestContext, request) =>
+			mailboxCompleteAuth(httpRequestContext, componentName, request),
+		requestType: {
+			type: nameof<IMailboxCompleteAuthRequest>(),
+			examples: [
+				{
+					id: "mailboxCompleteAuthRequestExample",
+					request: {
+						query: {
+							state: "01932e8a-1234-7000-abcd-0123456789ab",
+							code: "4/example-auth-code"
+						}
+					}
+				}
+			]
+		},
+		responseType: [
+			{
+				type: nameof<INoContentResponse>()
+			}
+		],
+		// Called by the external provider redirecting the browser back, so there is no caller to
+		// authenticate and no tenant on the request.
+		skipAuth: true,
+		skipTenant: true
+	};
+
+	const mailboxCreateRoute: IRestRoute<IMailboxCreateRequest, IMailboxCreateResponse> = {
 		operationId: "mailboxCreate",
 		summary: "Create a new mailbox.",
 		tag: tagsMailbox[0].name,
@@ -115,7 +153,7 @@ export function generateRestRoutesMailbox(
 		},
 		responseType: [
 			{
-				type: nameof<ICreatedResponse>(),
+				type: nameof<IMailboxCreateResponse>(),
 				examples: [
 					{
 						id: "mailboxCreateResponseExample",
@@ -123,6 +161,9 @@ export function generateRestRoutesMailbox(
 							statusCode: 201,
 							headers: {
 								location: "/mailbox/01932e8a-1234-7000-abcd-0123456789ab"
+							},
+							body: {
+								authUrl: "https://accounts.google.com/o/oauth2/v2/auth"
 							}
 						}
 					}
@@ -203,7 +244,7 @@ export function generateRestRoutesMailbox(
 		]
 	};
 
-	const mailboxUpdateRoute: IRestRoute<IMailboxUpdateRequest, INoContentResponse> = {
+	const mailboxUpdateRoute: IRestRoute<IMailboxUpdateRequest, IMailboxUpdateResponse> = {
 		operationId: "mailboxUpdate",
 		summary: "Update an existing mailbox.",
 		tag: tagsMailbox[0].name,
@@ -231,7 +272,18 @@ export function generateRestRoutesMailbox(
 		},
 		responseType: [
 			{
-				type: nameof<INoContentResponse>()
+				type: nameof<IMailboxUpdateResponse>(),
+				examples: [
+					{
+						id: "mailboxUpdateResponseExample",
+						response: {
+							statusCode: 200,
+							body: {
+								authUrl: "https://accounts.google.com/o/oauth2/v2/auth"
+							}
+						}
+					}
+				]
 			}
 		]
 	};
@@ -264,6 +316,7 @@ export function generateRestRoutesMailbox(
 
 	return [
 		mailboxConnectorSchemaRoute,
+		mailboxCompleteAuthRoute,
 		mailboxCreateRoute,
 		mailboxListRoute,
 		mailboxGetRoute,
@@ -302,28 +355,33 @@ async function mailboxConnectorSchema(
  * @param componentName The component name.
  * @param request The request.
  * @param baseRouteName The base route name for the mailbox routes.
- * @returns The create response with the Location header.
+ * @returns The create response with the Location header, and the URL to open when the mailbox
+ * must be authenticated before it can be polled.
  */
 async function mailboxCreate(
 	httpRequestContext: IHttpRequestContext,
 	componentName: string,
 	request: IMailboxCreateRequest,
 	baseRouteName: string
-): Promise<ICreatedResponse> {
+): Promise<IMailboxCreateResponse> {
 	Guards.object(ROUTES_SOURCE, nameof(request.body), request.body);
 	const component = ComponentFactory.get<IMailboxComponent>(componentName);
-	const id = await component.addMailbox(request.body);
+	const result = await component.createMailbox(request.body);
 
 	const contextIds = await ContextIdStore.getContextIds();
 	const publicOrigin = contextIds?.[HttpContextIdKeys.PublicOrigin];
 	const headers: IHttpHeaders = {};
 	HttpHeaderHelper.buildId(
 		headers,
-		id,
+		result.id,
 		HttpUrlHelper.combineOriginPath(publicOrigin, `${baseRouteName}/:id`)
 	);
 
-	return { statusCode: HttpStatusCode.created, headers };
+	return {
+		statusCode: HttpStatusCode.created,
+		headers,
+		body: { authUrl: result.authUrl }
+	};
 }
 
 /**
@@ -370,18 +428,41 @@ async function mailboxGet(
  * @param httpRequestContext The request context.
  * @param componentName The component name.
  * @param request The request.
- * @returns The no-content response.
+ * @returns The URL to open when the updated mailbox must be authenticated before it can be polled.
  */
 async function mailboxUpdate(
 	httpRequestContext: IHttpRequestContext,
 	componentName: string,
 	request: IMailboxUpdateRequest
-): Promise<INoContentResponse> {
+): Promise<IMailboxUpdateResponse> {
 	Guards.object(ROUTES_SOURCE, nameof(request.pathParams), request.pathParams);
 	Guards.stringValue(ROUTES_SOURCE, nameof(request.pathParams.id), request.pathParams.id);
 	Guards.object(ROUTES_SOURCE, nameof(request.body), request.body);
+
 	const component = ComponentFactory.get<IMailboxComponent>(componentName);
-	await component.updateMailbox({ ...request.body, id: request.pathParams.id });
+	const result = await component.updateMailbox({ ...request.body, id: request.pathParams.id });
+
+	return { statusCode: HttpStatusCode.ok, body: { authUrl: result.authUrl } };
+}
+
+/**
+ * Complete an authentication flow, correlating the callback to the pending mailbox.
+ * @param httpRequestContext The request context.
+ * @param componentName The component name.
+ * @param request The request.
+ * @returns The no-content response.
+ */
+async function mailboxCompleteAuth(
+	httpRequestContext: IHttpRequestContext,
+	componentName: string,
+	request: IMailboxCompleteAuthRequest
+): Promise<INoContentResponse> {
+	Guards.object(ROUTES_SOURCE, nameof(request.query), request.query);
+	Guards.stringValue(ROUTES_SOURCE, nameof(request.query.state), request.query.state);
+
+	const component = ComponentFactory.get<IMailboxComponent>(componentName);
+	await component.completeAuth(request.query);
+
 	return { statusCode: HttpStatusCode.noContent };
 }
 
@@ -399,7 +480,9 @@ async function mailboxRemove(
 ): Promise<INoContentResponse> {
 	Guards.object(ROUTES_SOURCE, nameof(request.pathParams), request.pathParams);
 	Guards.stringValue(ROUTES_SOURCE, nameof(request.pathParams.id), request.pathParams.id);
+
 	const component = ComponentFactory.get<IMailboxComponent>(componentName);
 	await component.removeMailbox(request.pathParams.id);
+
 	return { statusCode: HttpStatusCode.noContent };
 }

@@ -5,11 +5,20 @@
 			"schemaNotFound": "No schema is registered for connector type {notFoundId}.",
 			"unknownConnectorType": "No connector is registered for connector type {connectorType}.",
 			"connectorTypeCannotChange": "The connector type of a mailbox cannot be changed.",
-			"retrievalCallbackFailed": "The retrieval callback for mailbox {mailboxId} failed"
+			"retrievalCallbackFailed": "The retrieval callback for mailbox {mailboxId} failed",
+			"authNotSupported": "Connector type {connectorType} does not support an authentication flow.",
+			"authNotPending": "Mailbox {mailboxId} is not awaiting authentication.",
+			"authStateMismatch": "The authentication callback for mailbox {mailboxId} did not carry the state its flow was started with.",
+			"connectorConfigInvalid": "The configuration was rejected by connector type {connectorType}."
 		},
 		"mailStorageService": {
 			"emailNotFound": "Email {notFoundId} was not found.",
 			"retentionCleanupFailed": "Failed to remove expired emails."
+		}
+	},
+	"info": {
+		"mailboxService": {
+			"migratedLegacySecret": "Moved the vaulted {propertyKey} of mailbox {mailboxId} to its current key."
 		}
 	},
 	"warn": {

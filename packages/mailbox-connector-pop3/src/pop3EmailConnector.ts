@@ -14,6 +14,7 @@ import type { ILoggingComponent } from "@twin.org/logging-models";
 import type {
 	IEmailProtocolConnector,
 	IEmailProtocolConnectorAuthCallback,
+	IEmailProtocolConnectorOptions,
 	IEmailProtocolConnectorRetrievalCallback
 } from "@twin.org/mailbox-models";
 import { MailHelper } from "@twin.org/mailbox-models";
@@ -22,6 +23,7 @@ import Pop3Command from "node-pop3";
 import type { IPop3EmailConnectorConfig } from "./models/IPop3EmailConnectorConfig.js";
 import type { IPop3EmailConnectorConstructorOptions } from "./models/IPop3EmailConnectorConstructorOptions.js";
 import type { IPop3EmailConnectorState } from "./models/IPop3EmailConnectorState.js";
+import { initSchema } from "./schema.js";
 
 /**
  * POP3 email protocol connector. Polls for new messages using node-pop3.
@@ -126,6 +128,10 @@ export class Pop3EmailConnector implements IEmailProtocolConnector<IPop3EmailCon
 			mutexTimeoutMs: options.config.mutexTimeoutMs
 		};
 		this._retrieving = false;
+
+		// A connector registers its own schemas so the owning component can recognise the
+		// secure properties of the configuration and state it persists.
+		initSchema();
 	}
 
 	/**
@@ -142,13 +148,16 @@ export class Pop3EmailConnector implements IEmailProtocolConnector<IPop3EmailCon
 	 * @param state The current connector state for the instance.
 	 * @param authCallback Callback invoked when authentication fails during a poll cycle.
 	 * @param retrievalCallback Callback invoked with retrieved messages after each poll cycle.
+	 * @param options Options supplied by the owning component, unused by this protocol which
+	 * authenticates with the stored credentials rather than an external flow.
 	 * @returns A promise that resolves when the polling loop has been started.
 	 */
 	public async retrieve(
 		instanceId: string,
 		state: IPop3EmailConnectorState,
 		authCallback: IEmailProtocolConnectorAuthCallback,
-		retrievalCallback: IEmailProtocolConnectorRetrievalCallback
+		retrievalCallback: IEmailProtocolConnectorRetrievalCallback,
+		options: IEmailProtocolConnectorOptions
 	): Promise<void> {
 		await this.retrieveStop();
 

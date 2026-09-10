@@ -46,6 +46,20 @@ logging
 
 ***
 
+### platformComponentType? {#platformcomponenttype}
+
+> `optional` **platformComponentType?**: `string`
+
+The component type for the platform component used to enumerate tenant partitions.
+
+#### Default
+
+```ts
+platform
+```
+
+***
+
 ### config? {#config}
 
 > `optional` **config?**: [`IMailStorageServiceConfig`](IMailStorageServiceConfig.md)

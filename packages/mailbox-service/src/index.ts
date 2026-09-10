@@ -4,6 +4,7 @@ export * from "./entities/storedEmail.js";
 export * from "./entities/mailbox.js";
 export * from "./mailboxService.js";
 export * from "./mailStorageService.js";
+export * from "./models/IMailboxServiceConfig.js";
 export * from "./models/IMailboxServiceConstructorOptions.js";
 export * from "./models/IMailStorageServiceConfig.js";
 export * from "./models/IMailStorageServiceConstructorOptions.js";

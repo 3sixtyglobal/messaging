@@ -69,6 +69,13 @@ export class Mailbox {
 	public retrievalError?: IError;
 
 	/**
+	 * The random value an external authentication flow carries alongside the mailbox
+	 * identifier, which proves a callback belongs to a flow this mailbox started.
+	 */
+	@property({ type: "string", optional: true })
+	public authNonce?: string;
+
+	/**
 	 * The node identifier captured at creation time.
 	 */
 	@property({ type: "string" })
@@ -79,4 +86,13 @@ export class Mailbox {
 	 */
 	@property({ type: "string", optional: true })
 	public tenantId?: string;
+
+	/**
+	 * The public origin captured at creation time, used to build the authentication callback URI.
+	 * Captured here because polling can resume outside a request, where no origin is in context.
+	 * Absent on a mailbox stored before an origin was recorded, which can still be polled with
+	 * the credentials it holds but has nowhere for an authentication flow to return to.
+	 */
+	@property({ type: "string", optional: true })
+	public publicOrigin?: string;
 }

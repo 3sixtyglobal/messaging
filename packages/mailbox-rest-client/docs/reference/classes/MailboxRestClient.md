@@ -68,11 +68,11 @@ The class name.
 
 ***
 
-### addMailbox() {#addmailbox}
+### createMailbox() {#createmailbox}
 
-> **addMailbox**(`mailbox`): `Promise`\<`string`\>
+> **createMailbox**(`mailbox`): `Promise`\<`IMailboxCreateResult`\>
 
-Add a new mailbox.
+Create a new mailbox.
 
 #### Parameters
 
@@ -80,23 +80,24 @@ Add a new mailbox.
 
 `Pick`\<`IMailbox`, `"name"` \| `"connectorType"` \| `"config"` \| `"enabled"`\>
 
-The mailbox configuration to add.
+The mailbox configuration to create.
 
 #### Returns
 
-`Promise`\<`string`\>
+`Promise`\<`IMailboxCreateResult`\>
 
-The identifier assigned to the new mailbox.
+The identifier assigned to the new mailbox, with the URL to open when the mailbox
+must be authenticated before it can be polled.
 
 #### Implementation of
 
-`IMailboxComponent.addMailbox`
+`IMailboxComponent.createMailbox`
 
 ***
 
 ### updateMailbox() {#updatemailbox}
 
-> **updateMailbox**(`mailbox`): `Promise`\<`void`\>
+> **updateMailbox**(`mailbox`): `Promise`\<`IMailboxUpdateResult`\>
 
 Update an existing mailbox.
 
@@ -110,13 +111,44 @@ The updated mailbox configuration.
 
 #### Returns
 
-`Promise`\<`void`\>
+`Promise`\<`IMailboxUpdateResult`\>
 
-A promise that resolves when the mailbox has been updated.
+The URL to open when the mailbox must be authenticated before it can be polled.
 
 #### Implementation of
 
 `IMailboxComponent.updateMailbox`
+
+***
+
+### completeAuth() {#completeauth}
+
+> **completeAuth**(`authPayload`): `Promise`\<`void`\>
+
+Complete an authentication flow, correlating the callback to the pending mailbox.
+
+#### Parameters
+
+##### authPayload
+
+`unknown`
+
+The data handed to the callback URI, carrying the correlating state.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the mailbox has been authenticated.
+
+#### Throws
+
+NotSupportedError the flow is completed by the provider redirecting the browser to
+the service's own callback route, which skips authentication for that reason.
+
+#### Implementation of
+
+`IMailboxComponent.completeAuth`
 
 ***
 

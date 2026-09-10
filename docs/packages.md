@@ -45,6 +45,15 @@ This package provides an IMAP connector for email mailbox ingestion. It implemen
 - [Reference](../packages/mailbox-connector-imap/docs/reference/index.md)
 - [Changelog](../packages/mailbox-connector-imap/docs/changelog.md)
 
+## mailbox-connector-gmail
+
+This package provides a Gmail connector for email mailbox ingestion. It implements the email protocol connector interface using the Gmail API with OAuth 2.0 credentials, monitoring a configured mailbox label for incoming messages and delivering them to the mailbox service without duplication.
+
+- [README](../packages/mailbox-connector-gmail/README.md)
+- [Examples](../packages/mailbox-connector-gmail/docs/examples.md)
+- [Reference](../packages/mailbox-connector-gmail/docs/reference/index.md)
+- [Changelog](../packages/mailbox-connector-gmail/docs/changelog.md)
+
 ## messaging-models
 
 This package provides the shared messaging models and factory helpers used by connectors and services across the repository. It establishes a common contract for payloads, metadata, and processing inputs so implementations can remain interoperable and consistent.

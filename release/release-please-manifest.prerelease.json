@@ -8,5 +8,6 @@
 	"packages/mailbox-service": "0.9.3-next.1",
 	"packages/mailbox-rest-client": "0.9.3-next.1",
 	"packages/mailbox-connector-pop3": "0.9.3-next.1",
-	"packages/mailbox-connector-imap": "0.9.3-next.1"
+	"packages/mailbox-connector-imap": "0.9.3-next.1",
+	"packages/mailbox-connector-gmail": "0.9.3-next.1"
 }

@@ -1,0 +1,41 @@
+{
+	"error": {
+		"gmailEmailConnector": {
+			"pollFailed": "Poll failed",
+			"authCodeExchangeFailed": "The authorization code could not be exchanged for tokens",
+			"noRefreshTokenIssued": "The consent flow did not issue a refresh token",
+			"authFlowNotStarted": "The connector has no authentication flow in progress to complete",
+			"consentAccountMismatch": "The consent was given by an account other than {emailAddress}",
+			"missingOAuthCredentials": "The clientId and clientSecret are required when no serviceAccountKey is supplied",
+			"invalidServiceAccountKey": "The serviceAccountKey is not a valid service account JSON key"
+		}
+	},
+	"info": {
+		"gmailEmailConnector": {
+			"emailReceived": "Email received \"{subject}\""
+		}
+	},
+	"warn": {
+		"gmailEmailConnector": {
+			"consentRequired": "Mailbox requires OAuth consent before it can be polled",
+			"historyExpired": "Mailbox history expired, restarting the mailbox sync"
+		}
+	},
+	"gmailEmailConnectorConfigSchema": {
+		"emailAddress": "Email Address",
+		"clientId": "OAuth Client ID",
+		"clientSecret": "OAuth Client Secret",
+		"serviceAccountKey": "Service Account Key",
+		"labelIds": "Label IDs",
+		"maxMessagesPerPoll": "Maximum Messages Per Poll",
+		"pollingIntervalMinutes": "Polling Interval (Minutes)"
+	},
+	"gmailEmailConnectorStateSchema": {
+		"refreshToken": "OAuth Refresh Token",
+		"historyId": "Mailbox History ID",
+		"syncPageTokens": "Sync Page Tokens",
+		"syncCompletedLabelIds": "Synced Label IDs",
+		"initialSyncComplete": "Initial Sync Complete",
+		"deliveredMessageIds": "Delivered Message IDs"
+	}
+}

@@ -11,6 +11,7 @@ The repository covers two complementary areas: email mailbox ingestion through c
 - [mailbox-rest-client](packages/mailbox-rest-client/README.md) - REST client for calling mailbox service endpoints.
 - [mailbox-connector-pop3](packages/mailbox-connector-pop3/README.md) - POP3 connector for email mailbox ingestion.
 - [mailbox-connector-imap](packages/mailbox-connector-imap/README.md) - IMAP connector for email mailbox ingestion.
+- [mailbox-connector-gmail](packages/mailbox-connector-gmail/README.md) - Gmail connector for email mailbox ingestion.
 - [messaging-models](packages/messaging-models/README.md) - Defines the shared models and factory helpers used by messaging connectors and services.
 - [messaging-connector-aws](packages/messaging-connector-aws/README.md) - Provides connectors for sending email, SMS, and push notifications through AWS messaging services.
 - [messaging-connector-entity-storage](packages/messaging-connector-entity-storage/README.md) - Provides connectors that persist and manage messaging operations using entity storage.

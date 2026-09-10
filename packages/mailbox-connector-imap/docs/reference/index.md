@@ -14,3 +14,8 @@
 ## Variables
 
 - [ImapEmailConnectorConfigSchema](variables/ImapEmailConnectorConfigSchema.md)
+- [ImapEmailConnectorStateSchema](variables/ImapEmailConnectorStateSchema.md)
+
+## Functions
+
+- [initSchema](functions/initSchema.md)

@@ -5,8 +5,10 @@ import { ComponentFactory, Converter } from "@twin.org/core";
 import type { IError } from "@twin.org/core";
 import {
 	EmailProtocolConnectorFactory,
-	EmailProtocolConnectorSchemaFactory,
-	type IEmail
+	EmailProtocolConnectorConfigSchemaFactory,
+	EmailProtocolConnectorStateSchemaFactory,
+	type IEmail,
+	type IEmailProtocolConnectorOptions
 } from "@twin.org/mailbox-models";
 import { ImapFlow } from "imapflow";
 import nodemailer from "nodemailer";
@@ -16,7 +18,8 @@ import {
 	TEST_IMAP_HTTP_PORT,
 	TEST_IMAP_SMTP_PORT
 } from "./setupTestEnv.js";
-import { ImapEmailConnectorConfigSchema } from "../src/configSchema/imapEmailConnectorConfigSchema.js";
+import { ImapEmailConnectorConfigSchema } from "../src/connectorSchema/imapEmailConnectorConfigSchema.js";
+import { ImapEmailConnectorStateSchema } from "../src/connectorSchema/imapEmailConnectorStateSchema.js";
 import { ImapEmailConnector } from "../src/imapEmailConnector.js";
 
 const MINIMAL_RAW_EMAIL = [
@@ -28,6 +31,13 @@ const MINIMAL_RAW_EMAIL = [
 	"",
 	"Test body."
 ].join("\r\n");
+
+// These protocols authenticate with their stored credentials, so the callback URI and the
+// correlation state are only supplied to satisfy the contract.
+const TEST_OPTIONS: IEmailProtocolConnectorOptions = {
+	callbackUri: "https://app.example.com/mailbox/authcallback",
+	correlationState: "test-tenant/test-mailbox"
+};
 
 function makeScheduler(): {
 	scheduler: ITaskSchedulerComponent;
@@ -171,12 +181,34 @@ describe("ImapEmailConnector", () => {
 	});
 
 	test("ImapEmailConnectorConfigSchema can be registered in schema factory", () => {
-		EmailProtocolConnectorSchemaFactory.register(
+		EmailProtocolConnectorConfigSchemaFactory.register(
 			ImapEmailConnector.NAMESPACE,
 			() => ImapEmailConnectorConfigSchema
 		);
-		const schema = EmailProtocolConnectorSchemaFactory.get(ImapEmailConnector.NAMESPACE);
+		const schema = EmailProtocolConnectorConfigSchemaFactory.get(ImapEmailConnector.NAMESPACE);
 		expect(schema).toHaveLength(ImapEmailConnectorConfigSchema.length);
+	});
+
+	test("ImapEmailConnectorStateSchema describes every state property", () => {
+		// The schema is what the owning component persists the state through, so a property
+		// missing from it is a property the component cannot classify.
+		expect(ImapEmailConnectorStateSchema.map(f => f.propertyKey)).toEqual(["folders"]);
+		// Per-folder state is nested under the folder path, so the property is an object.
+		expect(ImapEmailConnectorStateSchema[0].type).toBe("object");
+	});
+
+	test("ImapEmailConnectorStateSchema marks no state property as secure", () => {
+		// The credentials are configured, so nothing in the state needs vaulting.
+		expect(ImapEmailConnectorStateSchema.filter(f => f.isSecure)).toEqual([]);
+	});
+
+	test("ImapEmailConnectorStateSchema can be registered in the state schema factory", () => {
+		EmailProtocolConnectorStateSchemaFactory.register(
+			ImapEmailConnector.NAMESPACE,
+			() => ImapEmailConnectorStateSchema
+		);
+		const schema = EmailProtocolConnectorStateSchemaFactory.get(ImapEmailConnector.NAMESPACE);
+		expect(schema).toEqual(ImapEmailConnectorStateSchema);
 	});
 
 	test("retrieveStop does not throw when not started", async () => {
@@ -208,7 +240,8 @@ describe("ImapEmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -240,7 +273,8 @@ describe("ImapEmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -293,7 +327,8 @@ describe("ImapEmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -352,7 +387,8 @@ describe("ImapEmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -398,7 +434,8 @@ describe("ImapEmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(firstPoll).toHaveLength(1);
@@ -414,7 +451,8 @@ describe("ImapEmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(secondPoll).toHaveLength(0);
@@ -451,7 +489,8 @@ describe("ImapEmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return firstPoll.length < 2;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(firstPoll.map(m => m.subject)).toEqual(["Persisted message", "Failed message"]);
@@ -467,7 +506,8 @@ describe("ImapEmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(secondPoll.map(m => m.subject)).toEqual(["Failed message"]);
@@ -483,7 +523,8 @@ describe("ImapEmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(thirdPoll).toHaveLength(0);
@@ -506,7 +547,8 @@ describe("ImapEmailConnector integration", () => {
 				authRequired = requiresAuth;
 				authError = callbackError;
 			},
-			async () => true
+			async () => true,
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -547,7 +589,8 @@ describe("ImapEmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 
@@ -582,7 +625,8 @@ describe("ImapEmailConnector integration", () => {
 			async (mailboxId, message) => {
 				callCount.push(1);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 
@@ -627,7 +671,8 @@ describe("ImapEmailConnector per-message callback behaviour", () => {
 					errors.push(retrievalError);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -660,7 +705,8 @@ describe("ImapEmailConnector per-message callback behaviour", () => {
 					errors.push(retrievalError);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -698,7 +744,8 @@ describe("ImapEmailConnector per-message callback behaviour", () => {
 			async (mailboxId, message, state) => {
 				callCount.push(1);
 				return callCount.length < 2;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -738,7 +785,8 @@ describe("ImapEmailConnector per-message callback behaviour", () => {
 				callCount.push(1);
 				await connector.retrieveStop();
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();

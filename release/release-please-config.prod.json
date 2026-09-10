@@ -48,6 +48,10 @@
 		"packages/mailbox-connector-imap": {
 			"package-name": "mailbox-connector-imap",
 			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-connector-gmail": {
+			"package-name": "mailbox-connector-gmail",
+			"changelog-path": "docs/changelog.md"
 		}
 	},
 	"plugins": [
@@ -65,7 +69,8 @@
 				"mailbox-service",
 				"mailbox-rest-client",
 				"mailbox-connector-pop3",
-				"mailbox-connector-imap"
+				"mailbox-connector-imap",
+				"mailbox-connector-gmail"
 			]
 		}
 	]

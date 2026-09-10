@@ -12,21 +12,25 @@ import type { IMailbox } from '@twin.org/mailbox-models';
 const config: IBaseRestClientConfig = { endpoint: 'https://api.example.com' };
 const client = new MailboxRestClient(config);
 
-// Create a mailbox and retrieve its generated ID
-const id = await client.addMailbox({
+// Create a mailbox and retrieve its generated ID, along with the URL to open for the user
+// when the mailbox must be authenticated before it can be polled
+const { id, authUrl } = await client.createMailbox({
   name: 'Work Inbox',
   connectorType: 'imap',
   config: { host: 'imap.example.com', username: 'user@example.com' },
   enabled: true
 });
 console.log(id); // "019547d0-..."
+console.log(authUrl); // undefined, IMAP authenticates with the configured credentials
 
 const mailbox: IMailbox = await client.getMailbox(id);
 console.log(mailbox.name); // "Work Inbox"
 console.log(mailbox.enabled); // true
 
-// Update the mailbox
-await client.updateMailbox({ ...mailbox, enabled: false });
+// Update the mailbox; an update replaces the credentials, so a connector which needs an
+// external flow returns the URL to open the same way creating one does
+const updated = await client.updateMailbox({ ...mailbox, enabled: false });
+console.log(updated.authUrl); // undefined, IMAP authenticates with the configured credentials
 
 // Paginated listing with optional cursor and limit
 const { mailboxes, cursor } = await client.listMailboxes(undefined, 25);

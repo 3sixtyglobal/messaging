@@ -11,6 +11,7 @@
 
 - [IMailStorageServiceConfig](interfaces/IMailStorageServiceConfig.md)
 - [IMailStorageServiceConstructorOptions](interfaces/IMailStorageServiceConstructorOptions.md)
+- [IMailboxServiceConfig](interfaces/IMailboxServiceConfig.md)
 - [IMailboxServiceConstructorOptions](interfaces/IMailboxServiceConstructorOptions.md)
 
 ## Variables

@@ -1,5 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IPlatformComponent } from "@twin.org/api-models";
 import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
 import {
 	BaseError,
@@ -55,6 +56,12 @@ export class MailStorageService implements IMailStorageComponent {
 	private readonly _taskScheduler: ITaskSchedulerComponent;
 
 	/**
+	 * The platform component used to fan the retention sweep out across all tenant partitions.
+	 * @internal
+	 */
+	private readonly _platformComponent: IPlatformComponent;
+
+	/**
 	 * The optional logging component.
 	 * @internal
 	 */
@@ -76,6 +83,9 @@ export class MailStorageService implements IMailStorageComponent {
 		);
 		this._taskScheduler = ComponentFactory.get<ITaskSchedulerComponent>(
 			options?.taskSchedulerComponentType ?? "task-scheduler"
+		);
+		this._platformComponent = ComponentFactory.get<IPlatformComponent>(
+			options?.platformComponentType ?? "platform"
 		);
 		this._logging = ComponentFactory.getIfExists<ILoggingComponent>(options?.loggingComponentType);
 		this._retentionMinutes = options?.config?.retentionMinutes ?? 1440;
@@ -253,11 +263,23 @@ export class MailStorageService implements IMailStorageComponent {
 
 	/**
 	 * Remove all stored emails older than the configured retention period.
+	 * The email storage is partitioned per tenant, so the sweep runs for each partition instead
+	 * of only the one which happens to be in context when the retention task fires.
 	 * @internal
 	 */
 	private async removeExpired(): Promise<void> {
+		await this._platformComponent.execute(async () => {
+			await this.removeExpiredForPartition();
+		});
+	}
+
+	/**
+	 * Remove the stored emails older than the retention period from the current partition.
+	 * @internal
+	 */
+	private async removeExpiredForPartition(): Promise<void> {
 		try {
-			const retentionMilliseconds = this._retentionMinutes * 86_400_000;
+			const retentionMilliseconds = this._retentionMinutes * 60_000;
 			const retentionThreshold = new Date(Date.now() - retentionMilliseconds).toISOString();
 			const ids: string[] = [];
 			let cursor: string | undefined;

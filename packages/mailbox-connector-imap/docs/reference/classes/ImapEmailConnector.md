@@ -64,7 +64,7 @@ The class name.
 
 ### retrieve() {#retrieve}
 
-> **retrieve**(`instanceId`, `state`, `authCallback`, `retrievalCallback`): `Promise`\<`void`\>
+> **retrieve**(`instanceId`, `state`, `authCallback`, `retrievalCallback`, `options`): `Promise`\<`void`\>
 
 Start the internal polling loop for the given instance.
 
@@ -93,6 +93,13 @@ Callback invoked when authentication fails during a poll cycle.
 `IEmailProtocolConnectorRetrievalCallback`
 
 Callback invoked with retrieved messages after each poll cycle.
+
+##### options
+
+`IEmailProtocolConnectorOptions`
+
+Options supplied by the owning component, unused by this protocol which
+authenticates with the stored credentials rather than an external flow.
 
 #### Returns
 

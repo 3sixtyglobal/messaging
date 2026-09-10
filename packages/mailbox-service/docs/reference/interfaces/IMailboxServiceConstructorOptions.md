@@ -85,3 +85,11 @@ The component type for the platform component used to enumerate tenant partition
 ```ts
 platform
 ```
+
+***
+
+### config? {#config}
+
+> `optional` **config?**: [`IMailboxServiceConfig`](IMailboxServiceConfig.md)
+
+Optional configuration for the mailbox service.

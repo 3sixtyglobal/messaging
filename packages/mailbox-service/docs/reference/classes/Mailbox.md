@@ -94,6 +94,15 @@ The last error returned by the retrieval callback.
 
 ***
 
+### authNonce? {#authnonce}
+
+> `optional` **authNonce?**: `string`
+
+The random value an external authentication flow carries alongside the mailbox
+identifier, which proves a callback belongs to a flow this mailbox started.
+
+***
+
 ### nodeId {#nodeid}
 
 > **nodeId**: `string`
@@ -107,3 +116,14 @@ The node identifier captured at creation time.
 > `optional` **tenantId?**: `string`
 
 The tenant identifier captured at creation time. Absent on single-tenant nodes.
+
+***
+
+### publicOrigin? {#publicorigin}
+
+> `optional` **publicOrigin?**: `string`
+
+The public origin captured at creation time, used to build the authentication callback URI.
+Captured here because polling can resume outside a request, where no origin is in context.
+Absent on a mailbox stored before an origin was recorded, which can still be polled with
+the credentials it holds but has nowhere for an authentication flow to return to.

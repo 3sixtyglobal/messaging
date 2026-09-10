@@ -8,7 +8,7 @@ Callback invoked by a protocol connector to report the outcome of an authenticat
 
 ### TAuthState
 
-`TAuthState` = `unknown`
+`TAuthState` *extends* [`IEmailProtocolConnectorAuthState`](../interfaces/IEmailProtocolConnectorAuthState.md) = [`IEmailProtocolConnectorAuthState`](../interfaces/IEmailProtocolConnectorAuthState.md)
 
 ## Parameters
 
@@ -22,7 +22,8 @@ The identifier of the mailbox this authentication attempt belongs to.
 
 `unknown` \| `undefined`
 
-Optional connector state to persist on the mailbox entity.
+Optional connector state to persist on the mailbox entity, carrying any
+credentials the flow issued in the properties the connector state schema marks as secure.
 
 ### requiresAuth
 
@@ -34,7 +35,7 @@ True if authentication failed due to invalid or expired credentials.
 
 `TAuthState`
 
-Optional protocol-specific state produced during the auth flow, such as an OAuth URL or code.
+Optional state produced during the auth flow, carrying the URL to open.
 
 ### authError?
 

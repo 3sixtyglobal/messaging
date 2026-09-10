@@ -21,8 +21,11 @@
 	"words": [
 		"abbrev",
 		"autorelease",
+		"authcallback",
 		"authenticationfailed",
 		"hotfixes",
+		"GOCSPX",
+		"googleusercontent",
 		"greenmail",
 		"imapflow",
 		"htpasswd",

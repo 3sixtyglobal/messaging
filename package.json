@@ -60,6 +60,7 @@
 		"packages/mailbox-rest-client",
 		"packages/mailbox-connector-pop3",
 		"packages/mailbox-connector-imap",
+		"packages/mailbox-connector-gmail",
 		"packages/messaging-models",
 		"packages/messaging-connector-aws",
 		"packages/messaging-connector-entity-storage",

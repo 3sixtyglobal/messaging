@@ -92,9 +92,8 @@ export class MailHelper {
 	 * Handles string (text), Uint8Array, and ArrayBuffer inputs.
 	 * @param content The attachment content.
 	 * @returns The base64-encoded content.
-	 * @internal
 	 */
-	private static attachmentToBase64(content: string | ArrayBuffer | Uint8Array): string {
+	public static attachmentToBase64(content: string | ArrayBuffer | Uint8Array): string {
 		if (Is.stringValue(content)) {
 			return Converter.bytesToBase64(Converter.utf8ToBytes(content));
 		}

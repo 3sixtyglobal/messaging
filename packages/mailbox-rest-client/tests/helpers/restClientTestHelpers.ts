@@ -74,6 +74,24 @@ export function createdResponse(location: string): object {
 }
 
 /**
+ * Minimal 201 Created response carrying a JSON body, accepted by BaseRestClient.
+ * @param location The value to set in the Location header.
+ * @param jsonBody The value returned by response.json() - this becomes response.body.
+ * @returns A fake 201 Created response object.
+ */
+export function createdJsonResponse(location: string, jsonBody: unknown): object {
+	return {
+		ok: true,
+		status: HttpStatusCode.created,
+		headers: new Headers({
+			[HeaderTypes.Location]: location,
+			[HeaderTypes.ContentType]: MimeTypes.Json
+		}),
+		json: async () => jsonBody
+	};
+}
+
+/**
  * Assigns the given mock as the global fetch implementation.
  * Call in beforeEach alongside any client construction.
  * @param mock The vi.fn() mock to install as globalThis.fetch.

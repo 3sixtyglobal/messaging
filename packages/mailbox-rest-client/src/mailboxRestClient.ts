@@ -4,10 +4,9 @@ import { BaseRestClient } from "@twin.org/api-core";
 import {
 	HttpHeaderHelper,
 	type INoContentResponse,
-	type IBaseRestClientConfig,
-	type ICreatedResponse
+	type IBaseRestClientConfig
 } from "@twin.org/api-models";
-import { Coerce, Guards } from "@twin.org/core";
+import { Coerce, Guards, NotSupportedError } from "@twin.org/core";
 import type {
 	IMailbox,
 	IMailboxComponent,
@@ -15,12 +14,16 @@ import type {
 	IMailboxConnectorSchemaRequest,
 	IMailboxConnectorSchemaResponse,
 	IMailboxCreateRequest,
+	IMailboxCreateResponse,
+	IMailboxCreateResult,
 	IMailboxGetRequest,
 	IMailboxGetResponse,
 	IMailboxListRequest,
 	IMailboxListResponse,
 	IMailboxRemoveRequest,
-	IMailboxUpdateRequest
+	IMailboxUpdateRequest,
+	IMailboxUpdateResponse,
+	IMailboxUpdateResult
 } from "@twin.org/mailbox-models";
 import { nameof } from "@twin.org/nameof";
 import { HttpMethod } from "@twin.org/web";
@@ -52,13 +55,14 @@ export class MailboxRestClient extends BaseRestClient implements IMailboxCompone
 	}
 
 	/**
-	 * Add a new mailbox.
-	 * @param mailbox The mailbox configuration to add.
-	 * @returns The identifier assigned to the new mailbox.
+	 * Create a new mailbox.
+	 * @param mailbox The mailbox configuration to create.
+	 * @returns The identifier assigned to the new mailbox, with the URL to open when the mailbox
+	 * must be authenticated before it can be polled.
 	 */
-	public async addMailbox(
+	public async createMailbox(
 		mailbox: Pick<IMailbox, "name" | "connectorType" | "config" | "enabled">
-	): Promise<string> {
+	): Promise<IMailboxCreateResult> {
 		Guards.object<typeof mailbox>(MailboxRestClient.CLASS_NAME, nameof(mailbox), mailbox);
 		Guards.stringValue(MailboxRestClient.CLASS_NAME, nameof(mailbox.name), mailbox.name);
 		Guards.stringValue(
@@ -67,27 +71,49 @@ export class MailboxRestClient extends BaseRestClient implements IMailboxCompone
 			mailbox.connectorType
 		);
 
-		const response = await this.fetch<IMailboxCreateRequest, ICreatedResponse>(
+		const response = await this.fetch<IMailboxCreateRequest, IMailboxCreateResponse>(
 			"/",
 			HttpMethod.POST,
 			{ body: mailbox }
 		);
 
-		return HttpHeaderHelper.extractId(response.headers, `${this.getPathPrefix()}/:id`);
+		return {
+			id: HttpHeaderHelper.extractId(response.headers, `${this.getPathPrefix()}/:id`),
+			authUrl: response.body?.authUrl
+		};
 	}
 
 	/**
 	 * Update an existing mailbox.
 	 * @param mailbox The updated mailbox configuration.
-	 * @returns A promise that resolves when the mailbox has been updated.
+	 * @returns The URL to open when the mailbox must be authenticated before it can be polled.
 	 */
-	public async updateMailbox(mailbox: IMailbox): Promise<void> {
+	public async updateMailbox(mailbox: IMailbox): Promise<IMailboxUpdateResult> {
 		Guards.object<IMailbox>(MailboxRestClient.CLASS_NAME, nameof(mailbox), mailbox);
 		Guards.stringValue(MailboxRestClient.CLASS_NAME, nameof(mailbox.id), mailbox.id);
 
-		await this.fetch<IMailboxUpdateRequest, INoContentResponse>("/:id", HttpMethod.PUT, {
-			pathParams: { id: mailbox.id },
-			body: mailbox
+		const response = await this.fetch<IMailboxUpdateRequest, IMailboxUpdateResponse>(
+			"/:id",
+			HttpMethod.PUT,
+			{
+				pathParams: { id: mailbox.id },
+				body: mailbox
+			}
+		);
+
+		return { authUrl: response.body?.authUrl };
+	}
+
+	/**
+	 * Complete an authentication flow, correlating the callback to the pending mailbox.
+	 * @param authPayload The data handed to the callback URI, carrying the correlating state.
+	 * @returns A promise that resolves when the mailbox has been authenticated.
+	 * @throws NotSupportedError the flow is completed by the provider redirecting the browser to
+	 * the service's own callback route, which skips authentication for that reason.
+	 */
+	public async completeAuth(authPayload: unknown): Promise<void> {
+		throw new NotSupportedError(MailboxRestClient.CLASS_NAME, "notSupported", {
+			methodName: "completeAuth"
 		});
 	}
 

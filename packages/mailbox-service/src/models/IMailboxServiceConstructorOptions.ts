@@ -1,5 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IMailboxServiceConfig } from "./IMailboxServiceConfig.js";
 
 /**
  * Constructor options for the mailbox service.
@@ -40,4 +41,9 @@ export interface IMailboxServiceConstructorOptions {
 	 * @default platform
 	 */
 	platformComponentType?: string;
+
+	/**
+	 * Optional configuration for the mailbox service.
+	 */
+	config?: IMailboxServiceConfig;
 }

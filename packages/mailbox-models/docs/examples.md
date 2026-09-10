@@ -51,7 +51,7 @@ console.log(addresses?.length); // 2
 ```typescript
 import {
   EmailProtocolConnectorFactory,
-  EmailProtocolConnectorSchemaFactory
+  EmailProtocolConnectorConfigSchemaFactory
 } from '@twin.org/mailbox-models';
 import type { IEmailProtocolConnector, IMailboxConfigField } from '@twin.org/mailbox-models';
 import { EntitySchemaPropertyType } from '@twin.org/entity';
@@ -75,10 +75,10 @@ const configSchema: IMailboxConfigField[] = [
     isSecure: true
   }
 ];
-EmailProtocolConnectorSchemaFactory.register('pop3', () => configSchema);
+EmailProtocolConnectorConfigSchemaFactory.register('pop3', () => configSchema);
 
 const connector = EmailProtocolConnectorFactory.get('pop3');
-const schema = EmailProtocolConnectorSchemaFactory.get('pop3');
+const schema = EmailProtocolConnectorConfigSchemaFactory.get('pop3');
 console.log(schema.find(f => f.isSecure)?.propertyKey); // "password"
 ```
 

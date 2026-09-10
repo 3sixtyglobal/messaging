@@ -7,5 +7,6 @@ import type { IMailboxConfigField } from "../models/IMailboxConfigField.js";
  * Factory for retrieving email protocol connector configuration field definitions.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const EmailProtocolConnectorSchemaFactory =
-	Factory.createFactory<IMailboxConfigField[]>("email-protocol-schema");
+export const EmailProtocolConnectorConfigSchemaFactory = Factory.createFactory<
+	IMailboxConfigField[]
+>("email-protocol-config-schema");

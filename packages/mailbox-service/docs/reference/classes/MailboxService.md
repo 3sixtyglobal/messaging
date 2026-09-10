@@ -34,6 +34,15 @@ The options for the service.
 
 The class name.
 
+***
+
+### DEFAULT\_AUTH\_CALLBACK\_PATH {#default_auth_callback_path}
+
+> `readonly` `static` **DEFAULT\_AUTH\_CALLBACK\_PATH**: `string` = `"/mailbox/authcallback"`
+
+The callback path used when the configuration does not set one.
+Every external authentication flow returns here, whichever mailbox it belongs to.
+
 ## Methods
 
 ### className() {#classname}
@@ -106,11 +115,14 @@ A promise that resolves when the component has stopped.
 
 ***
 
-### addMailbox() {#addmailbox}
+### createMailbox() {#createmailbox}
 
-> **addMailbox**(`mailbox`): `Promise`\<`string`\>
+> **createMailbox**(`mailbox`): `Promise`\<`IMailboxCreateResult`\>
 
-Add a new mailbox and begin polling for it.
+Create a new mailbox and begin polling for it.
+Connectors whose credentials are issued by an external flow are asked to start it here, so
+the URL the user has to open is returned to the caller which created the mailbox instead of
+only surfacing once the first poll has run.
 
 #### Parameters
 
@@ -118,25 +130,29 @@ Add a new mailbox and begin polling for it.
 
 `Pick`\<`IMailbox`, `"name"` \| `"connectorType"` \| `"config"` \| `"enabled"`\>
 
-The mailbox configuration to add.
+The mailbox configuration to create.
 
 #### Returns
 
-`Promise`\<`string`\>
+`Promise`\<`IMailboxCreateResult`\>
 
-The identifier assigned to the new mailbox.
+The identifier assigned to the new mailbox, with the URL to open when the mailbox
+must be authenticated before it can be polled.
 
 #### Implementation of
 
-`IMailboxComponent.addMailbox`
+`IMailboxComponent.createMailbox`
 
 ***
 
 ### updateMailbox() {#updatemailbox}
 
-> **updateMailbox**(`mailbox`): `Promise`\<`void`\>
+> **updateMailbox**(`mailbox`): `Promise`\<`IMailboxUpdateResult`\>
 
 Update an existing mailbox.
+An update replaces the credentials the mailbox authenticates with, so a connector whose
+credentials are issued by an external flow is asked to start a new one, and the URL the
+user has to open is returned the same way it is when the mailbox is created.
 
 #### Parameters
 
@@ -148,9 +164,9 @@ The updated mailbox configuration.
 
 #### Returns
 
-`Promise`\<`void`\>
+`Promise`\<`IMailboxUpdateResult`\>
 
-A promise that resolves when the mailbox has been updated.
+The URL to open when the mailbox must be authenticated before it can be polled.
 
 #### Implementation of
 
@@ -181,6 +197,45 @@ A promise that resolves when the mailbox has been removed.
 #### Implementation of
 
 `IMailboxComponent.removeMailbox`
+
+***
+
+### completeAuth() {#completeauth}
+
+> **completeAuth**(`authPayload`): `Promise`\<`void`\>
+
+Complete an authentication flow for a mailbox awaiting authentication.
+The mailbox is correlated from the payload's state property, which the connector placed in
+the external flow when it produced its auth state, and which names the partition as well as
+the mailbox. The connector exchanges the payload for its credentials, which are stored on
+the mailbox state, and polling restarts.
+
+#### Parameters
+
+##### authPayload
+
+`unknown`
+
+The data handed to the callback URI, carrying the correlating state.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the mailbox has been authenticated.
+
+#### Throws
+
+NotFoundError if the correlated mailbox does not exist.
+
+#### Throws
+
+GeneralError if the mailbox is not awaiting authentication, or its connector has no
+authentication flow.
+
+#### Implementation of
+
+`IMailboxComponent.completeAuth`
 
 ***
 

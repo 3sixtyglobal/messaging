@@ -8,11 +8,14 @@ Interface describing the mailbox management component.
 
 ## Methods
 
-### addMailbox() {#addmailbox}
+### createMailbox() {#createmailbox}
 
-> **addMailbox**(`mailbox`): `Promise`\<`string`\>
+> **createMailbox**(`mailbox`): `Promise`\<[`IMailboxCreateResult`](IMailboxCreateResult.md)\>
 
-Add a new mailbox and begin polling for it.
+Create a new mailbox and begin polling for it.
+Connectors whose credentials are issued by an external flow are asked to start it here, so
+the URL the user has to open is returned to the caller which created the mailbox instead of
+only surfacing once the first poll has run.
 
 #### Parameters
 
@@ -20,21 +23,25 @@ Add a new mailbox and begin polling for it.
 
 `Pick`\<[`IMailbox`](IMailbox.md), `"name"` \| `"connectorType"` \| `"config"` \| `"enabled"`\>
 
-The mailbox configuration to add.
+The mailbox configuration to create.
 
 #### Returns
 
-`Promise`\<`string`\>
+`Promise`\<[`IMailboxCreateResult`](IMailboxCreateResult.md)\>
 
-The identifier assigned to the new mailbox.
+The identifier assigned to the new mailbox, with the URL to open when the mailbox
+must be authenticated before it can be polled.
 
 ***
 
 ### updateMailbox() {#updatemailbox}
 
-> **updateMailbox**(`mailbox`): `Promise`\<`void`\>
+> **updateMailbox**(`mailbox`): `Promise`\<[`IMailboxUpdateResult`](IMailboxUpdateResult.md)\>
 
 Update an existing mailbox.
+An update replaces the credentials the mailbox authenticates with, so a connector whose
+credentials are issued by an external flow is asked to start a new one, and the URL the
+user has to open is returned the same way it is when the mailbox is created.
 
 #### Parameters
 
@@ -46,9 +53,9 @@ The updated mailbox configuration.
 
 #### Returns
 
-`Promise`\<`void`\>
+`Promise`\<[`IMailboxUpdateResult`](IMailboxUpdateResult.md)\>
 
-A promise that resolves when the mailbox has been updated.
+The URL to open when the mailbox must be authenticated before it can be polled.
 
 ***
 
@@ -121,6 +128,41 @@ An optional maximum number of results to return.
 `Promise`\<\{ `mailboxes`: [`IMailbox`](IMailbox.md)\<`unknown`, `unknown`, `unknown`\>[]; `cursor?`: `string`; \}\>
 
 A page of mailboxes and an optional cursor for the next page.
+
+***
+
+### completeAuth() {#completeauth}
+
+> **completeAuth**(`authPayload`): `Promise`\<`void`\>
+
+Complete an authentication flow for a mailbox awaiting authentication.
+The mailbox is correlated from the payload's state property, which the connector placed in
+the external flow when it produced its auth state, and which names the partition as well as
+the mailbox. The connector exchanges the payload for its credentials, which are stored on
+the mailbox state, and polling restarts.
+
+#### Parameters
+
+##### authPayload
+
+`unknown`
+
+The data handed to the callback URI, carrying the correlating state.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the mailbox has been authenticated.
+
+#### Throws
+
+NotFoundError if the correlated mailbox does not exist.
+
+#### Throws
+
+GeneralError if the mailbox is not awaiting authentication, or its connector has no
+authentication flow.
 
 ***
 

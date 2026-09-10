@@ -5,8 +5,10 @@ import { ComponentFactory, Converter } from "@twin.org/core";
 import type { IError } from "@twin.org/core";
 import {
 	EmailProtocolConnectorFactory,
-	EmailProtocolConnectorSchemaFactory,
-	type IEmail
+	EmailProtocolConnectorConfigSchemaFactory,
+	EmailProtocolConnectorStateSchemaFactory,
+	type IEmail,
+	type IEmailProtocolConnectorOptions
 } from "@twin.org/mailbox-models";
 import Pop3Command from "node-pop3";
 import nodemailer from "nodemailer";
@@ -16,7 +18,8 @@ import {
 	TEST_POP3_HTTP_PORT,
 	TEST_POP3_SMTP_PORT
 } from "./setupTestEnv.js";
-import { Pop3EmailConnectorConfigSchema } from "../src/configSchema/pop3EmailConnectorConfigSchema.js";
+import { Pop3EmailConnectorConfigSchema } from "../src/connectorSchema/pop3EmailConnectorConfigSchema.js";
+import { Pop3EmailConnectorStateSchema } from "../src/connectorSchema/pop3EmailConnectorStateSchema.js";
 import { Pop3EmailConnector } from "../src/pop3EmailConnector.js";
 
 const MINIMAL_RAW_EMAIL = [
@@ -28,6 +31,13 @@ const MINIMAL_RAW_EMAIL = [
 	"",
 	"Test body."
 ].join("\r\n");
+
+// These protocols authenticate with their stored credentials, so the callback URI and the
+// correlation state are only supplied to satisfy the contract.
+const TEST_OPTIONS: IEmailProtocolConnectorOptions = {
+	callbackUri: "https://app.example.com/mailbox/authcallback",
+	correlationState: "test-tenant/test-mailbox"
+};
 
 function makeScheduler(): {
 	scheduler: ITaskSchedulerComponent;
@@ -125,12 +135,36 @@ describe("Pop3EmailConnector", () => {
 	});
 
 	test("Pop3EmailConnectorConfigSchema can be registered in schema factory", () => {
-		EmailProtocolConnectorSchemaFactory.register(
+		EmailProtocolConnectorConfigSchemaFactory.register(
 			Pop3EmailConnector.NAMESPACE,
 			() => Pop3EmailConnectorConfigSchema
 		);
-		const schema = EmailProtocolConnectorSchemaFactory.get(Pop3EmailConnector.NAMESPACE);
+		const schema = EmailProtocolConnectorConfigSchemaFactory.get(Pop3EmailConnector.NAMESPACE);
 		expect(schema).toHaveLength(Pop3EmailConnectorConfigSchema.length);
+	});
+
+	test("Pop3EmailConnectorStateSchema describes every state property", () => {
+		// The schema is what the owning component persists the state through, so a property
+		// missing from it is a property the component cannot classify.
+		expect(Pop3EmailConnectorStateSchema.map(f => f.propertyKey)).toEqual(["seenUidls"]);
+		expect(Pop3EmailConnectorStateSchema[0]).toMatchObject({
+			type: "array",
+			itemType: "string"
+		});
+	});
+
+	test("Pop3EmailConnectorStateSchema marks no state property as secure", () => {
+		// The credentials are configured, so nothing in the state needs vaulting.
+		expect(Pop3EmailConnectorStateSchema.filter(f => f.isSecure)).toEqual([]);
+	});
+
+	test("Pop3EmailConnectorStateSchema can be registered in the state schema factory", () => {
+		EmailProtocolConnectorStateSchemaFactory.register(
+			Pop3EmailConnector.NAMESPACE,
+			() => Pop3EmailConnectorStateSchema
+		);
+		const schema = EmailProtocolConnectorStateSchemaFactory.get(Pop3EmailConnector.NAMESPACE);
+		expect(schema).toEqual(Pop3EmailConnectorStateSchema);
 	});
 
 	test("retrieveStop does not throw when not started", async () => {
@@ -162,7 +196,8 @@ describe("Pop3EmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -194,7 +229,8 @@ describe("Pop3EmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -246,7 +282,8 @@ describe("Pop3EmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -305,7 +342,8 @@ describe("Pop3EmailConnector integration", () => {
 					retrieved.push(message);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -343,7 +381,8 @@ describe("Pop3EmailConnector integration", () => {
 				authRequired = requiresAuth;
 				authError = callbackError;
 			},
-			async () => true
+			async () => true,
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -377,7 +416,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(firstPoll).toHaveLength(1);
@@ -394,7 +434,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(secondPoll).toHaveLength(0);
@@ -417,7 +458,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(thirdPoll).toHaveLength(1);
@@ -455,7 +497,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return firstPoll.length < 2;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(firstPoll.map(m => m.subject)).toEqual(["Persisted message", "Failed message"]);
@@ -471,7 +514,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(secondPoll.map(m => m.subject)).toEqual(["Failed message"]);
@@ -487,7 +531,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(thirdPoll).toHaveLength(0);
@@ -520,7 +565,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(firstPoll).toHaveLength(1);
@@ -544,7 +590,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 		expect(secondPoll).toHaveLength(1);
@@ -583,7 +630,8 @@ describe("Pop3EmailConnector integration", () => {
 				}
 				Object.assign(state, updatedState);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 
@@ -618,7 +666,8 @@ describe("Pop3EmailConnector integration", () => {
 			async (mailboxId, message) => {
 				callCount.push(1);
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 		await runPending();
 
@@ -663,7 +712,8 @@ describe("Pop3EmailConnector per-message callback behaviour", () => {
 					errors.push(retrievalError);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -704,7 +754,8 @@ describe("Pop3EmailConnector per-message callback behaviour", () => {
 					errors.push(retrievalError);
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -733,7 +784,8 @@ describe("Pop3EmailConnector per-message callback behaviour", () => {
 			async (mailboxId, message, state) => {
 				callCount.push(1);
 				return callCount.length < 2;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -772,7 +824,8 @@ describe("Pop3EmailConnector per-message callback behaviour", () => {
 					lastState = state as { seenUidls?: string[] };
 				}
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -804,7 +857,8 @@ describe("Pop3EmailConnector per-message callback behaviour", () => {
 			async (mailboxId, message, state) => {
 				callCount.push(1);
 				return callCount.length < 2;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();
@@ -834,7 +888,8 @@ describe("Pop3EmailConnector per-message callback behaviour", () => {
 				callCount.push(1);
 				await connector.retrieveStop();
 				return true;
-			}
+			},
+			TEST_OPTIONS
 		);
 
 		await runPending();

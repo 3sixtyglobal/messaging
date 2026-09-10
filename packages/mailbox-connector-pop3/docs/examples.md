@@ -5,13 +5,11 @@ A polling connector for email ingestion via the POP3 protocol.
 ## Pop3EmailConnector
 
 ```typescript
-import {
-  Pop3EmailConnector,
-  Pop3EmailConnectorConfigSchema
-} from '@twin.org/mailbox-connector-pop3';
+import { Pop3EmailConnector, initSchema } from '@twin.org/mailbox-connector-pop3';
 import {
   EmailProtocolConnectorFactory,
-  EmailProtocolConnectorSchemaFactory
+  EmailProtocolConnectorConfigSchemaFactory,
+  EmailProtocolConnectorStateSchemaFactory
 } from '@twin.org/mailbox-models';
 
 // Register the connector and its config schema with the shared factories
@@ -27,13 +25,18 @@ EmailProtocolConnectorFactory.register(
     })
 );
 
-EmailProtocolConnectorSchemaFactory.register(
-  Pop3EmailConnector.NAMESPACE,
-  () => Pop3EmailConnectorConfigSchema
-);
+// The connector registers its config and state schemas when it is constructed. Call initSchema
+// at startup as well, so a mailbox which is stored but not currently polled still has its
+// secure properties recognised
+initSchema();
 
-const schema = EmailProtocolConnectorSchemaFactory.get(Pop3EmailConnector.NAMESPACE);
+const schema = EmailProtocolConnectorConfigSchemaFactory.get(Pop3EmailConnector.NAMESPACE);
 console.log(schema.find(f => f.isSecure)?.propertyKey); // "password"
+
+const stateSchema = EmailProtocolConnectorStateSchemaFactory.get(Pop3EmailConnector.NAMESPACE);
+console.log(stateSchema.map(f => f.propertyKey)); // ["seenUidls"]
+// The credentials are configured, so no state property needs vaulting
+console.log(stateSchema.filter(f => f.isSecure)); // []
 ```
 
 ```typescript

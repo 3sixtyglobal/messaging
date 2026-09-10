@@ -17,5 +17,8 @@
 		"password": "Password",
 		"folders": "Folders",
 		"pollingIntervalMinutes": "Polling Interval (Minutes)"
+	},
+	"imapEmailConnectorStateSchema": {
+		"folders": "Folder State"
 	}
 }

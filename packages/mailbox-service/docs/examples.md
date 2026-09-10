@@ -27,8 +27,9 @@ import type { IMailbox } from '@twin.org/mailbox-models';
 
 const service = new MailboxService();
 
-// Create a mailbox; returns the generated ID
-const id = await service.addMailbox({
+// Create a mailbox; returns the generated ID, and the URL to open for the user when the
+// connector needs an external flow completed before the mailbox can be polled
+const { id, authUrl } = await service.createMailbox({
   name: 'Work Inbox',
   connectorType: 'imap',
   config: {
@@ -39,13 +40,16 @@ const id = await service.addMailbox({
   enabled: true
 });
 console.log(id); // "019547d0-..."
+console.log(authUrl); // undefined, IMAP authenticates with the configured credentials
 
 const mailbox: IMailbox = await service.getMailbox(id);
 console.log(mailbox.name); // "Work Inbox"
 console.log(mailbox.enabled); // true
 
-// Update the mailbox
-await service.updateMailbox({ ...mailbox, name: 'Primary Inbox' });
+// Update the mailbox; an update replaces the credentials, so a connector which needs an
+// external flow returns the URL to open the same way creating one does
+const updated = await service.updateMailbox({ ...mailbox, name: 'Primary Inbox' });
+console.log(updated.authUrl); // undefined, IMAP authenticates with the configured credentials
 
 // Paginated listing
 const { mailboxes, cursor } = await service.listMailboxes(undefined, 20);

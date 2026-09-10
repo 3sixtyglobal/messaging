@@ -3,26 +3,35 @@
 import type { IComponent } from "@twin.org/core";
 import type { IMailbox } from "./IMailbox.js";
 import type { IMailboxConfigField } from "./IMailboxConfigField.js";
+import type { IMailboxCreateResult } from "./IMailboxCreateResult.js";
+import type { IMailboxUpdateResult } from "./IMailboxUpdateResult.js";
 
 /**
  * Interface describing the mailbox management component.
  */
 export interface IMailboxComponent extends IComponent {
 	/**
-	 * Add a new mailbox and begin polling for it.
-	 * @param mailbox The mailbox configuration to add.
-	 * @returns The identifier assigned to the new mailbox.
+	 * Create a new mailbox and begin polling for it.
+	 * Connectors whose credentials are issued by an external flow are asked to start it here, so
+	 * the URL the user has to open is returned to the caller which created the mailbox instead of
+	 * only surfacing once the first poll has run.
+	 * @param mailbox The mailbox configuration to create.
+	 * @returns The identifier assigned to the new mailbox, with the URL to open when the mailbox
+	 * must be authenticated before it can be polled.
 	 */
-	addMailbox(
+	createMailbox(
 		mailbox: Pick<IMailbox, "name" | "connectorType" | "config" | "enabled">
-	): Promise<string>;
+	): Promise<IMailboxCreateResult>;
 
 	/**
 	 * Update an existing mailbox.
+	 * An update replaces the credentials the mailbox authenticates with, so a connector whose
+	 * credentials are issued by an external flow is asked to start a new one, and the URL the
+	 * user has to open is returned the same way it is when the mailbox is created.
 	 * @param mailbox The updated mailbox configuration.
-	 * @returns A promise that resolves when the mailbox has been updated.
+	 * @returns The URL to open when the mailbox must be authenticated before it can be polled.
 	 */
-	updateMailbox(mailbox: IMailbox): Promise<void>;
+	updateMailbox(mailbox: IMailbox): Promise<IMailboxUpdateResult>;
 
 	/**
 	 * Remove a mailbox and stop polling for it.
@@ -48,6 +57,20 @@ export interface IMailboxComponent extends IComponent {
 		cursor?: string,
 		limit?: number
 	): Promise<{ mailboxes: IMailbox[]; cursor?: string }>;
+
+	/**
+	 * Complete an authentication flow for a mailbox awaiting authentication.
+	 * The mailbox is correlated from the payload's state property, which the connector placed in
+	 * the external flow when it produced its auth state, and which names the partition as well as
+	 * the mailbox. The connector exchanges the payload for its credentials, which are stored on
+	 * the mailbox state, and polling restarts.
+	 * @param authPayload The data handed to the callback URI, carrying the correlating state.
+	 * @returns A promise that resolves when the mailbox has been authenticated.
+	 * @throws NotFoundError if the correlated mailbox does not exist.
+	 * @throws GeneralError if the mailbox is not awaiting authentication, or its connector has no
+	 * authentication flow.
+	 */
+	completeAuth(authPayload: unknown): Promise<void>;
 
 	/**
 	 * Get the configuration schema for a connector type.

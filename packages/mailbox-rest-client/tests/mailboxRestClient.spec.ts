@@ -5,6 +5,7 @@ import type { IMailbox, IMailboxConfigField } from "@twin.org/mailbox-models";
 import { HttpMethod } from "@twin.org/web";
 import { MailboxRestClient } from "../src/mailboxRestClient.js";
 import {
+	createdJsonResponse,
 	createdResponse,
 	jsonResponse,
 	noContentResponse,
@@ -41,10 +42,10 @@ describe("MailboxRestClient", () => {
 		expect(client.className()).toBe("MailboxRestClient");
 	});
 
-	describe("addMailbox", () => {
+	describe("createMailbox", () => {
 		test("throws when mailbox is undefined", async () => {
 			await expect(
-				client.addMailbox(
+				client.createMailbox(
 					undefined as unknown as Pick<IMailbox, "name" | "connectorType" | "config" | "enabled">
 				)
 			).rejects.toMatchObject({
@@ -55,7 +56,7 @@ describe("MailboxRestClient", () => {
 
 		test("throws when mailbox.name is empty", async () => {
 			await expect(
-				client.addMailbox({ name: "", connectorType: "pop3", enabled: true, config: undefined })
+				client.createMailbox({ name: "", connectorType: "pop3", enabled: true, config: undefined })
 			).rejects.toMatchObject({
 				name: GuardError.CLASS_NAME,
 				message: "guard.stringEmpty"
@@ -64,7 +65,7 @@ describe("MailboxRestClient", () => {
 
 		test("throws when mailbox.connectorType is empty", async () => {
 			await expect(
-				client.addMailbox({ name: "Inbox", connectorType: "", enabled: true, config: undefined })
+				client.createMailbox({ name: "Inbox", connectorType: "", enabled: true, config: undefined })
 			).rejects.toMatchObject({
 				name: GuardError.CLASS_NAME,
 				message: "guard.stringEmpty"
@@ -76,7 +77,7 @@ describe("MailboxRestClient", () => {
 				createdResponse("mailbox/01932e8a-1234-7000-abcd-0123456789ab")
 			);
 
-			await client.addMailbox({
+			await client.createMailbox({
 				name: "Inbox",
 				connectorType: "pop3",
 				enabled: true,
@@ -93,14 +94,33 @@ describe("MailboxRestClient", () => {
 				createdResponse("mailbox/01932e8a-1234-7000-abcd-0123456789ab")
 			);
 
-			const id = await client.addMailbox({
+			const result = await client.createMailbox({
 				name: "Inbox",
 				connectorType: "pop3",
 				enabled: true,
 				config: undefined
 			});
 
-			expect(id).toBe("01932e8a-1234-7000-abcd-0123456789ab");
+			expect(result.id).toBe("01932e8a-1234-7000-abcd-0123456789ab");
+			expect(result.authUrl).toBeUndefined();
+		});
+
+		test("returns the auth URL the connector produced for the new mailbox", async () => {
+			fetchMock.mockResolvedValueOnce(
+				createdJsonResponse("mailbox/01932e8a-1234-7000-abcd-0123456789ab", {
+					authUrl: "https://accounts.google.com/o/oauth2"
+				})
+			);
+
+			const result = await client.createMailbox({
+				name: "Inbox",
+				connectorType: "gmail",
+				enabled: true,
+				config: undefined
+			});
+
+			expect(result.id).toBe("01932e8a-1234-7000-abcd-0123456789ab");
+			expect(result.authUrl).toBe("https://accounts.google.com/o/oauth2");
 		});
 	});
 
@@ -162,6 +182,24 @@ describe("MailboxRestClient", () => {
 			const [url, options] = fetchMock.mock.calls[0];
 			expect(url).toBe(`${ENDPOINT}/${PREFIX}/01932e8a-1234-7000-abcd-0123456789ab`);
 			expect(options.method).toBe(HttpMethod.PUT);
+		});
+
+		test("returns the auth URL when the update needs a new authentication flow", async () => {
+			fetchMock.mockResolvedValueOnce(
+				jsonResponse({ authUrl: "https://accounts.google.com/o/oauth2" })
+			);
+
+			const result = await client.updateMailbox(TEST_MAILBOX);
+
+			expect(result.authUrl).toBe("https://accounts.google.com/o/oauth2");
+		});
+	});
+
+	describe("completeAuth", () => {
+		test("is not supported, the provider redirects to the service callback route", async () => {
+			await expect(client.completeAuth({ state: "abc", code: "def" })).rejects.toMatchObject({
+				name: "NotSupportedError"
+			});
 		});
 	});
 

@@ -13,3 +13,8 @@
 ## Variables
 
 - [Pop3EmailConnectorConfigSchema](variables/Pop3EmailConnectorConfigSchema.md)
+- [Pop3EmailConnectorStateSchema](variables/Pop3EmailConnectorStateSchema.md)
+
+## Functions
+
+- [initSchema](functions/initSchema.md)

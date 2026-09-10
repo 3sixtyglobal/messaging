@@ -17,5 +17,8 @@
 		"password": "Password",
 		"pollingIntervalMinutes": "Polling Interval (Minutes)",
 		"retainMessages": "Retain Messages"
+	},
+	"pop3EmailConnectorStateSchema": {
+		"seenUidls": "Seen UIDLs"
 	}
 }
