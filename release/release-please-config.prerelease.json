@@ -54,6 +54,10 @@
 		"packages/mailbox-connector-gmail": {
 			"package-name": "mailbox-connector-gmail",
 			"changelog-path": "docs/changelog.md"
+		},
+		"packages/mailbox-connector-outlook": {
+			"package-name": "mailbox-connector-outlook",
+			"changelog-path": "docs/changelog.md"
 		}
 	},
 	"plugins": [
@@ -72,7 +76,8 @@
 				"mailbox-rest-client",
 				"mailbox-connector-pop3",
 				"mailbox-connector-imap",
-				"mailbox-connector-gmail"
+				"mailbox-connector-gmail",
+				"mailbox-connector-outlook"
 			]
 		}
 	]
