@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.3-next.3](https://github.com/iotaledger/twin-messaging/compare/mailbox-service-v0.9.3-next.2...mailbox-service-v0.9.3-next.3) (2026-09-10)
+
+
+### Miscellaneous Chores
+
+* **mailbox-service:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/mailbox-models bumped from 0.9.3-next.2 to 0.9.3-next.3
+
 ## [0.9.3-next.2](https://github.com/iotaledger/twin-messaging/compare/mailbox-service-v0.9.3-next.1...mailbox-service-v0.9.3-next.2) (2026-09-10)
 
 

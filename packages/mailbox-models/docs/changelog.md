@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3-next.3](https://github.com/iotaledger/twin-messaging/compare/mailbox-models-v0.9.3-next.2...mailbox-models-v0.9.3-next.3) (2026-09-10)
+
+
+### Miscellaneous Chores
+
+* **mailbox-models:** Synchronize repo versions
+
 ## [0.9.3-next.2](https://github.com/iotaledger/twin-messaging/compare/mailbox-models-v0.9.3-next.1...mailbox-models-v0.9.3-next.2) (2026-09-10)
 
 
