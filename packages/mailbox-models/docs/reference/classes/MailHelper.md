@@ -93,3 +93,26 @@ Optional IMAP flags associated with the message.
 `Promise`\<[`IEmail`](../interfaces/IEmail.md) \| `undefined`\>
 
 The parsed email, or undefined if the input is empty.
+
+***
+
+### attachmentToBase64() {#attachmenttobase64}
+
+> `static` **attachmentToBase64**(`content`): `string`
+
+Convert postal-mime attachment content to a base64 string.
+Handles string (text), Uint8Array, and ArrayBuffer inputs.
+
+#### Parameters
+
+##### content
+
+`string` \| `ArrayBuffer` \| `Uint8Array`\<`ArrayBufferLike`\>
+
+The attachment content.
+
+#### Returns
+
+`string`
+
+The base64-encoded content.
