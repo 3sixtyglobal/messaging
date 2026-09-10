@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/mailbox-rest-client",
-	"version": "0.9.3-next.1",
+	"version": "0.9.3-next.2",
 	"description": "REST client for calling mailbox service endpoints.",
 	"repository": {
 		"type": "git",
@@ -31,7 +31,7 @@
 		"@twin.org/api-core": "next",
 		"@twin.org/api-models": "next",
 		"@twin.org/core": "next",
-		"@twin.org/mailbox-models": "0.9.3-next.1",
+		"@twin.org/mailbox-models": "0.9.3-next.2",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next"
 	},

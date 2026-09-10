@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/mailbox-connector-gmail",
-	"version": "0.9.3-next.1",
+	"version": "0.9.3-next.2",
 	"description": "Gmail connector for email mailbox ingestion.",
 	"repository": {
 		"type": "git",
@@ -32,7 +32,7 @@
 		"@twin.org/core": "next",
 		"@twin.org/entity": "next",
 		"@twin.org/logging-models": "next",
-		"@twin.org/mailbox-models": "0.9.3-next.1",
+		"@twin.org/mailbox-models": "0.9.3-next.2",
 		"@twin.org/nameof": "next",
 		"googleapis": "178.1.1"
 	},

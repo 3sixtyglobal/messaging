@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.3-next.2](https://github.com/iotaledger/twin-messaging/compare/messaging-connector-smtp-v0.9.3-next.1...messaging-connector-smtp-v0.9.3-next.2) (2026-09-10)
+
+
+### Miscellaneous Chores
+
+* **messaging-connector-smtp:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/messaging-models bumped from 0.9.3-next.1 to 0.9.3-next.2
+
 ## [0.9.3-next.1](https://github.com/iotaledger/twin-messaging/compare/messaging-connector-smtp-v0.9.3-next.0...messaging-connector-smtp-v0.9.3-next.1) (2026-09-04)
 
 

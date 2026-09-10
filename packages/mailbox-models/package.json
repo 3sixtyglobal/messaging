@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/mailbox-models",
-	"version": "0.9.3-next.1",
+	"version": "0.9.3-next.2",
 	"description": "Defines the shared models and factory helpers for email mailbox ingestion.",
 	"repository": {
 		"type": "git",
