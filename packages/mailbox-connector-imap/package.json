@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/mailbox-connector-imap",
-	"version": "0.9.3-next.3",
+	"version": "0.10.0",
 	"description": "IMAP connector for email mailbox ingestion.",
 	"repository": {
 		"type": "git",
@@ -28,18 +28,18 @@
 		"dist:no-test": "npm run clean && npm run build && npm run test:build"
 	},
 	"dependencies": {
-		"@twin.org/background-task-models": "next",
-		"@twin.org/core": "next",
-		"@twin.org/entity": "next",
-		"@twin.org/logging-models": "next",
-		"@twin.org/mailbox-models": "0.9.3-next.3",
-		"@twin.org/nameof": "next",
+		"@twin.org/background-task-models": "^0.10.0",
+		"@twin.org/core": "^0.10.0",
+		"@twin.org/entity": "^0.10.0",
+		"@twin.org/logging-models": "^0.10.0",
+		"@twin.org/mailbox-models": "^0.10.0",
+		"@twin.org/nameof": "^0.10.0",
 		"imapflow": "1.7.7"
 	},
 	"devDependencies": {
-		"@twin.org/nameof-transformer": "next",
-		"@twin.org/nameof-vitest-plugin": "next",
-		"@twin.org/validate-locales": "next",
+		"@twin.org/nameof-transformer": "^0.10.0",
+		"@twin.org/nameof-vitest-plugin": "^0.10.0",
+		"@twin.org/validate-locales": "^0.10.0",
 		"@types/node": "26.1.2",
 		"@types/nodemailer": "8.0.1",
 		"@vitest/coverage-v8": "4.1.10",
