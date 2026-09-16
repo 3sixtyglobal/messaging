@@ -204,6 +204,124 @@ describe("MessagingService", () => {
 		expect(result).toBe(true);
 	});
 
+	test("template replacement handles keys containing regex metacharacters", async () => {
+		let capturedContent: string | undefined;
+		MessagingEmailConnectorFactory.register(
+			"messaging-email",
+			() =>
+				({
+					sendCustomEmail: async (
+						sender: string,
+						recipients: string[],
+						subject: string,
+						content: string
+					) => {
+						capturedContent = content;
+						return true;
+					}
+				}) as unknown as IMessagingEmailConnector
+		);
+
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Order {{order.id}}",
+			content: "Price: {{amount(total)}}"
+		});
+
+		const service = new MessagingService({
+			messagingEmailConnectorType: "messaging-email"
+		});
+		const result = await service.sendCustomEmail(
+			"sender@example.com",
+			["recipient@example.com"],
+			"templateId",
+			{ "order.id": "ABC-123", "amount(total)": "42.00" },
+			"en"
+		);
+
+		expect(result).toBe(true);
+		expect(capturedContent).toBe("Price: 42.00");
+	});
+
+	test("template replacement value containing $$ is inserted literally", async () => {
+		let capturedContent: string | undefined;
+		MessagingEmailConnectorFactory.register(
+			"messaging-email",
+			() =>
+				({
+					sendCustomEmail: async (
+						sender: string,
+						recipients: string[],
+						subject: string,
+						content: string
+					) => {
+						capturedContent = content;
+						return true;
+					}
+				}) as unknown as IMessagingEmailConnector
+		);
+
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Hello",
+			content: "Cost: {{amount}}"
+		});
+
+		const service = new MessagingService({
+			messagingEmailConnectorType: "messaging-email"
+		});
+		await service.sendCustomEmail(
+			"sender@example.com",
+			["recipient@example.com"],
+			"templateId",
+			{ amount: "$$100" },
+			"en"
+		);
+
+		expect(capturedContent).toBe("Cost: $$100");
+	});
+
+	test("template replacement does not match partial placeholders with similar keys", async () => {
+		let capturedContent: string | undefined;
+		MessagingEmailConnectorFactory.register(
+			"messaging-email",
+			() =>
+				({
+					sendCustomEmail: async (
+						sender: string,
+						recipients: string[],
+						subject: string,
+						content: string
+					) => {
+						capturedContent = content;
+						return true;
+					}
+				}) as unknown as IMessagingEmailConnector
+		);
+
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Hello",
+			content: "Dear {{user.name}}, your ref is {{userXname}}"
+		});
+
+		const service = new MessagingService({
+			messagingEmailConnectorType: "messaging-email"
+		});
+		await service.sendCustomEmail(
+			"sender@example.com",
+			["recipient@example.com"],
+			"templateId",
+			{ "user.name": "Alice" },
+			"en"
+		);
+
+		expect(capturedContent).toBe("Dear Alice, your ref is {{userXname}}");
+	});
+
 	test("throws error when registering device with invalid applicationId", async () => {
 		const service = new MessagingService({
 			messagingPushNotificationConnectorType: "messaging-push-notification"

@@ -1,0 +1,49 @@
+{
+	"error": {
+		"outlookEmailConnector": {
+			"pollFailed": "Poll failed",
+			"authCodeExchangeFailed": "The authorization code could not be exchanged for tokens",
+			"noRefreshTokenIssued": "The consent flow did not issue a refresh token",
+			"noAccessTokenIssued": "No access token was issued for the mailbox",
+			"authFlowNotStarted": "The connector has no authentication flow in progress to complete",
+			"consentAccountMismatch": "The consent was given by an account other than {emailAddress}",
+			"mailboxNotConsented": "The stored credentials hold no consented account for {emailAddress}",
+			"missingClientCredential": "The clientSecret or clientCertificate is required",
+			"invalidClientCertificate": "The clientCertificate is not a valid JSON certificate credential"
+		}
+	},
+	"info": {
+		"outlookEmailConnector": {
+			"emailReceived": "Email received \"{subject}\""
+		}
+	},
+	"warn": {
+		"outlookEmailConnector": {
+			"consentRequired": "Mailbox requires OAuth consent before it can be polled",
+			"consentUrlFailed": "The consent URL could not be produced",
+			"deltaExpired": "Delta cursor expired for folder \"{folderId}\", restarting the folder sync"
+		}
+	},
+	"outlookEmailConnectorConfigSchema": {
+		"emailAddress": "Email Address",
+		"tenantId": "Directory (Tenant) ID",
+		"clientId": "Application (Client) ID",
+		"clientSecret": "Client Secret",
+		"clientCertificate": "Client Certificate",
+		"appOnlyAccess": "Application Only Access",
+		"folderIds": "Folder IDs",
+		"maxMessagesPerPoll": "Maximum Messages Per Poll",
+		"pollingIntervalMinutes": "Polling Interval (Minutes)"
+	},
+	"outlookEmailConnectorStateSchema": {
+		"tokenCache": "OAuth Token Cache",
+		"accountId": "Consented Account ID",
+		"deltaLinks": "Delta Cursors",
+		"syncNextLinks": "Sync Page Links",
+		"syncCompletedFolderIds": "Synced Folder IDs",
+		"syncFromDateTime": "Sync From Date",
+		"initialSyncComplete": "Initial Sync Complete",
+		"lastReceivedDateTime": "Last Received Date",
+		"deliveredMessageIds": "Delivered Message IDs"
+	}
+}

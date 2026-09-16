@@ -1,0 +1,10 @@
+{
+	"error": {
+		"mailboxRestClient": {
+			"notSupported": "Method \"{methodName}\" is not supported over REST."
+		},
+		"mailStorageRestClient": {
+			"notSupported": "Method \"{methodName}\" is not supported over REST."
+		}
+	}
+}

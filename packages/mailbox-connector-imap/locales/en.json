@@ -1,0 +1,24 @@
+{
+	"error": {
+		"imapEmailConnector": {
+			"pollFailed": "Poll failed"
+		}
+	},
+	"info": {
+		"imapEmailConnector": {
+			"emailReceived": "Email received \"{subject}\""
+		}
+	},
+	"imapEmailConnectorConfigSchema": {
+		"host": "Host",
+		"port": "Port",
+		"secure": "Secure",
+		"username": "Username",
+		"password": "Password",
+		"folders": "Folders",
+		"pollingIntervalMinutes": "Polling Interval (Minutes)"
+	},
+	"imapEmailConnectorStateSchema": {
+		"folders": "Folder State"
+	}
+}

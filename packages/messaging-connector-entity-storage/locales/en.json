@@ -8,7 +8,7 @@
 			"pushNotificationSending": "Sending push notification"
 		},
 		"entityStorageMessagingEmailConnector": {
-			"emailSending": "Sending email"
+			"emailSending": "Sending email \"{subject}\""
 		}
 	},
 	"error": {

@@ -117,17 +117,18 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 		Guards.arrayValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(recipients), recipients);
 		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(subject), subject);
 		Guards.stringValue(AwsMessagingEmailConnector.CLASS_NAME, nameof(content), content);
+		await this._logging?.log({
+			level: "info",
+			source: AwsMessagingEmailConnector.CLASS_NAME,
+			ts: Date.now(),
+			message: "emailSending",
+			data: {
+				subject
+			}
+		});
+		let result;
 		try {
-			await this._logging?.log({
-				level: "info",
-				source: AwsMessagingEmailConnector.CLASS_NAME,
-				ts: Date.now(),
-				message: "emailSending",
-				data: {
-					type: "Custom Email"
-				}
-			});
-			const result = await this._client.send(
+			result = await this._client.send(
 				new SendEmailCommand({
 					Destination: { ToAddresses: recipients },
 					Message: {
@@ -143,21 +144,6 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 					Source: sender
 				})
 			);
-			if (result.$metadata.httpStatusCode !== HttpStatusCode.ok) {
-				await this._logging?.log({
-					level: "error",
-					source: AwsMessagingEmailConnector.CLASS_NAME,
-					ts: Date.now(),
-					message: "sendCustomEmailFailed"
-				});
-				throw new GeneralError(
-					AwsMessagingEmailConnector.CLASS_NAME,
-					"sendCustomEmailFailed",
-					undefined,
-					result
-				);
-			}
-			return true;
 		} catch (err) {
 			throw new GeneralError(
 				AwsMessagingEmailConnector.CLASS_NAME,
@@ -166,6 +152,21 @@ export class AwsMessagingEmailConnector implements IMessagingEmailConnector {
 				err
 			);
 		}
+		if (result.$metadata.httpStatusCode !== HttpStatusCode.ok) {
+			await this._logging?.log({
+				level: "error",
+				source: AwsMessagingEmailConnector.CLASS_NAME,
+				ts: Date.now(),
+				message: "sendCustomEmailFailed"
+			});
+			throw new GeneralError(
+				AwsMessagingEmailConnector.CLASS_NAME,
+				"sendCustomEmailFailed",
+				undefined,
+				result
+			);
+		}
+		return true;
 	}
 
 	/**
