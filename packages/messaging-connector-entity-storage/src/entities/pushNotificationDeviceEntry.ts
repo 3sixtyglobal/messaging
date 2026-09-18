@@ -11,13 +11,13 @@ export class PushNotificationDeviceEntry {
 	/**
 	 * The id.
 	 */
-	@property({ type: "string", isPrimary: true })
+	@property({ type: "string", isPrimary: true, maxLength: 255 })
 	public id!: string;
 
 	/**
 	 * The applicationId.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 255 })
 	public applicationId!: string;
 
 	/**
@@ -35,7 +35,7 @@ export class PushNotificationDeviceEntry {
 	/**
 	 * The status.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 128 })
 	public status!: string;
 
 	/**

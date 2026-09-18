@@ -11,13 +11,13 @@ export class StoredEmail {
 	/**
 	 * The unique storage identifier for this email.
 	 */
-	@property({ type: "string", isPrimary: true })
+	@property({ type: "string", isPrimary: true, maxLength: 255 })
 	public id!: string;
 
 	/**
 	 * The identifier of the mailbox that received this email.
 	 */
-	@property({ type: "string", isSecondary: true })
+	@property({ type: "string", maxLength: 255, isSecondary: true })
 	public mailboxId!: string;
 
 	/**
@@ -35,7 +35,7 @@ export class StoredEmail {
 	/**
 	 * The unique message identifier from the email headers.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", maxLength: 255, optional: true })
 	public messageId?: string;
 
 	/**
@@ -77,37 +77,37 @@ export class StoredEmail {
 	/**
 	 * The final delivery address from the Delivered-To header.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", format: "email", optional: true })
 	public deliveredTo?: string;
 
 	/**
 	 * The Return-Path address.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", format: "email", optional: true })
 	public returnPath?: string;
 
 	/**
 	 * The Message-ID this message is a reply to.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", maxLength: 255, optional: true })
 	public inReplyTo?: string;
 
 	/**
 	 * The space-separated list of related message identifiers.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", maxLength: 2048, optional: true })
 	public references?: string;
 
 	/**
 	 * The message subject line.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", maxLength: 1024, optional: true })
 	public subject?: string;
 
 	/**
 	 * The message date as an ISO 8601 string.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", format: "date-time", optional: true })
 	public date?: string;
 
 	/**

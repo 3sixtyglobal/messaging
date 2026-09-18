@@ -11,13 +11,13 @@ export class SmsEntry {
 	/**
 	 * The id.
 	 */
-	@property({ type: "string", isPrimary: true })
+	@property({ type: "string", isPrimary: true, maxLength: 255 })
 	public id!: string;
 
 	/**
 	 * The phone number to deliver the message.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 32 })
 	public phoneNumber!: string;
 
 	/**
@@ -29,13 +29,13 @@ export class SmsEntry {
 	/**
 	 * The message.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 1024 })
 	public message!: string;
 
 	/**
 	 * The status.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 128 })
 	public status!: string;
 
 	/**

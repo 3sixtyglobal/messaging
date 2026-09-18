@@ -11,19 +11,19 @@ export class PushNotificationMessageEntry {
 	/**
 	 * The id.
 	 */
-	@property({ type: "string", isPrimary: true })
+	@property({ type: "string", isPrimary: true, maxLength: 255 })
 	public id!: string;
 
 	/**
 	 * The device address.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 255 })
 	public deviceAddress!: string;
 
 	/**
 	 * The title.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 256 })
 	public title!: string;
 
 	/**
@@ -41,7 +41,7 @@ export class PushNotificationMessageEntry {
 	/**
 	 * The status.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 128 })
 	public status!: string;
 
 	/**

@@ -11,13 +11,13 @@ export class EmailEntry {
 	/**
 	 * The id.
 	 */
-	@property({ type: "string", isPrimary: true })
+	@property({ type: "string", isPrimary: true, maxLength: 255 })
 	public id!: string;
 
 	/**
 	 * The sender email address.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", format: "email" })
 	public sender!: string;
 
 	/**
@@ -41,13 +41,13 @@ export class EmailEntry {
 	/**
 	 * The subject.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 1024 })
 	public subject!: string;
 
 	/**
 	 * The status.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 128 })
 	public status!: string;
 
 	/**
