@@ -679,9 +679,31 @@ export class MailboxService implements IMailboxComponent {
 							return false;
 						}
 
-						if (Is.notEmpty(message)) {
-							await this._mailStorageComponent.store(entry.id, message);
+						let storeError: unknown;
+						let messageStored = false;
 
+						if (Is.notEmpty(message)) {
+							try {
+								await this._mailStorageComponent.store(entry.id, message);
+								messageStored = true;
+							} catch (err) {
+								// A connector rewinds its cursor when the callback returns false, so a
+								// message which can never be stored would wedge every later one behind it.
+								// It is left behind and recorded on the mailbox instead.
+								storeError = err;
+
+								await this._logging?.log({
+									level: "error",
+									source: MailboxService.CLASS_NAME,
+									ts: Date.now(),
+									message: "emailStoreFailed",
+									data: { mailboxId: entry.id },
+									error: BaseError.fromError(err)
+								});
+							}
+						}
+
+						if (messageStored) {
 							await MetricHelper.metricIncrement(this._telemetry, MailboxMetricIds.EmailsReceived, {
 								mailboxId: entry.id,
 								tenantId: entry.tenantId,
@@ -711,7 +733,10 @@ export class MailboxService implements IMailboxComponent {
 							current.connectorType,
 							updatedState
 						);
-						current.retrievalError = retrievalError;
+						const failure = storeError ?? retrievalError;
+						current.retrievalError = Is.notEmpty(failure)
+							? BaseError.fromError(failure).toJsonObject()
+							: undefined;
 
 						await this._mailboxEntityStorage.set(current);
 						return true;

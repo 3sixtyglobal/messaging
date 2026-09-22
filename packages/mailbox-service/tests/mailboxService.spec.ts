@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { HttpContextIdKeys } from "@twin.org/api-models";
 import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, Is, type IError } from "@twin.org/core";
+import { ComponentFactory, GeneralError, Is, type IError } from "@twin.org/core";
 import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
 import {
@@ -274,6 +274,140 @@ describe("MailboxService", () => {
 		}
 		expect(storedEmails).toHaveLength(1);
 		expect(storedEmails[0].subject).toBe("Hello");
+	});
+
+	test("retrieval callback skips a message which cannot be stored so ingestion continues", async () => {
+		const poison: IEmail = { subject: "Poison", messageId: "<poison@example.com>" };
+		const normal: IEmail = { subject: "Normal", messageId: "<normal@example.com>" };
+		const inbox: IEmail[] = [poison, normal];
+		const storedEmails: IEmail[] = [];
+
+		ComponentFactory.register("mail-storage-poison", () => ({
+			className: () => "PoisonMailStorage",
+			store: async (mailboxId: string, email: IEmail) => {
+				if (email.subject === "Poison") {
+					throw new GeneralError("EntitySchemaHelper", "maxLengthExceeded", {
+						property: "references",
+						maxLength: 2048,
+						length: 3000
+					});
+				}
+				storedEmails.push(email);
+				return "id";
+			},
+			get: async () => {
+				throw new Error("not implemented");
+			},
+			remove: async () => {},
+			query: async () => ({ emails: [] })
+		}));
+
+		type RetrievalCb = (mailboxId: string, msg: IEmail, state: unknown) => Promise<boolean>;
+		let retrievalCb: RetrievalCb | undefined;
+
+		EmailProtocolConnectorFactory.register("poison-protocol", () => ({
+			className: () => "PoisonConnector",
+			retrieve: async (instanceId: string, state: unknown, authCb: unknown, cb: RetrievalCb) => {
+				retrievalCb = cb;
+			},
+			retrieveStop: async () => {}
+		}));
+
+		const poisonService = new MailboxService({
+			mailboxEntityStorageType: "mailbox",
+			vaultConnectorType: "vault",
+			mailStorageComponentType: "mail-storage-poison"
+		});
+
+		const { id } = await runWithContext(async () =>
+			poisonService.createMailbox({
+				name: "Poison Mailbox",
+				connectorType: "poison-protocol",
+				enabled: true,
+				config: undefined
+			})
+		);
+
+		expect(retrievalCb).toBeDefined();
+
+		// Mirrors the protocol connectors: the cursor moves on after an accepted message and
+		// rewinds to the last accepted one when the callback returns false.
+		let cursor = 0;
+		const fetched: (string | undefined)[] = [];
+		const poll = async (): Promise<void> => {
+			for (let index = cursor; index < inbox.length; index++) {
+				fetched.push(inbox[index].subject);
+				const accepted = await retrievalCb?.(id, inbox[index], { cursor: index + 1 });
+				if (accepted !== true) {
+					return;
+				}
+				cursor = index + 1;
+			}
+		};
+
+		await poll();
+		await poll();
+
+		// Without the skip the second poll fetches the poison message again and never reaches
+		// the one behind it.
+		expect(fetched).toEqual(["Poison", "Normal"]);
+		expect(cursor).toBe(2);
+		expect(storedEmails.map(email => email.subject)).toEqual(["Normal"]);
+	});
+
+	test("retrieval callback records a message it could not store on the mailbox", async () => {
+		ComponentFactory.register("mail-storage-rejecting", () => ({
+			className: () => "RejectingMailStorage",
+			store: async () => {
+				throw new GeneralError("EntitySchemaHelper", "maxLengthExceeded", {
+					property: "references",
+					maxLength: 2048,
+					length: 3000
+				});
+			},
+			get: async () => {
+				throw new Error("not implemented");
+			},
+			remove: async () => {},
+			query: async () => ({ emails: [] })
+		}));
+
+		type RetrievalCb = (mailboxId: string, msg: IEmail, state: unknown) => Promise<boolean>;
+		let retrievalCb: RetrievalCb | undefined;
+
+		EmailProtocolConnectorFactory.register("rejecting-protocol", () => ({
+			className: () => "RejectingConnector",
+			retrieve: async (instanceId: string, state: unknown, authCb: unknown, cb: RetrievalCb) => {
+				retrievalCb = cb;
+			},
+			retrieveStop: async () => {}
+		}));
+
+		const rejectingService = new MailboxService({
+			mailboxEntityStorageType: "mailbox",
+			vaultConnectorType: "vault",
+			mailStorageComponentType: "mail-storage-rejecting"
+		});
+
+		const { id } = await runWithContext(async () =>
+			rejectingService.createMailbox({
+				name: "Rejecting Mailbox",
+				connectorType: "rejecting-protocol",
+				enabled: true,
+				config: undefined
+			})
+		);
+
+		const accepted = await retrievalCb?.(id, { subject: "Oversized" }, {});
+
+		// Reported as accepted so the connector does not rewind its cursor onto the message.
+		expect(accepted).toBe(true);
+
+		const mailbox = await mailboxStorage.get(id);
+		expect(mailbox?.retrievalError).toMatchObject({
+			name: "GeneralError",
+			message: "entitySchemaHelper.maxLengthExceeded"
+		});
 	});
 
 	test("updateMailbox throws when connectorType is changed", async () => {

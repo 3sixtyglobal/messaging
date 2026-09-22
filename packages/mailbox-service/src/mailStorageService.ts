@@ -9,11 +9,13 @@ import {
 	Is,
 	type IValidationFailure,
 	NotFoundError,
+	ObjectHelper,
 	RandomHelper,
 	Validation
 } from "@twin.org/core";
 import {
 	ComparisonOperator,
+	EntitySchemaHelper,
 	LogicalOperator,
 	SortDirection,
 	type IComparatorGroup
@@ -173,7 +175,19 @@ export class MailStorageService implements IMailStorageComponent {
 		entry.attachments = email.attachments;
 		entry.flags = email.flags;
 
+		const truncated = this.truncateBoundedProperties(entry);
+
 		await this._storedEmailEntityStorage.set(entry);
+
+		if (truncated.length > 0) {
+			await this._logging?.log({
+				level: "warn",
+				source: MailStorageService.CLASS_NAME,
+				ts: Date.now(),
+				message: "emailPropertiesTruncated",
+				data: { mailboxId, emailId: id, properties: truncated.join(", ") }
+			});
+		}
 
 		return id;
 	}
@@ -319,6 +333,42 @@ export class MailStorageService implements IMailStorageComponent {
 				error: BaseError.fromError(err)
 			});
 		}
+	}
+
+	/**
+	 * Truncate the string properties of an entry to the length its schema allows, so a header
+	 * a remote sender overran cannot make the whole message impossible to store. The full text
+	 * stays in the headers property, which has no bound.
+	 * @param entry The entry to truncate the properties of, modified in place.
+	 * @returns The names of the properties which were truncated.
+	 * @internal
+	 */
+	private truncateBoundedProperties(entry: StoredEmail): string[] {
+		const schema = EntitySchemaHelper.getSchema<StoredEmail>(StoredEmail);
+		const truncated: string[] = [];
+
+		for (const schemaProperty of schema.properties ?? []) {
+			const value = entry[schemaProperty.property];
+
+			// A format carries its own bound when no explicit maxLength is declared.
+			const maxLength =
+				schemaProperty.maxLength ??
+				(Is.stringValue(schemaProperty.format)
+					? EntitySchemaHelper.FORMAT_MAX_LENGTHS[schemaProperty.format]
+					: undefined);
+
+			if (
+				Is.stringValue(value) &&
+				Is.number(maxLength) &&
+				maxLength > 0 &&
+				value.length > maxLength
+			) {
+				ObjectHelper.propertySet(entry, schemaProperty.property, value.slice(0, maxLength));
+				truncated.push(schemaProperty.property);
+			}
+		}
+
+		return truncated;
 	}
 
 	/**
