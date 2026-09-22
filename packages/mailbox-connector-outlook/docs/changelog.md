@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.10.1-next.1](https://github.com/iotaledger/twin-messaging/compare/mailbox-connector-outlook-v0.10.1-next.0...mailbox-connector-outlook-v0.10.1-next.1) (2026-09-22)
+
+
+### Features
+
+* outlook connector ([#64](https://github.com/iotaledger/twin-messaging/issues/64)) ([2c7c374](https://github.com/iotaledger/twin-messaging/commit/2c7c37408b85905461b97f1b2e3adaf2db258a00))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/mailbox-models bumped from 0.10.1-next.0 to 0.10.1-next.1
+
 ## [0.10.0](https://github.com/iotaledger/twin-messaging/compare/mailbox-connector-outlook-v0.10.0...mailbox-connector-outlook-v0.10.0) (2026-09-16)
 
 

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.10.1-next.1](https://github.com/iotaledger/twin-messaging/compare/mailbox-connector-gmail-v0.10.1-next.0...mailbox-connector-gmail-v0.10.1-next.1) (2026-09-22)
+
+
+### Features
+
+* add gmail with oauth2 workflow ([#61](https://github.com/iotaledger/twin-messaging/issues/61)) ([16b4eaf](https://github.com/iotaledger/twin-messaging/commit/16b4eaf40071444bb656e807d80579d98e21046a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/mailbox-models bumped from 0.10.1-next.0 to 0.10.1-next.1
+
 ## [0.10.0](https://github.com/iotaledger/twin-messaging/compare/mailbox-connector-gmail-v0.10.0...mailbox-connector-gmail-v0.10.0) (2026-09-16)
 
 
