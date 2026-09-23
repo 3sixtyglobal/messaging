@@ -4,7 +4,7 @@ import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
 import type { ILoggingComponent } from "@twin.org/logging-models";
 import type { IMessagingEmailConnector } from "@twin.org/messaging-models";
 import { nameof } from "@twin.org/nameof";
-import nodemailer from "nodemailer";
+import { createTransport } from "nodemailer";
 import type { ISmtpMessagingEmailConnectorConstructorOptions } from "./models/ISmtpMessagingEmailConnectorConstructorOptions.js";
 
 /**
@@ -31,7 +31,7 @@ export class SmtpMessagingEmailConnector implements IMessagingEmailConnector {
 	 * The nodemailer transporter.
 	 * @internal
 	 */
-	private readonly _transporter: ReturnType<typeof nodemailer.createTransport>;
+	private readonly _transporter: ReturnType<typeof createTransport>;
 
 	/**
 	 * Create a new instance of SmtpMessagingEmailConnector.
@@ -48,7 +48,7 @@ export class SmtpMessagingEmailConnector implements IMessagingEmailConnector {
 
 		this._logging = ComponentFactory.getIfExists(options.loggingComponentType);
 
-		this._transporter = nodemailer.createTransport({
+		this._transporter = createTransport({
 			host: options.config.host,
 			port: options.config.port ?? 587,
 			secure: options.config.secure ?? false,

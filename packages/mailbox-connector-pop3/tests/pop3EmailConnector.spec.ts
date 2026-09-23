@@ -11,7 +11,7 @@ import {
 	type IEmailProtocolConnectorOptions
 } from "@twin.org/mailbox-models";
 import Pop3Command from "node-pop3";
-import nodemailer from "nodemailer";
+import { createTransport } from "nodemailer";
 import {
 	TEST_POP3_CONFIG,
 	TEST_POP3_HOST,
@@ -90,7 +90,7 @@ async function sendTestEmail(
 	text: string,
 	cc?: string
 ): Promise<void> {
-	const transporter = nodemailer.createTransport({
+	const transporter = createTransport({
 		host: TEST_POP3_HOST,
 		port: TEST_POP3_SMTP_PORT,
 		secure: false
@@ -306,7 +306,7 @@ describe("Pop3EmailConnector integration", () => {
 	});
 
 	test("can retrieve an email with HTML content and an attachment", async () => {
-		const transporter = nodemailer.createTransport({
+		const transporter = createTransport({
 			host: TEST_POP3_HOST,
 			port: TEST_POP3_SMTP_PORT,
 			secure: false
