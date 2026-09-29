@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/messaging-connector-smtp",
-	"version": "0.10.1-next.1",
+	"version": "0.11.1-next.0",
 	"description": "Provides a connector for sending emails via SMTP.",
 	"repository": {
 		"type": "git",
@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@twin.org/core": "next",
 		"@twin.org/logging-models": "next",
-		"@twin.org/messaging-models": "0.10.1-next.1",
+		"@twin.org/messaging-models": "0.11.1-next.0",
 		"@twin.org/nameof": "next",
 		"nodemailer": "10.0.10"
 	},
