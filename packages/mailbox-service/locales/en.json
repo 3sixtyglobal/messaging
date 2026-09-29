@@ -6,6 +6,7 @@
 			"unknownConnectorType": "No connector is registered for connector type {connectorType}.",
 			"connectorTypeCannotChange": "The connector type of a mailbox cannot be changed.",
 			"retrievalCallbackFailed": "The retrieval callback for mailbox {mailboxId} failed",
+			"emailStoreFailed": "A message retrieved for mailbox {mailboxId} could not be stored and was skipped.",
 			"authNotSupported": "Connector type {connectorType} does not support an authentication flow.",
 			"authNotPending": "Mailbox {mailboxId} is not awaiting authentication.",
 			"authStateMismatch": "The authentication callback for mailbox {mailboxId} did not carry the state its flow was started with.",
@@ -22,6 +23,9 @@
 		}
 	},
 	"warn": {
+		"mailStorageService": {
+			"emailPropertiesTruncated": "Email {emailId} for mailbox {mailboxId} had the properties {properties} truncated to the lengths the schema allows."
+		},
 		"mailboxService": {
 			"consumerNotificationFailed": "Failed to notify consumer {consumerName}.",
 			"startConnectorFailed": "Failed to start connector for mailbox {mailboxId}."

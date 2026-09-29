@@ -11,19 +11,19 @@ export class Mailbox {
 	/**
 	 * The unique identifier for the mailbox.
 	 */
-	@property({ type: "string", isPrimary: true })
+	@property({ type: "string", isPrimary: true, maxLength: 255 })
 	public id!: string;
 
 	/**
 	 * The display name for the mailbox.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 256 })
 	public name!: string;
 
 	/**
 	 * The connector type identifying which connector handles this mailbox.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 128 })
 	public connectorType!: string;
 
 	/**
@@ -78,13 +78,13 @@ export class Mailbox {
 	/**
 	 * The node identifier captured at creation time.
 	 */
-	@property({ type: "string" })
+	@property({ type: "string", maxLength: 255 })
 	public nodeId!: string;
 
 	/**
 	 * The tenant identifier captured at creation time. Absent on single-tenant nodes.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", maxLength: 32, optional: true })
 	public tenantId?: string;
 
 	/**
@@ -93,6 +93,6 @@ export class Mailbox {
 	 * Absent on a mailbox stored before an origin was recorded, which can still be polled with
 	 * the credentials it holds but has nowhere for an authentication flow to return to.
 	 */
-	@property({ type: "string", optional: true })
+	@property({ type: "string", format: "uri", optional: true })
 	public publicOrigin?: string;
 }

@@ -11,7 +11,7 @@ import {
 	type IEmailProtocolConnectorOptions
 } from "@twin.org/mailbox-models";
 import { ImapFlow } from "imapflow";
-import nodemailer from "nodemailer";
+import { createTransport } from "nodemailer";
 import {
 	TEST_IMAP_CONFIG,
 	TEST_IMAP_HOST,
@@ -64,12 +64,16 @@ function makeScheduler(): {
 	};
 }
 
-interface IMessageStream extends AsyncIterableIterator<{
-	seq: number;
-	uid: number;
-	source: Buffer;
-	flags: Set<string>;
-}> {
+interface IMessageStream extends AsyncGenerator<
+	{
+		seq: number;
+		uid: number;
+		source: Buffer;
+		flags: Set<string>;
+	},
+	void,
+	undefined
+> {
 	/**
 	 * Whether the consumer terminated the stream early via return().
 	 */
@@ -107,8 +111,16 @@ function makeMessageStream(count: number, throwAtIndex?: number): IMessageStream
 			i = count;
 			return { done: true, value: undefined };
 		},
+		async throw(err: unknown): Promise<IteratorResult<Msg>> {
+			stream.terminated = true;
+			i = count;
+			throw err;
+		},
 		[Symbol.asyncIterator]() {
 			return stream;
+		},
+		async [Symbol.asyncDispose](): Promise<void> {
+			await stream.return();
 		}
 	};
 	return stream;
@@ -136,7 +148,7 @@ async function sendTestEmail(
 	text: string,
 	cc?: string
 ): Promise<void> {
-	const transporter = nodemailer.createTransport({
+	const transporter = createTransport({
 		host: TEST_IMAP_HOST,
 		port: TEST_IMAP_SMTP_PORT,
 		secure: false
@@ -351,7 +363,7 @@ describe("ImapEmailConnector integration", () => {
 	});
 
 	test("can retrieve an email with HTML content and an attachment", async () => {
-		const transporter = nodemailer.createTransport({
+		const transporter = createTransport({
 			host: TEST_IMAP_HOST,
 			port: TEST_IMAP_SMTP_PORT,
 			secure: false

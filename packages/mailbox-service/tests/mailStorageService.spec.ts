@@ -285,6 +285,82 @@ describe("MailStorageService", () => {
 		expect(testScheduler.removeTask).toHaveBeenCalledWith("mail-storage-retention");
 	});
 
+	test("store truncates an oversized References header instead of rejecting the message", async () => {
+		const references = `<${"a".repeat(3000)}@example.com>`;
+
+		const id = await service.store(TEST_MAILBOX_ID, {
+			...TEST_EMAIL,
+			references,
+			headers: [{ key: "references", originalKey: "References", value: references }]
+		});
+
+		const stored = await service.get(id);
+		expect(stored.references).toHaveLength(2048);
+		expect(stored.references).toBe(references.slice(0, 2048));
+
+		// The header it derives from is stored whole, so nothing is lost.
+		expect(stored.headers?.[0].value).toBe(references);
+	});
+
+	test("store truncates every bounded header property to the length its schema allows", async () => {
+		const id = await service.store(TEST_MAILBOX_ID, {
+			...TEST_EMAIL,
+			messageId: "m".repeat(400),
+			inReplyTo: "r".repeat(400),
+			references: "f".repeat(3000),
+			subject: "s".repeat(2000),
+			returnPath: "p".repeat(400),
+			deliveredTo: "d".repeat(400),
+			date: "t".repeat(200)
+		});
+
+		const stored = await service.get(id);
+		expect(stored.messageId).toHaveLength(255);
+		expect(stored.inReplyTo).toHaveLength(255);
+		expect(stored.references).toHaveLength(2048);
+		expect(stored.subject).toHaveLength(1024);
+		expect(stored.returnPath).toHaveLength(254);
+		expect(stored.deliveredTo).toHaveLength(254);
+		expect(stored.date).toHaveLength(64);
+	});
+
+	test("store leaves properties within their bounds untouched", async () => {
+		const id = await service.store(TEST_MAILBOX_ID, TEST_EMAIL);
+
+		const stored = await service.get(id);
+		expect(stored.messageId).toBe(TEST_EMAIL.messageId);
+		expect(stored.subject).toBe(TEST_EMAIL.subject);
+		expect(stored.date).toBe(TEST_EMAIL.date);
+	});
+
+	test("store logs the properties it truncated", async () => {
+		const log = vi.fn(async () => {});
+		const logging: ILoggingComponent = {
+			className: () => "TestLogging",
+			log,
+			query: async () => ({ entities: [] })
+		};
+		ComponentFactory.register("mail-storage-truncate-logging", () => logging);
+		service = new MailStorageService({
+			storedEmailEntityStorageType: "stored-email",
+			loggingComponentType: "mail-storage-truncate-logging"
+		});
+
+		const id = await service.store(TEST_MAILBOX_ID, {
+			...TEST_EMAIL,
+			subject: "s".repeat(2000),
+			references: "f".repeat(3000)
+		});
+
+		expect(log).toHaveBeenCalledWith({
+			level: "warn",
+			source: "MailStorageService",
+			ts: expect.any(Number),
+			message: "emailPropertiesTruncated",
+			data: { mailboxId: TEST_MAILBOX_ID, emailId: id, properties: "references, subject" }
+		});
+	});
+
 	test("retention task logs cleanup failures", async () => {
 		const log = vi.fn(async () => {});
 		const logging: ILoggingComponent = {

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1-next.1](https://github.com/iotaledger/twin-messaging/compare/mailbox-models-v0.10.1-next.0...mailbox-models-v0.10.1-next.1) (2026-09-22)
+
+
+### Features
+
+* add email ingestion ([#56](https://github.com/iotaledger/twin-messaging/issues/56)) ([390806d](https://github.com/iotaledger/twin-messaging/commit/390806d2690843f44de0b6a8a5e5de616b16c278))
+* add gmail with oauth2 workflow ([#61](https://github.com/iotaledger/twin-messaging/issues/61)) ([16b4eaf](https://github.com/iotaledger/twin-messaging/commit/16b4eaf40071444bb656e807d80579d98e21046a))
+
 ## [0.10.0](https://github.com/iotaledger/twin-messaging/compare/mailbox-models-v0.10.0...mailbox-models-v0.10.0) (2026-09-16)
 
 
