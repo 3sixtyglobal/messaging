@@ -20,6 +20,10 @@ Detailed reference documentation for the API can be found in [docs/reference/ind
 
 The changes between each version can be found in [docs/changelog.md](docs/changelog.md)
 
+## Origin
+
+This package is derived from the original [iotaledger/twin-messaging](https://github.com/iotaledger/twin-messaging/tree/next/packages/mailbox-connector-gmail) repository.
+
 ## Testing
 
 If you want to run tests against a live account you need to have a Google App configured with the following steps:

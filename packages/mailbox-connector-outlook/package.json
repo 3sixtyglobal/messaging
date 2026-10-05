@@ -4,7 +4,7 @@
 	"description": "Outlook connector for email mailbox ingestion.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
 		"directory": "packages/mailbox-connector-outlook"
 	},
 	"author": "martyn.janes@iota.org",
@@ -85,7 +85,7 @@
 		"connector"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }

@@ -20,6 +20,10 @@ Detailed reference documentation for the API can be found in [docs/reference/ind
 
 The changes between each version can be found in [docs/changelog.md](docs/changelog.md)
 
+## Origin
+
+This package is derived from the original [iotaledger/twin-messaging](https://github.com/iotaledger/twin-messaging/tree/next/packages/mailbox-connector-outlook) repository.
+
 ## Testing
 
 Microsoft Graph has no local emulator equivalent to the `greenmail` container used by the IMAP

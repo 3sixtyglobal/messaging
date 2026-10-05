@@ -4,7 +4,7 @@
 	"description": "Provides a connector for sending emails via SMTP.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
 		"directory": "packages/messaging-connector-smtp"
 	},
 	"author": "martyn.janes@iota.org",
@@ -81,7 +81,7 @@
 		"nodemailer"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }

@@ -4,7 +4,7 @@
 	"description": "Modular messaging components for shared models, connectors, and service orchestration.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git"
 	},
 	"author": "adrian.sanchez.sequeira@iota.org",
 	"license": "Apache-2.0",
@@ -70,7 +70,7 @@
 	},
 	"type": "module",
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }

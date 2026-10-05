@@ -4,7 +4,7 @@
 	"description": "Defines the shared models and factory helpers used by messaging connectors and services.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
 		"directory": "packages/messaging-models"
 	},
 	"author": "adrian.sanchez.sequeira@iota.org",
@@ -73,7 +73,7 @@
 		"schemas"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }

@@ -4,7 +4,7 @@
 	"description": "Implements the mailbox service layer for email ingestion, durable message storage, and consumer notification.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
 		"directory": "packages/mailbox-service"
 	},
 	"author": "martyn.janes@iota.org",
@@ -87,7 +87,7 @@
 		"service"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }

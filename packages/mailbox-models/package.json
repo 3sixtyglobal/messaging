@@ -4,7 +4,7 @@
 	"description": "Defines the shared models and factory helpers for email mailbox ingestion.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
 		"directory": "packages/mailbox-models"
 	},
 	"author": "martyn.janes@iota.org",
@@ -78,7 +78,7 @@
 		"models"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }

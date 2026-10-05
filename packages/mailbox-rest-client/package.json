@@ -4,7 +4,7 @@
 	"description": "REST client for calling mailbox service endpoints.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
 		"directory": "packages/mailbox-rest-client"
 	},
 	"author": "martyn.janes@iota.org",
@@ -79,7 +79,7 @@
 		"client"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
 	},
 	"homepage": "https://twindev.org"
 }
