@@ -5,9 +5,9 @@ REST clients for interacting with the mailbox management and email storage endpo
 ## MailboxRestClient
 
 ```typescript
-import { MailboxRestClient } from '@twin.org/mailbox-rest-client';
-import type { IBaseRestClientConfig } from '@twin.org/api-core';
-import type { IMailbox } from '@twin.org/mailbox-models';
+import { MailboxRestClient } from '@3sixty/mailbox-rest-client';
+import type { IBaseRestClientConfig } from '@3sixty/api-core';
+import type { IMailbox } from '@3sixty/mailbox-models';
 
 const config: IBaseRestClientConfig = { endpoint: 'https://api.example.com' };
 const client = new MailboxRestClient(config);
@@ -46,9 +46,9 @@ await client.removeMailbox(id);
 ## MailStorageRestClient
 
 ```typescript
-import { MailStorageRestClient } from '@twin.org/mailbox-rest-client';
-import type { IBaseRestClientConfig } from '@twin.org/api-core';
-import type { IStoredEmail } from '@twin.org/mailbox-models';
+import { MailStorageRestClient } from '@3sixty/mailbox-rest-client';
+import type { IBaseRestClientConfig } from '@3sixty/api-core';
+import type { IStoredEmail } from '@3sixty/mailbox-models';
 
 const config: IBaseRestClientConfig = { endpoint: 'https://api.example.com' };
 const mailStorage = new MailStorageRestClient(config);

@@ -1,12 +1,12 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { BaseRestClient } from "@twin.org/api-core";
+import { BaseRestClient } from "@3sixty/api-core";
 import {
 	HttpHeaderHelper,
 	type INoContentResponse,
 	type IBaseRestClientConfig
-} from "@twin.org/api-models";
-import { Coerce, Guards, NotSupportedError } from "@twin.org/core";
+} from "@3sixty/api-models";
+import { Coerce, Guards, NotSupportedError } from "@3sixty/core";
 import type {
 	IMailbox,
 	IMailboxComponent,
@@ -24,9 +24,9 @@ import type {
 	IMailboxUpdateRequest,
 	IMailboxUpdateResponse,
 	IMailboxUpdateResult
-} from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
-import { HttpMethod } from "@twin.org/web";
+} from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
+import { HttpMethod } from "@3sixty/web";
 
 /**
  * REST client proxy for IMailboxComponent.

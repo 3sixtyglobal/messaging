@@ -1,11 +1,11 @@
-# TWIN Messaging Connector AWS
+# 3Sixty Messaging Connector AWS
 
 This package provides connectors for sending email, SMS, and push notifications through AWS messaging services.
 
 ## Installation
 
 ```shell
-npm install @twin.org/messaging-connector-aws
+npm install @3sixty/messaging-connector-aws
 ```
 
 ## Testing
@@ -16,7 +16,7 @@ The tests developed are functional tests and require an AWS simulator with SES a
 The AWS SNS simulator cannot send real SMS messages or push notifications, but it simulates server responses accordingly.
 
 ```shell
-docker run -p 5151:5000 --name twin-messaging-aws -d motoserver/moto
+docker run -p 5151:5000 --name 3sixty-messaging-aws -d motoserver/moto
 ```
 
 ## Examples

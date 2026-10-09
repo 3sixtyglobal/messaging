@@ -1,10 +1,10 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { HttpContextIdKeys } from "@twin.org/api-models";
-import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, GeneralError, Is, type IError } from "@twin.org/core";
-import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
-import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
+import { HttpContextIdKeys } from "@3sixty/api-models";
+import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
+import { ComponentFactory, GeneralError, Is, type IError } from "@3sixty/core";
+import { MemoryEntityStorageConnector } from "@3sixty/entity-storage-connector-memory";
+import { EntityStorageConnectorFactory } from "@3sixty/entity-storage-models";
 import {
 	EmailConsumerFactory,
 	EmailProtocolConnectorFactory,
@@ -14,9 +14,9 @@ import {
 	type IEmailProtocolConnector,
 	type IEmailProtocolConnectorAuthCallback,
 	type IMailStorageComponent
-} from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
-import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
+} from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
+import { VaultConnectorFactory, type IVaultConnector } from "@3sixty/vault-models";
 import type { Mailbox } from "../src/entities/mailbox.js";
 import type { StoredEmail } from "../src/entities/storedEmail.js";
 import { MailboxService } from "../src/mailboxService.js";

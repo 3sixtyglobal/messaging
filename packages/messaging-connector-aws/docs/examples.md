@@ -5,7 +5,7 @@ Use these examples to initialise connectors, run the main messaging flows, and v
 ## AwsMessagingPushNotificationConnector
 
 ```typescript
-import { AwsMessagingPushNotificationConnector } from '@twin.org/messaging-connector-aws';
+import { AwsMessagingPushNotificationConnector } from '@3sixty/messaging-connector-aws';
 
 const pushConnector = new AwsMessagingPushNotificationConnector({
   config: {
@@ -40,7 +40,7 @@ console.log(wasSent); // true
 ## AwsMessagingEmailConnector
 
 ```typescript
-import { AwsMessagingEmailConnector } from '@twin.org/messaging-connector-aws';
+import { AwsMessagingEmailConnector } from '@3sixty/messaging-connector-aws';
 
 const emailConnector = new AwsMessagingEmailConnector({
   config: {
@@ -67,7 +67,7 @@ await emailConnector.verifyEmailAddress('service@example.org');
 ## AwsMessagingSmsConnector
 
 ```typescript
-import { AwsMessagingSmsConnector } from '@twin.org/messaging-connector-aws';
+import { AwsMessagingSmsConnector } from '@3sixty/messaging-connector-aws';
 
 const smsConnector = new AwsMessagingSmsConnector({
   config: {

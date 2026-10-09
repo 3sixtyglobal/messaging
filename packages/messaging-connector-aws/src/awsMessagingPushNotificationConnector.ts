@@ -1,5 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ComponentFactory, GeneralError, Guards, Is } from "@3sixty/core";
+import type { ILoggingComponent } from "@3sixty/logging-models";
+import type { IMessagingPushNotificationsConnector } from "@3sixty/messaging-models";
+import { nameof } from "@3sixty/nameof";
+import { HttpStatusCode } from "@3sixty/web";
 import {
 	CreatePlatformApplicationCommand,
 	CreatePlatformEndpointCommand,
@@ -9,11 +14,6 @@ import {
 	PublishCommand,
 	SNSClient
 } from "@aws-sdk/client-sns";
-import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
-import type { ILoggingComponent } from "@twin.org/logging-models";
-import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
-import { HttpStatusCode } from "@twin.org/web";
 import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "./models/IAwsMessagingPushNotificationConnectorConstructorOptions.js";
 import type { IAwsPushNotificationConnectorConfig } from "./models/IAwsPushNotificationConnectorConfig.js";
 

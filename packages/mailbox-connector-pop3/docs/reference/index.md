@@ -1,4 +1,4 @@
-# @twin.org/mailbox-connector-pop3
+# @3sixty/mailbox-connector-pop3
 
 ## Classes
 

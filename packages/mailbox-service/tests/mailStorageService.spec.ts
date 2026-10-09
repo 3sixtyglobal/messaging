@@ -1,15 +1,15 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IPlatformComponent } from "@twin.org/api-models";
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
-import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory } from "@twin.org/core";
-import { ComparisonOperator } from "@twin.org/entity";
-import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
-import { EntityStorageConnectorFactory } from "@twin.org/entity-storage-models";
-import type { ILoggingComponent } from "@twin.org/logging-models";
-import type { IEmail } from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
+import type { IPlatformComponent } from "@3sixty/api-models";
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
+import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
+import { ComponentFactory } from "@3sixty/core";
+import { ComparisonOperator } from "@3sixty/entity";
+import { MemoryEntityStorageConnector } from "@3sixty/entity-storage-connector-memory";
+import { EntityStorageConnectorFactory } from "@3sixty/entity-storage-models";
+import type { ILoggingComponent } from "@3sixty/logging-models";
+import type { IEmail } from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
 import type { StoredEmail } from "../src/entities/storedEmail.js";
 import { MailStorageService } from "../src/mailStorageService.js";
 import { initSchema } from "../src/schema.js";

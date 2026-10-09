@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { EntitySchemaPropertyType } from "@twin.org/entity";
-import type { IMailboxConfigField } from "@twin.org/mailbox-models";
+import { EntitySchemaPropertyType } from "@3sixty/entity";
+import type { IMailboxConfigField } from "@3sixty/mailbox-models";
 
 /**
  * The runtime state field schema for Outlook connectors.

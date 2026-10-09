@@ -1,4 +1,4 @@
-# @twin.org/messaging-connector-entity-storage
+# @3sixty/messaging-connector-entity-storage
 
 ## Classes
 

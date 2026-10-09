@@ -1,11 +1,11 @@
-# TWIN Messaging Connector Entity Storage
+# 3Sixty Messaging Connector Entity Storage
 
 This package provides connectors that persist and manage messaging operations using entity storage.
 
 ## Installation
 
 ```shell
-npm install @twin.org/messaging-connector-entity-storage
+npm install @3sixty/messaging-connector-entity-storage
 ```
 
 ## Examples

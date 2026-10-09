@@ -1,11 +1,11 @@
-# TWIN Mailbox Connector IMAP
+# 3Sixty Mailbox Connector IMAP
 
 This package implements an IMAP connector for email mailbox ingestion.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-connector-imap
+npm install @3sixty/mailbox-connector-imap
 ```
 
 ## Docker
@@ -13,7 +13,7 @@ npm install @twin.org/mailbox-connector-imap
 To perform testing of this component it may be necessary to launch a local instance to communicate with.
 
 ```shell
-docker run -p 53025:3025 -p 58027:8080 -p 53143:3143 --name twin-messaging-imap -d -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost -Dgreenmail.verbose" greenmail/standalone:2.1.3
+docker run -p 53025:3025 -p 58027:8080 -p 53143:3143 --name 3sixty-messaging-imap -d -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost -Dgreenmail.verbose" greenmail/standalone:2.1.3
 ```
 
 ## Examples

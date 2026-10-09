@@ -1,12 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type {
-	IHttpRequestContext,
-	INoContentResponse,
-	IRestRoute,
-	ITag
-} from "@twin.org/api-models";
-import { Coerce, ComponentFactory, Guards } from "@twin.org/core";
+import type { IHttpRequestContext, INoContentResponse, IRestRoute, ITag } from "@3sixty/api-models";
+import { Coerce, ComponentFactory, Guards } from "@3sixty/core";
 import type {
 	IMailStorageComponent,
 	IMailStorageGetRequest,
@@ -14,9 +9,9 @@ import type {
 	IMailStorageListRequest,
 	IMailStorageListResponse,
 	IMailStorageRemoveRequest
-} from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
-import { HttpMethod, HttpStatusCode } from "@twin.org/web";
+} from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
+import { HttpMethod, HttpStatusCode } from "@3sixty/web";
 
 /**
  * The tag to associate with the routes.

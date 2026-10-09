@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { Guards } from "@twin.org/core";
+import { Guards } from "@3sixty/core";
 import * as dotenv from "dotenv";
 import type { IPop3EmailConnectorConfig } from "../src/models/IPop3EmailConnectorConfig.js";
 

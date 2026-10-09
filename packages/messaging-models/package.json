@@ -1,10 +1,10 @@
 {
-	"name": "@twin.org/messaging-models",
-	"version": "0.11.1-next.0",
+	"name": "@3sixty/messaging-models",
+	"version": "0.20.0-next.0",
 	"description": "Defines the shared models and factory helpers used by messaging connectors and services.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/3sixtyglobal/twin-messaging.git",
+		"url": "git+https://github.com/3sixtyglobal/messaging.git",
 		"directory": "packages/messaging-models"
 	},
 	"author": "adrian.sanchez.sequeira@iota.org",
@@ -28,13 +28,13 @@
 		"dist:no-test": "pnpm run clean && concurrently -g -n build,locales,types \"pnpm run build\" \"pnpm run validate-locales\" \"pnpm run test:build\""
 	},
 	"dependencies": {
-		"@twin.org/core": "next",
-		"@twin.org/nameof": "next"
+		"@3sixty/core": "next",
+		"@3sixty/nameof": "next"
 	},
 	"devDependencies": {
-		"@twin.org/nameof-transformer": "next",
-		"@twin.org/nameof-vitest-plugin": "next",
-		"@twin.org/validate-locales": "next",
+		"@3sixty/nameof-transformer": "next",
+		"@3sixty/nameof-vitest-plugin": "next",
+		"@3sixty/validate-locales": "next",
 		"@vitest/coverage-v8": "5.0.1",
 		"concurrently": "10.0.5",
 		"copyfiles": "2.4.1",
@@ -73,7 +73,7 @@
 		"schemas"
 	],
 	"bugs": {
-		"url": "git+https://github.com/3sixtyglobal/twin-messaging/issues"
+		"url": "git+https://github.com/3sixtyglobal/messaging/issues"
 	},
-	"homepage": "https://twindev.org"
+	"homepage": "https://3sixty.global"
 }

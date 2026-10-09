@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
 import {
 	BaseError,
 	Coerce,
@@ -10,8 +10,8 @@ import {
 	Guards,
 	Is,
 	Mutex
-} from "@twin.org/core";
-import type { ILoggingComponent } from "@twin.org/logging-models";
+} from "@3sixty/core";
+import type { ILoggingComponent } from "@3sixty/logging-models";
 import type {
 	IEmail,
 	IEmailProtocolConnector,
@@ -19,9 +19,9 @@ import type {
 	IEmailProtocolConnectorAuthState,
 	IEmailProtocolConnectorOptions,
 	IEmailProtocolConnectorRetrievalCallback
-} from "@twin.org/mailbox-models";
-import { MailHelper } from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/mailbox-models";
+import { MailHelper } from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
 import { google, type Auth, type gmail_v1 as GmailApi } from "googleapis";
 import type { IGmailEmailConnectorConfig } from "./models/IGmailEmailConnectorConfig.js";
 import type { IGmailEmailConnectorConstructorOptions } from "./models/IGmailEmailConnectorConstructorOptions.js";

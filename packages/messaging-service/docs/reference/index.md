@@ -1,4 +1,4 @@
-# @twin.org/messaging-service
+# @3sixty/messaging-service
 
 ## Classes
 

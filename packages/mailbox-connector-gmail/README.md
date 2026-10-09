@@ -1,11 +1,11 @@
-# TWIN Mailbox Connector Gmail
+# 3Sixty Mailbox Connector Gmail
 
 This package implements a Gmail connector for email mailbox ingestion.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-connector-gmail
+npm install @3sixty/mailbox-connector-gmail
 ```
 
 ## Examples

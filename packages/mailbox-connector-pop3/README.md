@@ -1,11 +1,11 @@
-# TWIN Mailbox Connector POP3
+# 3Sixty Mailbox Connector POP3
 
 This package implements a POP3 connector for email mailbox ingestion.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-connector-pop3
+npm install @3sixty/mailbox-connector-pop3
 ```
 
 ## Docker
@@ -13,7 +13,7 @@ npm install @twin.org/mailbox-connector-pop3
 To perform testing of this component it may be necessary to launch a local instance to communicate with.
 
 ```shell
-docker run -p 51025:3025 -p 58025:8080 -p 51110:3110 --name twin-messaging-pop3 -d -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost -Dgreenmail.verbose" greenmail/standalone:2.1.3
+docker run -p 51025:3025 -p 58025:8080 -p 51110:3110 --name 3sixty-messaging-pop3 -d -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost -Dgreenmail.verbose" greenmail/standalone:2.1.3
 ```
 
 ## Examples

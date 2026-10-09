@@ -5,12 +5,12 @@ A polling connector for email ingestion via the IMAP protocol, with per-folder U
 ## ImapEmailConnector
 
 ```typescript
-import { ImapEmailConnector, initSchema } from '@twin.org/mailbox-connector-imap';
+import { ImapEmailConnector, initSchema } from '@3sixty/mailbox-connector-imap';
 import {
   EmailProtocolConnectorFactory,
   EmailProtocolConnectorConfigSchemaFactory,
   EmailProtocolConnectorStateSchemaFactory
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 // Register the connector with the shared factory
 EmailProtocolConnectorFactory.register(
@@ -40,12 +40,12 @@ console.log(stateSchema.filter(f => f.isSecure)); // []
 ```
 
 ```typescript
-import { ImapEmailConnector } from '@twin.org/mailbox-connector-imap';
-import type { IImapEmailConnectorState } from '@twin.org/mailbox-connector-imap';
+import { ImapEmailConnector } from '@3sixty/mailbox-connector-imap';
+import type { IImapEmailConnectorState } from '@3sixty/mailbox-connector-imap';
 import type {
   IEmailProtocolConnectorAuthCallback,
   IEmailProtocolConnectorRetrievalCallback
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 const connector = new ImapEmailConnector({
   config: {

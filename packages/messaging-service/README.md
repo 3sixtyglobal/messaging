@@ -1,11 +1,11 @@
-# TWIN Messaging Service
+# 3Sixty Messaging Service
 
 This package implements the messaging service layer that orchestrates delivery workflows across connectors.
 
 ## Installation
 
 ```shell
-npm install @twin.org/messaging-service
+npm install @3sixty/messaging-service
 ```
 
 ## Examples

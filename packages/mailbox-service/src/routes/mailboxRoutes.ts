@@ -8,9 +8,9 @@ import {
 	type INoContentResponse,
 	type IRestRoute,
 	type ITag
-} from "@twin.org/api-models";
-import { ContextIdStore } from "@twin.org/context";
-import { Coerce, ComponentFactory, Guards } from "@twin.org/core";
+} from "@3sixty/api-models";
+import { ContextIdStore } from "@3sixty/context";
+import { Coerce, ComponentFactory, Guards } from "@3sixty/core";
 import type {
 	IMailboxComponent,
 	IMailboxCompleteAuthRequest,
@@ -25,9 +25,9 @@ import type {
 	IMailboxRemoveRequest,
 	IMailboxUpdateRequest,
 	IMailboxUpdateResponse
-} from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
-import { HttpMethod, HttpStatusCode, type IHttpHeaders } from "@twin.org/web";
+} from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
+import { HttpMethod, HttpStatusCode, type IHttpHeaders } from "@3sixty/web";
 
 /**
  * The source used when communicating about these routes.

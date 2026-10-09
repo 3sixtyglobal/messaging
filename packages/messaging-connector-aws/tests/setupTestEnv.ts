@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { Guards } from "@twin.org/core";
+import { Guards } from "@3sixty/core";
 import * as dotenv from "dotenv";
 import type { IAwsEmailConnectorConfig } from "../src/models/IAwsEmailConnectorConfig.js";
 import type { IAwsPushNotificationConnectorConfig } from "../src/models/IAwsPushNotificationConnectorConfig.js";

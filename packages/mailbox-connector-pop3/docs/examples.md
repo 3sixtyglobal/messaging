@@ -5,12 +5,12 @@ A polling connector for email ingestion via the POP3 protocol.
 ## Pop3EmailConnector
 
 ```typescript
-import { Pop3EmailConnector, initSchema } from '@twin.org/mailbox-connector-pop3';
+import { Pop3EmailConnector, initSchema } from '@3sixty/mailbox-connector-pop3';
 import {
   EmailProtocolConnectorFactory,
   EmailProtocolConnectorConfigSchemaFactory,
   EmailProtocolConnectorStateSchemaFactory
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 // Register the connector and its config schema with the shared factories
 EmailProtocolConnectorFactory.register(
@@ -40,12 +40,12 @@ console.log(stateSchema.filter(f => f.isSecure)); // []
 ```
 
 ```typescript
-import { Pop3EmailConnector } from '@twin.org/mailbox-connector-pop3';
-import type { IPop3EmailConnectorState } from '@twin.org/mailbox-connector-pop3';
+import { Pop3EmailConnector } from '@3sixty/mailbox-connector-pop3';
+import type { IPop3EmailConnectorState } from '@3sixty/mailbox-connector-pop3';
 import type {
   IEmailProtocolConnectorAuthCallback,
   IEmailProtocolConnectorRetrievalCallback
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 const connector = new Pop3EmailConnector({
   config: {

@@ -1,4 +1,4 @@
-# TWIN Messaging
+# 3Sixty Messaging
 
 This repository contains a set of modular components that make it easier to model, ingest, deliver, and orchestrate messaging workflows across different runtime environments. The packages are designed to work together through shared contracts so teams can compose reliable messaging behaviour without duplicating core logic.
 

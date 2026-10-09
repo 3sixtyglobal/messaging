@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IPlatformComponent } from "@twin.org/api-models";
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
+import type { IPlatformComponent } from "@3sixty/api-models";
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
 import {
 	BaseError,
 	ComponentFactory,
@@ -12,21 +12,21 @@ import {
 	ObjectHelper,
 	RandomHelper,
 	Validation
-} from "@twin.org/core";
+} from "@3sixty/core";
 import {
 	ComparisonOperator,
 	EntitySchemaHelper,
 	LogicalOperator,
 	SortDirection,
 	type IComparatorGroup
-} from "@twin.org/entity";
+} from "@3sixty/entity";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
-import type { ILoggingComponent } from "@twin.org/logging-models";
-import type { IEmail, IMailStorageComponent, IStoredEmail } from "@twin.org/mailbox-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/entity-storage-models";
+import type { ILoggingComponent } from "@3sixty/logging-models";
+import type { IEmail, IMailStorageComponent, IStoredEmail } from "@3sixty/mailbox-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { StoredEmail } from "./entities/storedEmail.js";
 import type { IMailStorageServiceConstructorOptions } from "./models/IMailStorageServiceConstructorOptions.js";
 

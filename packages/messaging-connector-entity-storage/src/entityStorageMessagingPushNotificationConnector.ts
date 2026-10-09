@@ -1,13 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@twin.org/core";
+import { ComponentFactory, Converter, GeneralError, Guards, RandomHelper } from "@3sixty/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
-import type { ILoggingComponent } from "@twin.org/logging-models";
-import type { IMessagingPushNotificationsConnector } from "@twin.org/messaging-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/entity-storage-models";
+import type { ILoggingComponent } from "@3sixty/logging-models";
+import type { IMessagingPushNotificationsConnector } from "@3sixty/messaging-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { PushNotificationDeviceEntry } from "./entities/pushNotificationDeviceEntry.js";
 import type { PushNotificationMessageEntry } from "./entities/pushNotificationMessageEntry.js";
 import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions } from "./models/IEntityStorageMessagingPushNotificationConnectorConstructorOptions.js";

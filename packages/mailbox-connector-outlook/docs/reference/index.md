@@ -1,4 +1,4 @@
-# @twin.org/mailbox-connector-outlook
+# @3sixty/mailbox-connector-outlook
 
 ## Classes
 

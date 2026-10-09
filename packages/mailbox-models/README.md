@@ -1,11 +1,11 @@
-# TWIN Mailbox Models
+# 3Sixty Mailbox Models
 
 This package defines the shared models and factory helpers for email mailbox ingestion.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-models
+npm install @3sixty/mailbox-models
 ```
 
 ## Examples

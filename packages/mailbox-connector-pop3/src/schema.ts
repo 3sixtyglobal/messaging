@@ -3,7 +3,7 @@
 import {
 	EmailProtocolConnectorConfigSchemaFactory,
 	EmailProtocolConnectorStateSchemaFactory
-} from "@twin.org/mailbox-models";
+} from "@3sixty/mailbox-models";
 import { Pop3EmailConnectorConfigSchema } from "./connectorSchema/pop3EmailConnectorConfigSchema.js";
 import { Pop3EmailConnectorStateSchema } from "./connectorSchema/pop3EmailConnectorStateSchema.js";
 import { Pop3EmailConnector } from "./pop3EmailConnector.js";

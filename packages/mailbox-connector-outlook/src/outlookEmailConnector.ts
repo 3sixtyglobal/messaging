@@ -1,5 +1,18 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
+import { BaseError, Coerce, ComponentFactory, GeneralError, Guards, Is, Mutex } from "@3sixty/core";
+import type { ILoggingComponent } from "@3sixty/logging-models";
+import type {
+	IEmail,
+	IEmailProtocolConnector,
+	IEmailProtocolConnectorAuthCallback,
+	IEmailProtocolConnectorAuthState,
+	IEmailProtocolConnectorOptions,
+	IEmailProtocolConnectorRetrievalCallback
+} from "@3sixty/mailbox-models";
+import { MailHelper } from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
 import {
 	ConfidentialClientApplication,
 	type AccountInfo,
@@ -8,27 +21,6 @@ import {
 	type NodeAuthOptions
 } from "@azure/msal-node";
 import { Client, ResponseType } from "@microsoft/microsoft-graph-client";
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
-import {
-	BaseError,
-	Coerce,
-	ComponentFactory,
-	GeneralError,
-	Guards,
-	Is,
-	Mutex
-} from "@twin.org/core";
-import type { ILoggingComponent } from "@twin.org/logging-models";
-import type {
-	IEmail,
-	IEmailProtocolConnector,
-	IEmailProtocolConnectorAuthCallback,
-	IEmailProtocolConnectorAuthState,
-	IEmailProtocolConnectorOptions,
-	IEmailProtocolConnectorRetrievalCallback
-} from "@twin.org/mailbox-models";
-import { MailHelper } from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
 import type { IOutlookDeltaMessage } from "./models/IOutlookDeltaMessage.js";
 import type { IOutlookDeltaPage } from "./models/IOutlookDeltaPage.js";
 import type { IOutlookEmailConnectorConfig } from "./models/IOutlookEmailConnectorConfig.js";

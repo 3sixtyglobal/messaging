@@ -5,7 +5,7 @@ These examples show how to queue message work in entity storage and inspect stor
 ## EntityStorageMessagingPushNotificationConnector
 
 ```typescript
-import { EntityStorageMessagingPushNotificationConnector } from '@twin.org/messaging-connector-entity-storage';
+import { EntityStorageMessagingPushNotificationConnector } from '@3sixty/messaging-connector-entity-storage';
 
 const pushConnector = new EntityStorageMessagingPushNotificationConnector();
 
@@ -24,7 +24,7 @@ console.log(queued); // true
 ## EntityStorageMessagingEmailConnector
 
 ```typescript
-import { EntityStorageMessagingEmailConnector } from '@twin.org/messaging-connector-entity-storage';
+import { EntityStorageMessagingEmailConnector } from '@3sixty/messaging-connector-entity-storage';
 
 const emailConnector = new EntityStorageMessagingEmailConnector();
 
@@ -42,7 +42,7 @@ console.log(queued); // true
 ## EntityStorageMessagingSmsConnector
 
 ```typescript
-import { EntityStorageMessagingSmsConnector } from '@twin.org/messaging-connector-entity-storage';
+import { EntityStorageMessagingSmsConnector } from '@3sixty/messaging-connector-entity-storage';
 
 const smsConnector = new EntityStorageMessagingSmsConnector();
 
@@ -58,7 +58,7 @@ console.log(queued); // true
 ## PushNotificationMessageEntry
 
 ```typescript
-import { PushNotificationMessageEntry } from '@twin.org/messaging-connector-entity-storage';
+import { PushNotificationMessageEntry } from '@3sixty/messaging-connector-entity-storage';
 
 const messageEntry = new PushNotificationMessageEntry();
 messageEntry.id = 'push-message-001';
@@ -74,7 +74,7 @@ console.log(messageEntry.status); // pending
 ## PushNotificationDeviceEntry
 
 ```typescript
-import { PushNotificationDeviceEntry } from '@twin.org/messaging-connector-entity-storage';
+import { PushNotificationDeviceEntry } from '@3sixty/messaging-connector-entity-storage';
 
 const deviceEntry = new PushNotificationDeviceEntry();
 deviceEntry.id = 'push-device-001';
@@ -89,7 +89,7 @@ console.log(deviceEntry.applicationId); // orders-app
 ## EmailEntry
 
 ```typescript
-import { EmailEntry } from '@twin.org/messaging-connector-entity-storage';
+import { EmailEntry } from '@3sixty/messaging-connector-entity-storage';
 
 const emailEntry = new EmailEntry();
 emailEntry.id = 'email-001';
@@ -106,7 +106,7 @@ console.log(emailEntry.recipients.length); // 1
 ## SmsEntry
 
 ```typescript
-import { SmsEntry } from '@twin.org/messaging-connector-entity-storage';
+import { SmsEntry } from '@3sixty/messaging-connector-entity-storage';
 
 const smsEntry = new SmsEntry();
 smsEntry.id = 'sms-001';

@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { HttpContextIdKeys, HttpUrlHelper, type IPlatformComponent } from "@twin.org/api-models";
-import { ContextIdHelper, ContextIdKeys, ContextIdStore } from "@twin.org/context";
+import { HttpContextIdKeys, HttpUrlHelper, type IPlatformComponent } from "@3sixty/api-models";
+import { ContextIdHelper, ContextIdKeys, ContextIdStore } from "@3sixty/context";
 import {
 	BaseError,
 	Coerce,
@@ -14,13 +14,13 @@ import {
 	ObjectHelper,
 	RandomHelper,
 	StringHelper
-} from "@twin.org/core";
-import { ComparisonOperator } from "@twin.org/entity";
+} from "@3sixty/core";
+import { ComparisonOperator } from "@3sixty/entity";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
-import type { ILoggingComponent } from "@twin.org/logging-models";
+} from "@3sixty/entity-storage-models";
+import type { ILoggingComponent } from "@3sixty/logging-models";
 import {
 	EmailConsumerFactory,
 	EmailProtocolConnectorFactory,
@@ -39,10 +39,10 @@ import {
 	type IMailStorageComponent,
 	type IMailboxComponent,
 	type IMailboxConfigField
-} from "@twin.org/mailbox-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { MetricHelper, type ITelemetryComponent } from "@twin.org/telemetry-models";
-import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
+} from "@3sixty/mailbox-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { MetricHelper, type ITelemetryComponent } from "@3sixty/telemetry-models";
+import { VaultConnectorFactory, type IVaultConnector } from "@3sixty/vault-models";
 import { Mailbox } from "./entities/mailbox.js";
 import type { IMailboxServiceConstructorOptions } from "./models/IMailboxServiceConstructorOptions.js";
 

@@ -1,8 +1,8 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GuardError, NotSupportedError } from "@twin.org/core";
-import type { IStoredEmail } from "@twin.org/mailbox-models";
-import { HttpMethod } from "@twin.org/web";
+import { GuardError, NotSupportedError } from "@3sixty/core";
+import type { IStoredEmail } from "@3sixty/mailbox-models";
+import { HttpMethod } from "@3sixty/web";
 import { MailStorageRestClient } from "../src/mailStorageRestClient.js";
 import {
 	jsonResponse,

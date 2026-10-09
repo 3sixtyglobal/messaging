@@ -5,7 +5,7 @@ A connector for sending HTML emails through any SMTP-compatible mail server.
 ## SmtpMessagingEmailConnector
 
 ```typescript
-import { SmtpMessagingEmailConnector } from '@twin.org/messaging-connector-smtp';
+import { SmtpMessagingEmailConnector } from '@3sixty/messaging-connector-smtp';
 
 const connector = new SmtpMessagingEmailConnector({
   config: {
@@ -27,8 +27,8 @@ console.log(sent); // true
 ```
 
 ```typescript
-import { SmtpMessagingEmailConnector } from '@twin.org/messaging-connector-smtp';
-import { MessagingEmailConnectorFactory } from '@twin.org/messaging-models';
+import { SmtpMessagingEmailConnector } from '@3sixty/messaging-connector-smtp';
+import { MessagingEmailConnectorFactory } from '@3sixty/messaging-models';
 
 const connector = new SmtpMessagingEmailConnector({
   config: {

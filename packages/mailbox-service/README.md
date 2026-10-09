@@ -1,11 +1,11 @@
-# TWIN Mailbox Service
+# 3Sixty Mailbox Service
 
 This package implements the mailbox service layer for email ingestion, durable message storage, and consumer notification.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-service
+npm install @3sixty/mailbox-service
 ```
 
 ## Examples

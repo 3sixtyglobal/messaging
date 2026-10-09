@@ -3,7 +3,7 @@
 import {
 	EmailProtocolConnectorConfigSchemaFactory,
 	EmailProtocolConnectorStateSchemaFactory
-} from "@twin.org/mailbox-models";
+} from "@3sixty/mailbox-models";
 import { GmailEmailConnectorConfigSchema } from "./connectorSchema/gmailEmailConnectorConfigSchema.js";
 import { GmailEmailConnectorStateSchema } from "./connectorSchema/gmailEmailConnectorStateSchema.js";
 import { GmailEmailConnector } from "./gmailEmailConnector.js";

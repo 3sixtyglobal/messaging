@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { SortDirection, entity, property } from "@twin.org/entity";
-import type { IEmailAddress, IEmailAttachment, IEmailHeader } from "@twin.org/mailbox-models";
+import { SortDirection, entity, property } from "@3sixty/entity";
+import type { IEmailAddress, IEmailAttachment, IEmailHeader } from "@3sixty/mailbox-models";
 
 /**
  * Entity class representing a received email stored in entity storage.

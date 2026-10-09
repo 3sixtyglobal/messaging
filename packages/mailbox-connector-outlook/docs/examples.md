@@ -6,12 +6,12 @@ through the Microsoft Graph API with OAuth 2.0 credentials.
 ## OutlookEmailConnector
 
 ```typescript
-import { OutlookEmailConnector, initSchema } from '@twin.org/mailbox-connector-outlook';
+import { OutlookEmailConnector, initSchema } from '@3sixty/mailbox-connector-outlook';
 import {
   EmailProtocolConnectorFactory,
   EmailProtocolConnectorConfigSchemaFactory,
   EmailProtocolConnectorStateSchemaFactory
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 // Register the connector with the shared factory.
 // Only the app registration is configured, the refresh token is issued by the consent flow
@@ -45,12 +45,12 @@ console.log(stateSchema.filter(f => f.isSecure).map(f => f.propertyKey));
 ## Monitoring a mailbox
 
 ```typescript
-import { OutlookEmailConnector } from '@twin.org/mailbox-connector-outlook';
-import type { IOutlookEmailConnectorState } from '@twin.org/mailbox-connector-outlook';
+import { OutlookEmailConnector } from '@3sixty/mailbox-connector-outlook';
+import type { IOutlookEmailConnectorState } from '@3sixty/mailbox-connector-outlook';
 import type {
   IEmailProtocolConnectorAuthCallback,
   IEmailProtocolConnectorRetrievalCallback
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 const connector = new OutlookEmailConnector({
   config: {
@@ -166,7 +166,7 @@ mailboxes it may read with an application access policy, otherwise it can read e
 the tenant.
 
 ```typescript
-import { OutlookEmailConnector } from '@twin.org/mailbox-connector-outlook';
+import { OutlookEmailConnector } from '@3sixty/mailbox-connector-outlook';
 
 const connector = new OutlookEmailConnector({
   config: {
@@ -194,7 +194,7 @@ console.log(
 ## Using a certificate instead of a client secret
 
 ```typescript
-import { OutlookEmailConnector } from '@twin.org/mailbox-connector-outlook';
+import { OutlookEmailConnector } from '@3sixty/mailbox-connector-outlook';
 
 const connector = new OutlookEmailConnector({
   config: {

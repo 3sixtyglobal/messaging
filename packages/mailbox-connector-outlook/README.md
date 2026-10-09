@@ -1,11 +1,11 @@
-# TWIN Mailbox Connector Outlook
+# 3Sixty Mailbox Connector Outlook
 
 This package implements an Outlook connector for email mailbox ingestion.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-connector-outlook
+npm install @3sixty/mailbox-connector-outlook
 ```
 
 ## Examples

@@ -1,11 +1,11 @@
-# TWIN Mailbox REST Client
+# 3Sixty Mailbox REST Client
 
 This package provides a REST client for calling mailbox service endpoints.
 
 ## Installation
 
 ```shell
-npm install @twin.org/mailbox-rest-client
+npm install @3sixty/mailbox-rest-client
 ```
 
 ## Examples

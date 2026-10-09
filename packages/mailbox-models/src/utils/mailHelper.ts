@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Converter, Is } from "@twin.org/core";
+import { Converter, Is } from "@3sixty/core";
 import PostalMime from "postal-mime";
 import type { IEmail } from "../models/IEmail.js";
 import type { IEmailAddress } from "../models/IEmailAddress.js";

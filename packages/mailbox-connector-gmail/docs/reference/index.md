@@ -1,4 +1,4 @@
-# @twin.org/mailbox-connector-gmail
+# @3sixty/mailbox-connector-gmail
 
 ## Classes
 

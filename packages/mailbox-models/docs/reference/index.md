@@ -1,4 +1,4 @@
-# @twin.org/mailbox-models
+# @3sixty/mailbox-models
 
 ## Classes
 

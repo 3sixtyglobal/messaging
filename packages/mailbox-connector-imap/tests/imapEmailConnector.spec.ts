@@ -1,15 +1,15 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
-import { ComponentFactory, Converter } from "@twin.org/core";
-import type { IError } from "@twin.org/core";
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
+import { ComponentFactory, Converter } from "@3sixty/core";
+import type { IError } from "@3sixty/core";
 import {
 	EmailProtocolConnectorFactory,
 	EmailProtocolConnectorConfigSchemaFactory,
 	EmailProtocolConnectorStateSchemaFactory,
 	type IEmail,
 	type IEmailProtocolConnectorOptions
-} from "@twin.org/mailbox-models";
+} from "@3sixty/mailbox-models";
 import { ImapFlow } from "imapflow";
 import { createTransport } from "nodemailer";
 import {

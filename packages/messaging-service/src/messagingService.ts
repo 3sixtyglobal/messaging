@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, Guards, Is } from "@twin.org/core";
+import { ComponentFactory, GeneralError, Guards, Is } from "@3sixty/core";
 import {
 	type IMessagingAdminComponent,
 	MessagingEmailConnectorFactory,
@@ -10,8 +10,8 @@ import {
 	type IMessagingEmailConnector,
 	type IMessagingPushNotificationsConnector,
 	type IMessagingSmsConnector
-} from "@twin.org/messaging-models";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/messaging-models";
+import { nameof } from "@3sixty/nameof";
 import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions.js";
 
 /**

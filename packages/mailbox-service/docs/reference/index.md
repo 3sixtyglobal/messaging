@@ -1,4 +1,4 @@
-# @twin.org/mailbox-service
+# @3sixty/mailbox-service
 
 ## Classes
 

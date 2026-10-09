@@ -1,4 +1,4 @@
-# @twin.org/mailbox-connector-imap
+# @3sixty/mailbox-connector-imap
 
 ## Classes
 

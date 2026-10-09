@@ -1,11 +1,11 @@
-# TWIN Messaging Connector SMTP
+# 3Sixty Messaging Connector SMTP
 
 This package provides a connector for sending emails via SMTP.
 
 ## Installation
 
 ```shell
-npm install @twin.org/messaging-connector-smtp
+npm install @3sixty/messaging-connector-smtp
 ```
 
 ## Docker
@@ -13,7 +13,7 @@ npm install @twin.org/messaging-connector-smtp
 To perform testing of this component it may be necessary to launch a local instance to communicate with.
 
 ```shell
-docker run -p 52025:3025 -p 58026:8080 -p 52143:3143 --name twin-messaging-smtp -d -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost -Dgreenmail.verbose" greenmail/standalone:2.1.3
+docker run -p 52025:3025 -p 58026:8080 -p 52143:3143 --name 3sixty-messaging-smtp -d -e GREENMAIL_OPTS="-Dgreenmail.setup.test.all -Dgreenmail.hostname=0.0.0.0 -Dgreenmail.users=test:test@localhost -Dgreenmail.verbose" greenmail/standalone:2.1.3
 ```
 
 ## Examples

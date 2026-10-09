@@ -8,6 +8,7 @@
 	"release-type": "node",
 	"initial-version": "0.0.1",
 	"versioning": "default",
+	"last-release-sha": "d70f44eb3b7cf54d0b2bfa5b6abb2cf190023f1b",
 	"packages": {
 		"packages/messaging-models": {
 			"package-name": "messaging-models",

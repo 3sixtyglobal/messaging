@@ -1,11 +1,11 @@
-# TWIN Messaging Models
+# 3Sixty Messaging Models
 
 This package defines the shared models and factory helpers used by messaging connectors and services.
 
 ## Installation
 
 ```shell
-npm install @twin.org/messaging-models
+npm install @3sixty/messaging-models
 ```
 
 ## Examples

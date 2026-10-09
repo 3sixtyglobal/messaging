@@ -1,4 +1,4 @@
-# @twin.org/messaging-connector-aws
+# @3sixty/messaging-connector-aws
 
 ## Classes
 

@@ -6,12 +6,12 @@ through the Gmail API with OAuth 2.0 credentials.
 ## GmailEmailConnector
 
 ```typescript
-import { GmailEmailConnector, initSchema } from '@twin.org/mailbox-connector-gmail';
+import { GmailEmailConnector, initSchema } from '@3sixty/mailbox-connector-gmail';
 import {
   EmailProtocolConnectorFactory,
   EmailProtocolConnectorConfigSchemaFactory,
   EmailProtocolConnectorStateSchemaFactory
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 // Register the connector with the shared factory.
 // Only the OAuth client is configured, the refresh token is issued by the consent flow
@@ -47,12 +47,12 @@ console.log(stateSchema.filter(f => f.isSecure).map(f => f.propertyKey));
 ## Monitoring a mailbox
 
 ```typescript
-import { GmailEmailConnector } from '@twin.org/mailbox-connector-gmail';
-import type { IGmailEmailConnectorState } from '@twin.org/mailbox-connector-gmail';
+import { GmailEmailConnector } from '@3sixty/mailbox-connector-gmail';
+import type { IGmailEmailConnectorState } from '@3sixty/mailbox-connector-gmail';
 import type {
   IEmailProtocolConnectorAuthCallback,
   IEmailProtocolConnectorRetrievalCallback
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 const connector = new GmailEmailConnector({
   config: {
@@ -161,7 +161,7 @@ console.log(state.refreshToken !== undefined); // true
 ## Using a service account with domain-wide delegation
 
 ```typescript
-import { GmailEmailConnector } from '@twin.org/mailbox-connector-gmail';
+import { GmailEmailConnector } from '@3sixty/mailbox-connector-gmail';
 
 const connector = new GmailEmailConnector({
   config: {

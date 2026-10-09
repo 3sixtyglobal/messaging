@@ -1,4 +1,4 @@
-# @twin.org/messaging-connector-smtp
+# @3sixty/messaging-connector-smtp
 
 ## Classes
 

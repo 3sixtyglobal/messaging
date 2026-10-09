@@ -5,8 +5,8 @@ Factories, callback types, and utilities shared by mailbox connectors, services,
 ## MailHelper
 
 ```typescript
-import { MailHelper } from '@twin.org/mailbox-models';
-import type { IEmail } from '@twin.org/mailbox-models';
+import { MailHelper } from '@3sixty/mailbox-models';
+import type { IEmail } from '@3sixty/mailbox-models';
 
 // Parse a raw RFC 2822 email string, with optional IMAP flags
 const raw =
@@ -24,8 +24,8 @@ console.log(email?.flags); // ["\\Seen"]
 ```
 
 ```typescript
-import { MailHelper } from '@twin.org/mailbox-models';
-import type { IEmailAddress } from '@twin.org/mailbox-models';
+import { MailHelper } from '@3sixty/mailbox-models';
+import type { IEmailAddress } from '@3sixty/mailbox-models';
 
 // Map a single address-like object; returns undefined when no address string is present
 const address: IEmailAddress | undefined = MailHelper.mapAddress({
@@ -52,9 +52,9 @@ console.log(addresses?.length); // 2
 import {
   EmailProtocolConnectorFactory,
   EmailProtocolConnectorConfigSchemaFactory
-} from '@twin.org/mailbox-models';
-import type { IEmailProtocolConnector, IMailboxConfigField } from '@twin.org/mailbox-models';
-import { EntitySchemaPropertyType } from '@twin.org/entity';
+} from '@3sixty/mailbox-models';
+import type { IEmailProtocolConnector, IMailboxConfigField } from '@3sixty/mailbox-models';
+import { EntitySchemaPropertyType } from '@3sixty/entity';
 
 // Register a connector implementation under a protocol namespace
 EmailProtocolConnectorFactory.register('pop3', () => {
@@ -85,8 +85,8 @@ console.log(schema.find(f => f.isSecure)?.propertyKey); // "password"
 ## EmailConsumerFactory
 
 ```typescript
-import { EmailConsumerFactory } from '@twin.org/mailbox-models';
-import type { IEmailConsumer } from '@twin.org/mailbox-models';
+import { EmailConsumerFactory } from '@3sixty/mailbox-models';
+import type { IEmailConsumer } from '@3sixty/mailbox-models';
 
 class NotificationConsumer implements IEmailConsumer {
   public className(): string {
@@ -111,7 +111,7 @@ console.log(consumer.className()); // "NotificationConsumer"
 import type {
   IEmailProtocolConnectorAuthCallback,
   IEmailProtocolConnectorRetrievalCallback
-} from '@twin.org/mailbox-models';
+} from '@3sixty/mailbox-models';
 
 // Called when the connector detects an authentication failure
 const authCallback: IEmailProtocolConnectorAuthCallback = async (

@@ -1,4 +1,4 @@
-# @twin.org/mailbox-rest-client
+# @3sixty/mailbox-rest-client
 
 ## Classes
 

@@ -1,4 +1,4 @@
-# @twin.org/messaging-models
+# @3sixty/messaging-models
 
 ## Interfaces
 

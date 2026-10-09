@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { spawn } from "node:child_process";
 import { createServer, type Server } from "node:http";
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
-import { ComponentFactory, Is } from "@twin.org/core";
-import type { IEmail, IEmailProtocolConnectorOptions } from "@twin.org/mailbox-models";
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
+import { ComponentFactory, Is } from "@3sixty/core";
+import type { IEmail, IEmailProtocolConnectorOptions } from "@3sixty/mailbox-models";
 import { TEST_GMAIL_LIVE_CONFIG, TEST_GMAIL_LIVE_ENABLED } from "./setupTestEnv.js";
 import { GmailEmailConnector } from "../src/gmailEmailConnector.js";
 import type { IGmailEmailConnectorState } from "../src/models/IGmailEmailConnectorState.js";

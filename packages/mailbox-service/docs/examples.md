@@ -5,8 +5,8 @@ Service implementations for mailbox management and email storage, plus REST rout
 ## MailboxService
 
 ```typescript
-import { MailboxService, initSchema } from '@twin.org/mailbox-service';
-import type { IMailbox } from '@twin.org/mailbox-models';
+import { MailboxService, initSchema } from '@3sixty/mailbox-service';
+import type { IMailbox } from '@3sixty/mailbox-models';
 
 // Register entity schemas before constructing services
 initSchema();
@@ -22,8 +22,8 @@ await service.start();
 ```
 
 ```typescript
-import { MailboxService } from '@twin.org/mailbox-service';
-import type { IMailbox } from '@twin.org/mailbox-models';
+import { MailboxService } from '@3sixty/mailbox-service';
+import type { IMailbox } from '@3sixty/mailbox-models';
 
 const service = new MailboxService();
 
@@ -69,8 +69,8 @@ await service.stop();
 ## MailStorageService
 
 ```typescript
-import { MailStorageService } from '@twin.org/mailbox-service';
-import type { IEmail, IStoredEmail } from '@twin.org/mailbox-models';
+import { MailStorageService } from '@3sixty/mailbox-service';
+import type { IEmail, IStoredEmail } from '@3sixty/mailbox-models';
 
 const storage = new MailStorageService({
   emailStorageConnectorType: 'email-entry'
@@ -107,7 +107,7 @@ await storage.remove(emailId);
 ## restEntryPoints
 
 ```typescript
-import { restEntryPoints } from '@twin.org/mailbox-service';
+import { restEntryPoints } from '@3sixty/mailbox-service';
 
 // Mount mailbox and mail-storage REST routes in your API server
 for (const entry of restEntryPoints) {

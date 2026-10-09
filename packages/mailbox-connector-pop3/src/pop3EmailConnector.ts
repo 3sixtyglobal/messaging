@@ -1,24 +1,16 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
-import {
-	BaseError,
-	Coerce,
-	ComponentFactory,
-	GeneralError,
-	Guards,
-	Is,
-	Mutex
-} from "@twin.org/core";
-import type { ILoggingComponent } from "@twin.org/logging-models";
+import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
+import { BaseError, Coerce, ComponentFactory, GeneralError, Guards, Is, Mutex } from "@3sixty/core";
+import type { ILoggingComponent } from "@3sixty/logging-models";
 import type {
 	IEmailProtocolConnector,
 	IEmailProtocolConnectorAuthCallback,
 	IEmailProtocolConnectorOptions,
 	IEmailProtocolConnectorRetrievalCallback
-} from "@twin.org/mailbox-models";
-import { MailHelper } from "@twin.org/mailbox-models";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/mailbox-models";
+import { MailHelper } from "@3sixty/mailbox-models";
+import { nameof } from "@3sixty/nameof";
 import Pop3Command from "node-pop3";
 import type { IPop3EmailConnectorConfig } from "./models/IPop3EmailConnectorConfig.js";
 import type { IPop3EmailConnectorConstructorOptions } from "./models/IPop3EmailConnectorConstructorOptions.js";

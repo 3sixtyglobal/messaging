@@ -8,7 +8,7 @@ Use these examples to register connector implementations and resolve them throug
 import {
   MessagingPushNotificationsConnectorFactory,
   type IMessagingPushNotificationsConnector
-} from '@twin.org/messaging-models';
+} from '@3sixty/messaging-models';
 
 MessagingPushNotificationsConnectorFactory.register(
   'in-memory-push',
@@ -31,7 +31,7 @@ console.log(deviceAddress); // orders-app:token-001
 import {
   MessagingEmailConnectorFactory,
   type IMessagingEmailConnector
-} from '@twin.org/messaging-models';
+} from '@3sixty/messaging-models';
 
 MessagingEmailConnectorFactory.register(
   'in-memory-email',
@@ -57,7 +57,7 @@ console.log(emailQueued); // true
 import {
   MessagingSmsConnectorFactory,
   type IMessagingSmsConnector
-} from '@twin.org/messaging-models';
+} from '@3sixty/messaging-models';
 
 MessagingSmsConnectorFactory.register(
   'in-memory-sms',

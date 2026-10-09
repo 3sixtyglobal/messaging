@@ -5,7 +5,7 @@ These examples show how to manage templates and send templated messages through 
 ## MessagingService
 
 ```typescript
-import { MessagingService } from '@twin.org/messaging-service';
+import { MessagingService } from '@3sixty/messaging-service';
 
 const messagingService = new MessagingService({
   messagingAdminComponentType: 'messaging-admin',
@@ -56,7 +56,7 @@ console.log(smsSent); // true
 ## MessagingAdminService
 
 ```typescript
-import { MessagingAdminService } from '@twin.org/messaging-service';
+import { MessagingAdminService } from '@3sixty/messaging-service';
 
 const adminService = new MessagingAdminService({
   config: {
@@ -83,7 +83,7 @@ await adminService.removeTemplate('welcome-email', 'en');
 ## TemplateEntry
 
 ```typescript
-import { TemplateEntry } from '@twin.org/messaging-service';
+import { TemplateEntry } from '@3sixty/messaging-service';
 
 const templateEntry = new TemplateEntry();
 templateEntry.id = 'security-code:en';

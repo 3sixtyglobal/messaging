@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IError } from "@twin.org/core";
-import { entity, property } from "@twin.org/entity";
+import type { IError } from "@3sixty/core";
+import { entity, property } from "@3sixty/entity";
 
 /**
  * Entity class representing a mailbox stored in entity storage.
