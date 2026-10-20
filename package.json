@@ -1,5 +1,5 @@
 {
-	"name": "@3sixty/messaging",
+	"name": "3sixty-messaging",
 	"version": "0.0.0",
 	"description": "Modular messaging components for shared models, connectors, and service orchestration.",
 	"repository": {
