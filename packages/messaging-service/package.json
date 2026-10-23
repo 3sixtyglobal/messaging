@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/messaging-service",
-	"version": "0.20.0-next.0",
+	"version": "0.20.0-next.1",
 	"description": "Implements the messaging service layer that orchestrates delivery workflows across connectors.",
 	"repository": {
 		"type": "git",
@@ -32,7 +32,7 @@
 		"@3sixty/entity": "next",
 		"@3sixty/entity-storage-models": "next",
 		"@3sixty/logging-models": "next",
-		"@3sixty/messaging-models": "0.20.0-next.0",
+		"@3sixty/messaging-models": "0.20.0-next.1",
 		"@3sixty/nameof": "next"
 	},
 	"devDependencies": {

@@ -4,15 +4,15 @@ Interface describing a mailbox configuration.
 
 ## Type Parameters
 
-### TConfig
+### TConfig {#tconfig}
 
 `TConfig` = `unknown`
 
-### TState
+### TState {#tstate}
 
 `TState` = `unknown`
 
-### TAuthState
+### TAuthState {#tauthstate}
 
 `TAuthState` = `unknown`
 
