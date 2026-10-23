@@ -59,7 +59,10 @@ function makePlatformComponent(): IPlatformComponent {
 		className: () => "TestPlatform",
 		isMultiTenant: () => false,
 		execute: async (method: () => Promise<void>) => method(),
-		getLocalOriginContext: async () => undefined
+		getLocalOriginContext: async () => undefined,
+		registerTenantEventCallback: () => {},
+		unregisterTenantEventCallback: () => {},
+		fireTenantEvent: async () => {}
 	};
 }
 
