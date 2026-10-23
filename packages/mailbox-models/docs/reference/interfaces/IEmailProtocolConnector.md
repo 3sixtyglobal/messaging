@@ -8,11 +8,11 @@ Interface describing an email protocol connector that handles message retrieval.
 
 ## Type Parameters
 
-### TState
+### TState {#tstate}
 
 `TState` = `unknown`
 
-### TAuthState
+### TAuthState {#tauthstate}
 
 `TAuthState` *extends* [`IEmailProtocolConnectorAuthState`](IEmailProtocolConnectorAuthState.md) = [`IEmailProtocolConnectorAuthState`](IEmailProtocolConnectorAuthState.md)
 

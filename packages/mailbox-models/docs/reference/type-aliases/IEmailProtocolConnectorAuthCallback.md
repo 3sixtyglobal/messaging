@@ -6,7 +6,7 @@ Callback invoked by a protocol connector to report the outcome of an authenticat
 
 ## Type Parameters
 
-### TAuthState
+### TAuthState {#tauthstate}
 
 `TAuthState` *extends* [`IEmailProtocolConnectorAuthState`](../interfaces/IEmailProtocolConnectorAuthState.md) = [`IEmailProtocolConnectorAuthState`](../interfaces/IEmailProtocolConnectorAuthState.md)
 

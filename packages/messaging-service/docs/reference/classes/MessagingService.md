@@ -82,6 +82,8 @@ The id of the email template.
 
 ##### data
 
+\{\[`key`: `string`\]: `string`; \}
+
 The data to populate the email template.
 
 ##### locale
@@ -156,6 +158,8 @@ The id of the push notification template.
 
 ##### data
 
+\{\[`key`: `string`\]: `string`; \}
+
 The data to populate the push notification template.
 
 ##### locale
@@ -197,6 +201,8 @@ The recipient phone number.
 The id of the SMS template.
 
 ##### data
+
+\{\[`key`: `string`\]: `string`; \}
 
 The data to populate the SMS template.
 
