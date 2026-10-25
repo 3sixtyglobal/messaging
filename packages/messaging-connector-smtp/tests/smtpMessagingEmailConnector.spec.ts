@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import PostalMime, { type Email } from "postal-mime";
 import {
@@ -34,11 +35,15 @@ async function getMessages(): Promise<Email[]> {
 }
 
 async function resetGreenMail(): Promise<void> {
-	await fetch(`http://${TEST_SMTP_HOST}:${TEST_SMTP_HTTP_PORT}/api/service/reset`, {
-		method: "POST"
-	});
-	await fetch(`http://${TEST_SMTP_HOST}:${TEST_SMTP_HTTP_PORT}/api/user`, {
-		method: "PUT",
+	const resetResponse = await fetch(
+		`http://${TEST_SMTP_HOST}:${TEST_SMTP_HTTP_PORT}/api/service/reset`,
+		{
+			method: "POST"
+		}
+	);
+	await resetResponse.text();
+	const userResponse = await fetch(`http://${TEST_SMTP_HOST}:${TEST_SMTP_HTTP_PORT}/api/user`, {
+		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
 			email: `${TEST_SMTP_USERNAME}@localhost`,
@@ -46,6 +51,7 @@ async function resetGreenMail(): Promise<void> {
 			password: TEST_SMTP_PASSWORD
 		})
 	});
+	await userResponse.text();
 }
 
 describe("SmtpMessagingEmailConnector", () => {

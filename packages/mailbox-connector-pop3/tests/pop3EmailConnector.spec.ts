@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
 import { ComponentFactory, Converter } from "@3sixty/core";
@@ -69,11 +70,15 @@ function makeUidlResponse(count: number): string[][] {
 }
 
 async function resetGreenMail(): Promise<void> {
-	await fetch(`http://${TEST_POP3_HOST}:${TEST_POP3_HTTP_PORT}/api/service/reset`, {
-		method: "POST"
-	});
-	await fetch(`http://${TEST_POP3_HOST}:${TEST_POP3_HTTP_PORT}/api/user`, {
-		method: "PUT",
+	const resetResponse = await fetch(
+		`http://${TEST_POP3_HOST}:${TEST_POP3_HTTP_PORT}/api/service/reset`,
+		{
+			method: "POST"
+		}
+	);
+	await resetResponse.text();
+	const userResponse = await fetch(`http://${TEST_POP3_HOST}:${TEST_POP3_HTTP_PORT}/api/user`, {
+		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
 			email: `${TEST_POP3_CONFIG.username}@localhost`,
@@ -81,6 +86,7 @@ async function resetGreenMail(): Promise<void> {
 			password: TEST_POP3_CONFIG.password
 		})
 	});
+	await userResponse.text();
 }
 
 async function sendTestEmail(
