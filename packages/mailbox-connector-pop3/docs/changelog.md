@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0-next.2](https://github.com/3sixtyglobal/messaging/compare/mailbox-connector-pop3-v0.20.0-next.1...mailbox-connector-pop3-v0.20.0-next.2) (2026-10-26)
+
+
+### Features
+
+* release to next [skip ci] ([#12](https://github.com/3sixtyglobal/messaging/issues/12)) ([1b5d9b2](https://github.com/3sixtyglobal/messaging/commit/1b5d9b21229f300e1e367ce4f8b6c311d41de44c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/mailbox-models bumped from 0.20.0-next.1 to 0.20.0-next.2
+
 ## [0.20.0-next.1](https://github.com/3sixtyglobal/messaging/compare/mailbox-connector-pop3-v0.20.0-next.0...mailbox-connector-pop3-v0.20.0-next.1) (2026-10-23)
 
 

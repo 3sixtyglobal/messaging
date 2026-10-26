@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/mailbox-models",
-	"version": "0.20.0-next.1",
+	"version": "0.20.0-next.2",
 	"description": "Defines the shared models and factory helpers for email mailbox ingestion.",
 	"repository": {
 		"type": "git",
