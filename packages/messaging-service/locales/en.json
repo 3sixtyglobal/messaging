@@ -11,5 +11,10 @@
 		"messagingAdminService": {
 			"getTemplateFailed": "Failed to get template with id: \"{templateId}\" and locale: \"{locale}\""
 		}
+	},
+	"warn": {
+		"messagingService": {
+			"styleSheetFetchFailed": "Failed to fetch the style sheet \"{href}\" for template \"{templateId}\", the link was left in place"
+		}
 	}
 }

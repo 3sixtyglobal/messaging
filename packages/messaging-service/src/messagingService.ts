@@ -1,6 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, Guards, Is } from "@3sixty/core";
+import { BaseError, ComponentFactory, Converter, GeneralError, Guards, Is } from "@3sixty/core";
+import type { ILoggingComponent } from "@3sixty/logging-models";
 import {
 	type IMessagingAdminComponent,
 	MessagingEmailConnectorFactory,
@@ -12,6 +14,7 @@ import {
 	type IMessagingSmsConnector
 } from "@3sixty/messaging-models";
 import { nameof } from "@3sixty/nameof";
+import { FetchHelper, HttpMethod } from "@3sixty/web";
 import type { IMessagingServiceConstructorOptions } from "./models/IMessagingServiceConstructorOptions.js";
 
 /**
@@ -22,6 +25,12 @@ export class MessagingService implements IMessagingComponent {
 	 * Runtime name for the class.
 	 */
 	public static readonly CLASS_NAME: string = nameof<MessagingService>();
+
+	/**
+	 * Default cache time for fetched style sheets, one hour.
+	 * @internal
+	 */
+	private static readonly _DEFAULT_STYLE_SHEET_CACHE_TTL_MS: number = 3600000;
 
 	/**
 	 * Emails messaging connector used by the service.
@@ -46,6 +55,24 @@ export class MessagingService implements IMessagingComponent {
 	 * @internal
 	 */
 	private readonly _messagingAdminComponent: IMessagingAdminComponent;
+
+	/**
+	 * The logging component.
+	 * @internal
+	 */
+	private readonly _logging?: ILoggingComponent;
+
+	/**
+	 * Whether to inline linked style sheets in e-mail templates.
+	 * @internal
+	 */
+	private readonly _inlineStyleSheets: boolean;
+
+	/**
+	 * How long fetched style sheets are cached in milliseconds.
+	 * @internal
+	 */
+	private readonly _styleSheetCacheTtlMs: number;
 
 	/**
 	 * Create a new instance of MessagingService.
@@ -73,6 +100,12 @@ export class MessagingService implements IMessagingComponent {
 		this._messagingAdminComponent = ComponentFactory.get(
 			options?.messagingAdminComponentType ?? "messaging-admin"
 		);
+
+		this._logging = ComponentFactory.getIfExists<ILoggingComponent>(options?.loggingComponentType);
+
+		this._inlineStyleSheets = options?.config?.inlineStyleSheets ?? true;
+		this._styleSheetCacheTtlMs =
+			options?.config?.styleSheetCacheTtlMs ?? MessagingService._DEFAULT_STYLE_SHEET_CACHE_TTL_MS;
 	}
 
 	/**
@@ -110,7 +143,10 @@ export class MessagingService implements IMessagingComponent {
 		Guards.stringValue(MessagingService.CLASS_NAME, nameof(locale), locale);
 
 		const template = await this._messagingAdminComponent.getTemplate(templateId, locale);
-		const populatedTemplate = this.populateTemplate(template, data);
+		const content = this._inlineStyleSheets
+			? await this.inlineStyleSheets(templateId, template.content)
+			: template.content;
+		const populatedTemplate = this.populateTemplate({ title: template.title, content }, data);
 
 		return this._emailMessagingConnector.sendCustomEmail(
 			sender,
@@ -203,6 +239,66 @@ export class MessagingService implements IMessagingComponent {
 		const populatedTemplate = this.populateTemplate(template, data);
 
 		return this._smsMessagingConnector.sendSMS(phoneNumber, populatedTemplate.content);
+	}
+
+	/**
+	 * Replace linked http and https style sheets with inline style elements, leaving any that fail to fetch.
+	 * @param templateId The id of the template, used for logging.
+	 * @param content The template content.
+	 * @returns The content with the style sheets inlined.
+	 * @internal
+	 */
+	private async inlineStyleSheets(templateId: string, content: string): Promise<string> {
+		const linkRegex = /<link\b[^>]*>/gi;
+		const attributeRegex = /([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'<=>`]+))/g;
+
+		const styleSheetLinks = new Map<string, string>();
+		for (const linkMatch of content.matchAll(linkRegex)) {
+			const attributes: { [name: string]: string } = {};
+			for (const attributeMatch of linkMatch[0].matchAll(attributeRegex)) {
+				attributes[attributeMatch[1].toLowerCase()] =
+					attributeMatch[2] ?? attributeMatch[3] ?? attributeMatch[4];
+			}
+			const relTokens = attributes.rel?.toLowerCase().split(/\s+/) ?? [];
+			const href = attributes.href?.trim();
+			if (relTokens.includes("stylesheet") && Is.stringValue(href) && /^https?:\/\//i.test(href)) {
+				styleSheetLinks.set(linkMatch[0], href);
+			}
+		}
+
+		if (styleSheetLinks.size === 0) {
+			return content;
+		}
+
+		const styles = new Map<string, string>();
+		await Promise.all(
+			[...new Set(styleSheetLinks.values())].map(async href => {
+				try {
+					const css = await FetchHelper.fetchBinary<Uint8Array>(
+						MessagingService.CLASS_NAME,
+						href,
+						HttpMethod.GET,
+						undefined,
+						{ cacheTtlMs: this._styleSheetCacheTtlMs }
+					);
+					styles.set(href, Converter.bytesToUtf8(css));
+				} catch (err) {
+					await this._logging?.log({
+						level: "warn",
+						source: MessagingService.CLASS_NAME,
+						message: "styleSheetFetchFailed",
+						error: BaseError.fromError(err),
+						data: { href, templateId }
+					});
+				}
+			})
+		);
+
+		return content.replace(linkRegex, link => {
+			const href = styleSheetLinks.get(link);
+			const css = Is.stringValue(href) ? styles.get(href) : undefined;
+			return Is.string(css) ? `<style>${css.replace(/<\/style/gi, "<\\/style")}</style>` : link;
+		});
 	}
 
 	/**
