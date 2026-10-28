@@ -246,32 +246,32 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       googleapis:
         specifier: 186.0.0
         version: 186.0.0(supports-color@5.5.0)
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -310,32 +310,32 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       imapflow:
         specifier: 2.5.8
         version: 2.5.8
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -380,19 +380,19 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@azure/msal-node':
         specifier: 7.1.0
         version: 7.1.0
@@ -402,13 +402,13 @@ importers:
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -447,32 +447,32 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       node-pop3:
         specifier: 0.15.3
         version: 0.15.3
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -514,29 +514,29 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/telemetry-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/web':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       postal-mime:
         specifier: 4.0.11
         version: 4.0.11
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -572,26 +572,26 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/web':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -627,13 +627,13 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity-storage-models':
         specifier: next
         version: 0.20.0-next.2
@@ -641,11 +641,11 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/telemetry-models':
         specifier: next
         version: 0.20.0-next.2
@@ -654,20 +654,20 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/web':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -700,19 +700,19 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/web':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@aws-sdk/client-ses':
         specifier: 3.1153.0
         version: 3.1153.0
@@ -731,13 +731,13 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -773,10 +773,10 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity-storage-models':
         specifier: next
         version: 0.20.0-next.2
@@ -784,24 +784,24 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -834,29 +834,29 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       nodemailer:
         specifier: 10.1.7
         version: 10.1.7
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -898,17 +898,17 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -938,10 +938,10 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/entity-storage-models':
         specifier: next
         version: 0.20.0-next.2
@@ -949,27 +949,27 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/web':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.4
+        version: 0.20.0-next.5
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -1012,20 +1012,20 @@ packages:
     resolution: {integrity: sha512-dwsX6/eOVu8OMNl/ppYFutP/tuTr31Gu2Z7F/9he7Io43qp9FTc2Tp18f8e4NiVQgs1iewjANUGJLUQziEbiag==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/cli-core@0.20.0-next.4':
-    resolution: {integrity: sha512-25b96pbRUnrB8wqoFSmO58QfmcRO+RWB1otyK6bY/3YjdCJ0MO3MsJzSbaax7S1ss+3aLHtg2fAhigOhSoAgCg==}
+  '@3sixty/cli-core@0.20.0-next.5':
+    resolution: {integrity: sha512-f5wb4+dqSUSq/4QaRnnrjnDBqNt5hGk1MSZRUppri5Cpna8p9VAaE0wyAqgbYHfoXRJzg2+148PoULg+Zcp9yA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/context@0.20.0-next.4':
-    resolution: {integrity: sha512-i6AcisUk6Ne4YCop9OunIDZJ8lHS8jDQzGuODfYdjDBWNZLax4EzX1EvBPdNKP4MKG3HqP02yFGHoc0Re02NXQ==}
+  '@3sixty/context@0.20.0-next.5':
+    resolution: {integrity: sha512-Bt9FoU+beJTuFnBYmNJh9JQcva31rX9H+PWQDoih03dgJuOF7QH9ZNWOgGyukPislf+4rB+C7p5bg4MBeYquDA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/core@0.20.0-next.4':
-    resolution: {integrity: sha512-gjcsZLw7ItroZy/CDcwOkEDwlDY/wZiZfGWp15/BrXPYLxmYOvMNAYrF7yhVyN+ULGy6pcxlZf0h1oRg7GnXXQ==}
+  '@3sixty/core@0.20.0-next.5':
+    resolution: {integrity: sha512-2ejFv/n41MXSNY/ItvsLKLt4jAyhsENgv8yox5o42JhaG+DpO6Eoi6A66RyLdqz4vAeuw6FCqXwuGTnZHz5NIQ==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/crypto@0.20.0-next.4':
-    resolution: {integrity: sha512-I4itGN4AtPwng6RK8k3hR11mVtJb4g3jOBLsxfsNOku2WDzsXdD+NT9kZ9sBtC09Gal70/4s6xV/5t4fK78cGw==}
+  '@3sixty/crypto@0.20.0-next.5':
+    resolution: {integrity: sha512-nQ9qiMvzng0VlCWS0EmFgqlhct/rVK62k1a9tDfKRZ3xSES2XLDrYUd3+IP7YB0Q3bRrvn5Fv5noEVRvTAfYVQ==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/entity-storage-connector-memory@0.20.0-next.2':
@@ -1036,8 +1036,8 @@ packages:
     resolution: {integrity: sha512-X4HpqwQCaCygHAh/YfaHvihLw7ce3d1yIzloiPpz8MjClTKWAZSgppg/+ZmWb1pKikPqqAvKx/P0w052BOrv5w==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/entity@0.20.0-next.4':
-    resolution: {integrity: sha512-GUgvE4EA3SOIrHWz7btls7jAI8FoVL/N0wlqP/S/liCtcDzDBN8EkJjzeQ/3LYEr209x7F/RcP5Jn0UNF/D79Q==}
+  '@3sixty/entity@0.20.0-next.5':
+    resolution: {integrity: sha512-pyZMojONe9UKY8bsQ4L4apIV8MFa5G5ki7V5yEjf9yiaTRGC2GYBnajlQz9Z4WvYpOxH9U+PkelPYMO7U5rS3Q==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/logging-connector-entity-storage@0.20.0-next.2':
@@ -1048,25 +1048,25 @@ packages:
     resolution: {integrity: sha512-MLUhNB6oojDYu/38fDs6M+XKkpdkeLblglylOfuvd30DSz1nJ8UBQ/HY/Eu4dNClXqHlYSLu8siyzwpgpL+6UA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/nameof-transformer@0.20.0-next.4':
-    resolution: {integrity: sha512-ru3SW/LCzSA3CTOED9EMadnJxFbpCQq6TNuzbf/hCmwWVbZmYCp0zjQ28symTmDlEl3uSsPLfKXXSWQhhtZlyQ==}
+  '@3sixty/nameof-transformer@0.20.0-next.5':
+    resolution: {integrity: sha512-eo8avke+WA8be9UmkHecY5SP7VJmebo8wcmm891e5cDCVCdTOc2E05PqNwpjMLCksSRrcD7jgbDTPff7DZR3zA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.4':
-    resolution: {integrity: sha512-lE9YgvJoUDQiAVsC97tri97hfCNoGLGOSJ4x0mHnFx10j0TYyW37ztoXOwhGrJynqFEyB8tX1A/XHo2rxWwNjA==}
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.5':
+    resolution: {integrity: sha512-JZ9BoTlJhGZPXZaPbWW1gy6NjvpPSjVF8Si/1D8ezxYHINnOI1mqqAvEARKmFHoIxzMjZXrnOoqi4uJ8lbDf2w==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/nameof@0.20.0-next.4':
-    resolution: {integrity: sha512-vERokiuGRph0oESD71WqFqqiTua4vSddovkUQSPt3WrMC5GRRvi1nJCnkDyLKQsCiKnHXwBg7ebTjPGluVjrKw==}
+  '@3sixty/nameof@0.20.0-next.5':
+    resolution: {integrity: sha512-JFXVFTo72uSG4q3Mbp6yJeF6o8nIb6ZcfOg3MQLV7NWzJnyk5EMPs7m0RfV67WvcRAwF+OuXt9EK2QdM4/IM/w==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/telemetry-models@0.20.0-next.2':
     resolution: {integrity: sha512-l1vx6/Hic4PrNiKlmQzuTjM2n/kXg6JXyPnXbaiLVrPVAwOqLhAKuglBFrkUoc/QdQ04yeO7oSqBQdsRr4YEfg==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/validate-locales@0.20.0-next.4':
-    resolution: {integrity: sha512-jz17RYBY9P60anDy/J/6Uhr06UDDzlJSMxadZQh3s2zsyj45NMtpqBp9nwVV2XOWTWE5ljNdApFC/b94ZbfJiA==}
+  '@3sixty/validate-locales@0.20.0-next.5':
+    resolution: {integrity: sha512-9GBCpkWm1sXUmW/POVjN9DZyTqAUkRtT2bNN1quIIj/KM0ujvJ1Y2R7y2FJ/24KWnfq+/P/OkaWNHRawyqTuSw==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
@@ -1074,8 +1074,8 @@ packages:
     resolution: {integrity: sha512-Ca7xajtfmbLxSSX6EFhyUhgqCwH/U0hcN3yeF5kjfOogi2DYHXrVe1Pi5x3dHS4PrMFYK0LWJXHlJ0Wr6DwoVA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/web@0.20.0-next.4':
-    resolution: {integrity: sha512-OAqSjTvA2JKpBnbHZ475QWlTqOjo79K0JMcFok/3llOmUUz+ikBCaG5S3EiCF7CNefE8xLgkOKPil2CX66EXdw==}
+  '@3sixty/web@0.20.0-next.5':
+    resolution: {integrity: sha512-IYMiExZGDwmaehb81h0b6S5jNARAeflcMMen3sOec1ewdPy6z5pr7w6b9QBTlKBAISxgURtI//EtUlVzfhU9lw==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@aws-sdk/client-ses@3.1153.0':
@@ -4568,9 +4568,9 @@ snapshots:
   '@3sixty/api-core@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
-      '@3sixty/web': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
+      '@3sixty/web': 0.20.0-next.5
       socket.io-client: 4.8.4(supports-color@10.2.2)
     transitivePeerDependencies:
       - bufferutil
@@ -4579,39 +4579,39 @@ snapshots:
 
   '@3sixty/api-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.4
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/entity': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
-      '@3sixty/web': 0.20.0-next.4
+      '@3sixty/context': 0.20.0-next.5
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/entity': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
+      '@3sixty/web': 0.20.0-next.5
 
   '@3sixty/background-task-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/entity': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/entity': 0.20.0-next.5
 
-  '@3sixty/cli-core@0.20.0-next.4':
+  '@3sixty/cli-core@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
       chalk: 6.0.1
       commander: 15.0.0
       dotenv: 18.0.8
 
-  '@3sixty/context@0.20.0-next.4':
+  '@3sixty/context@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
 
-  '@3sixty/core@0.20.0-next.4':
+  '@3sixty/core@0.20.0-next.5':
     dependencies:
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/nameof': 0.20.0-next.5
       intl-messageformat: 12.1.4
       rfc6902: 5.3.0
 
-  '@3sixty/crypto@0.20.0-next.4':
+  '@3sixty/crypto@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
       '@noble/ciphers': 2.4.0
       '@noble/curves': 2.4.0
       '@noble/hashes': 2.4.0
@@ -4623,53 +4623,53 @@ snapshots:
   '@3sixty/entity-storage-connector-memory@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.4
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/entity': 0.20.0-next.4
+      '@3sixty/context': 0.20.0-next.5
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/entity': 0.20.0-next.5
       '@3sixty/entity-storage-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/nameof': 0.20.0-next.5
 
   '@3sixty/entity-storage-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.4
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/crypto': 0.20.0-next.4
-      '@3sixty/entity': 0.20.0-next.4
+      '@3sixty/context': 0.20.0-next.5
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/crypto': 0.20.0-next.5
+      '@3sixty/entity': 0.20.0-next.5
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/nameof': 0.20.0-next.5
 
-  '@3sixty/entity@0.20.0-next.4':
+  '@3sixty/entity@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
       reflect-metadata: 0.2.2
       tslib: 2.8.1
 
   '@3sixty/logging-connector-entity-storage@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.4
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/entity': 0.20.0-next.4
+      '@3sixty/context': 0.20.0-next.5
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/entity': 0.20.0-next.5
       '@3sixty/entity-storage-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/nameof': 0.20.0-next.5
 
   '@3sixty/logging-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/entity': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/entity': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
 
-  '@3sixty/nameof-transformer@0.20.0-next.4':
+  '@3sixty/nameof-transformer@0.20.0-next.5':
     dependencies:
       typescript: 6.0.3
       typescript-native: typescript@7.1.0-beta
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.4(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.5(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.4
+      '@3sixty/nameof-transformer': 0.20.0-next.5
       vitest: 5.0.5(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -4686,9 +4686,9 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.4(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.4
+      '@3sixty/nameof-transformer': 0.20.0-next.5
       vitest: 5.0.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -4705,34 +4705,34 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof@0.20.0-next.4': {}
+  '@3sixty/nameof@0.20.0-next.5': {}
 
   '@3sixty/telemetry-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
 
-  '@3sixty/validate-locales@0.20.0-next.4':
+  '@3sixty/validate-locales@0.20.0-next.5':
     dependencies:
-      '@3sixty/cli-core': 0.20.0-next.4
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
-      '@3sixty/nameof-transformer': 0.20.0-next.4
+      '@3sixty/cli-core': 0.20.0-next.5
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
+      '@3sixty/nameof-transformer': 0.20.0-next.5
       commander: 15.0.0
       glob: 13.0.6
       typescript: 6.0.3
 
   '@3sixty/vault-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
-      '@3sixty/web': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
+      '@3sixty/web': 0.20.0-next.5
 
-  '@3sixty/web@0.20.0-next.4':
+  '@3sixty/web@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.4
-      '@3sixty/crypto': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.4
+      '@3sixty/core': 0.20.0-next.5
+      '@3sixty/crypto': 0.20.0-next.5
+      '@3sixty/nameof': 0.20.0-next.5
       jose: 6.2.12
 
   '@aws-sdk/client-ses@3.1153.0':

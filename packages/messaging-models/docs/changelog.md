@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/messaging-models-v0.20.0-next.2...messaging-models-v0.20.0-next.3) (2026-10-28)
+
+
+### Miscellaneous Chores
+
+* **messaging-models:** Synchronize repo versions
+
 ## [0.20.0-next.2](https://github.com/3sixtyglobal/messaging/compare/messaging-models-v0.20.0-next.1...messaging-models-v0.20.0-next.2) (2026-10-26)
 
 
