@@ -10,6 +10,7 @@
 
 - [IMessagingAdminServiceConfig](interfaces/IMessagingAdminServiceConfig.md)
 - [IMessagingAdminServiceConstructorOptions](interfaces/IMessagingAdminServiceConstructorOptions.md)
+- [IMessagingServiceConfig](interfaces/IMessagingServiceConfig.md)
 - [IMessagingServiceConstructorOptions](interfaces/IMessagingServiceConstructorOptions.md)
 
 ## Functions
