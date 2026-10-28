@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/messaging-connector-smtp-v0.20.0-next.2...messaging-connector-smtp-v0.20.0-next.3) (2026-10-28)
+
+
+### Miscellaneous Chores
+
+* **messaging-connector-smtp:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/messaging-models bumped from 0.20.0-next.2 to 0.20.0-next.3
+
 ## [0.20.0-next.2](https://github.com/3sixtyglobal/messaging/compare/messaging-connector-smtp-v0.20.0-next.1...messaging-connector-smtp-v0.20.0-next.2) (2026-10-26)
 
 

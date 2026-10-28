@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/messaging-service-v0.20.0-next.2...messaging-service-v0.20.0-next.3) (2026-10-28)
+
+
+### Features
+
+* messaging inline styles ([#14](https://github.com/3sixtyglobal/messaging/issues/14)) ([0662c89](https://github.com/3sixtyglobal/messaging/commit/0662c89f77659308ae73502ab20b59bae283c96e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/messaging-models bumped from 0.20.0-next.2 to 0.20.0-next.3
+
 ## [0.20.0-next.2](https://github.com/3sixtyglobal/messaging/compare/messaging-service-v0.20.0-next.1...messaging-service-v0.20.0-next.2) (2026-10-26)
 
 
