@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/mailbox-rest-client-v0.20.0-next.2...mailbox-rest-client-v0.20.0-next.3) (2026-10-28)
+
+
+### Miscellaneous Chores
+
+* **mailbox-rest-client:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/mailbox-models bumped from 0.20.0-next.2 to 0.20.0-next.3
+
 ## [0.20.0-next.2](https://github.com/3sixtyglobal/messaging/compare/mailbox-rest-client-v0.20.0-next.1...mailbox-rest-client-v0.20.0-next.2) (2026-10-26)
 
 

@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/messaging-connector-smtp",
-	"version": "0.20.0-next.2",
+	"version": "0.20.0-next.3",
 	"description": "Provides a connector for sending emails via SMTP.",
 	"repository": {
 		"type": "git",
@@ -32,7 +32,7 @@
 	"dependencies": {
 		"@3sixty/core": "next",
 		"@3sixty/logging-models": "next",
-		"@3sixty/messaging-models": "0.20.0-next.2",
+		"@3sixty/messaging-models": "0.20.0-next.3",
 		"@3sixty/nameof": "next",
 		"nodemailer": "10.1.7"
 	},
