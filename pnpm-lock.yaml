@@ -945,10 +945,16 @@ importers:
       '@3sixty/entity-storage-models':
         specifier: next
         version: 0.20.0-next.2
+      '@3sixty/logging-models':
+        specifier: next
+        version: 0.20.0-next.2
       '@3sixty/messaging-models':
         specifier: 0.20.0-next.2
         version: link:../messaging-models
       '@3sixty/nameof':
+        specifier: next
+        version: 0.20.0-next.4
+      '@3sixty/web':
         specifier: next
         version: 0.20.0-next.4
     devDependencies:

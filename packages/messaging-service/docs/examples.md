@@ -4,6 +4,8 @@ These examples show how to manage templates and send templated messages through 
 
 ## MessagingService
 
+Most e-mail clients ignore linked style sheets, so before sending an e-mail the service fetches each http or https style sheet linked from the template and replaces the link with a `<style>` element. Fetched style sheets are cached, and a style sheet that cannot be fetched is left as a link and logged as a warning.
+
 ```typescript
 import { MessagingService } from '@3sixty/messaging-service';
 
@@ -11,7 +13,14 @@ const messagingService = new MessagingService({
   messagingAdminComponentType: 'messaging-admin',
   messagingEmailConnectorType: 'messaging-email',
   messagingPushNotificationConnectorType: 'messaging-push-notification',
-  messagingSmsConnectorType: 'messaging-sms'
+  messagingSmsConnectorType: 'messaging-sms',
+  loggingComponentType: 'logging',
+  config: {
+    // Replace <link rel="stylesheet" href="https://..."> in e-mail templates with <style> elements
+    inlineStyleSheets: true,
+    // Cache fetched style sheets for one hour
+    styleSheetCacheTtlMs: 3600000
+  }
 });
 
 console.log(messagingService.className()); // MessagingService

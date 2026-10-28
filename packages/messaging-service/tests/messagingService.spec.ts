@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory } from "@3sixty/core";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import { MemoryEntityStorageConnector } from "@3sixty/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@3sixty/entity-storage-models";
 import {
@@ -12,9 +13,11 @@ import {
 	type IMessagingSmsConnector
 } from "@3sixty/messaging-models";
 import { nameof } from "@3sixty/nameof";
+import { FetchHelper } from "@3sixty/web";
 import type { TemplateEntry } from "../src/entities/templateEntry.js";
 import { MessagingAdminService } from "../src/messagingAdminService.js";
 import { MessagingService } from "../src/messagingService.js";
+import type { IMessagingServiceConstructorOptions } from "../src/models/IMessagingServiceConstructorOptions.js";
 import { initSchema } from "../src/schema.js";
 
 let templateStorageMemory: MemoryEntityStorageConnector<TemplateEntry>;
@@ -320,6 +323,129 @@ describe("MessagingService", () => {
 		);
 
 		expect(capturedContent).toBe("Dear Alice, your ref is {{userXname}}");
+	});
+
+	describe("style sheet inlining", () => {
+		let capturedContent: string | undefined;
+		let fetchMock: ReturnType<typeof vi.fn>;
+		let logMock: ReturnType<typeof vi.fn>;
+
+		/**
+		 * Store the template and send an e-mail with it.
+		 * @param content The template content.
+		 * @param options Extra service options.
+		 * @returns The result of the send.
+		 */
+		async function sendWithTemplate(
+			content: string,
+			options?: IMessagingServiceConstructorOptions
+		): Promise<boolean> {
+			await templateStorageMemory.set({
+				id: "templateId:en",
+				dateCreated: new Date(Date.now()).toISOString(),
+				title: "Hello",
+				content
+			});
+			const service = new MessagingService({
+				messagingEmailConnectorType: "messaging-email",
+				loggingComponentType: "logging",
+				...options
+			});
+			return service.sendCustomEmail(
+				"sender@example.com",
+				["recipient@example.com"],
+				"templateId",
+				{ name: "Alice" },
+				"en"
+			);
+		}
+
+		beforeEach(() => {
+			capturedContent = undefined;
+			FetchHelper.clearCache();
+			MessagingEmailConnectorFactory.register(
+				"messaging-email",
+				() =>
+					({
+						sendCustomEmail: async (
+							sender: string,
+							recipients: string[],
+							subject: string,
+							content: string
+						) => {
+							capturedContent = content;
+							return true;
+						}
+					}) as unknown as IMessagingEmailConnector
+			);
+			logMock = vi.fn(async () => {});
+			ComponentFactory.register("logging", () => ({ log: logMock }) as unknown as IComponent);
+			fetchMock = vi.fn(async () => new Response("p { color: red; }", { status: 200 }));
+			vi.stubGlobal("fetch", fetchMock);
+		});
+
+		afterEach(() => {
+			vi.unstubAllGlobals();
+			FetchHelper.clearCache();
+			ComponentFactory.unregister("logging");
+		});
+
+		test("replaces a linked style sheet with a style element", async () => {
+			const result = await sendWithTemplate(
+				'<head><link rel="stylesheet" href="https://example.com/a.css"></head><p>{{name}}</p>'
+			);
+			expect(result).toBe(true);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toBe("https://example.com/a.css");
+			expect(capturedContent).toBe("<head><style>p { color: red; }</style></head><p>Alice</p>");
+		});
+
+		test("handles attributes in any order and single quotes", async () => {
+			await sendWithTemplate(
+				"<link href='https://example.com/b.css' type=\"text/css\" rel='stylesheet' />"
+			);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(capturedContent).toBe("<style>p { color: red; }</style>");
+		});
+
+		test("reuses the cached style sheet across sends", async () => {
+			const content = '<link rel="stylesheet" href="https://example.com/c.css">';
+			await sendWithTemplate(content);
+			await sendWithTemplate(content);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(capturedContent).toBe("<style>p { color: red; }</style>");
+		});
+
+		test("leaves the link and logs a warning when the fetch fails", async () => {
+			fetchMock.mockRejectedValue(new Error("network down"));
+			const content = '<link rel="stylesheet" href="https://example.com/d.css">';
+			const result = await sendWithTemplate(content);
+			expect(result).toBe(true);
+			expect(capturedContent).toBe(content);
+			expect(logMock).toHaveBeenCalledWith(
+				expect.objectContaining({
+					level: "warn",
+					source: "MessagingService",
+					message: "styleSheetFetchFailed",
+					data: { href: "https://example.com/d.css", templateId: "templateId" }
+				})
+			);
+		});
+
+		test("leaves non http links and other link types alone", async () => {
+			const content =
+				'<link rel="stylesheet" href="file:///etc/style.css"><link rel="icon" href="https://example.com/i.png">';
+			await sendWithTemplate(content);
+			expect(fetchMock).not.toHaveBeenCalled();
+			expect(capturedContent).toBe(content);
+		});
+
+		test("does not inline when disabled in config", async () => {
+			const content = '<link rel="stylesheet" href="https://example.com/e.css">';
+			await sendWithTemplate(content, { config: { inlineStyleSheets: false } });
+			expect(fetchMock).not.toHaveBeenCalled();
+			expect(capturedContent).toBe(content);
+		});
 	});
 
 	test("throws error when registering device with invalid applicationId", async () => {
