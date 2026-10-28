@@ -39,3 +39,19 @@ The type of the messaging admin component to use.
 ```ts
 messaging-admin
 ```
+
+***
+
+### loggingComponentType? {#loggingcomponenttype}
+
+> `optional` **loggingComponentType?**: `string`
+
+The type of the logging component to use, defaults to no logging.
+
+***
+
+### config? {#config}
+
+> `optional` **config?**: [`IMessagingServiceConfig`](IMessagingServiceConfig.md)
+
+The configuration for the messaging service.
