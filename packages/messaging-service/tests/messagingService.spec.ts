@@ -247,6 +247,112 @@ describe("MessagingService", () => {
 		expect(capturedContent).toBe("Price: 42.00");
 	});
 
+	test("writes formatted placeholders in the locale of the template found", async () => {
+		const captured: { subject: string; content: string }[] = [];
+		MessagingEmailConnectorFactory.register(
+			"messaging-email",
+			() =>
+				({
+					sendCustomEmail: async (
+						sender: string,
+						recipients: string[],
+						subject: string,
+						content: string
+					) => {
+						captured.push({ subject, content });
+						return true;
+					}
+				}) as unknown as IMessagingEmailConnector
+		);
+
+		const content =
+			"Valid for {{expiryMinutes:minutes}}, until {{expires:dateTime}}, raw {{expiryMinutes}}";
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Expires {{expires:dateTime}}",
+			content
+		});
+		await templateStorageMemory.set({
+			id: "templateId:de",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Gültig bis {{expires:dateTime}}",
+			content
+		});
+
+		const service = new MessagingService({
+			messagingEmailConnectorType: "messaging-email"
+		});
+		const data = { expires: "2026-11-04T05:44:16.490Z", expiryMinutes: "90" };
+		await service.sendCustomEmail(
+			"sender@example.com",
+			["a@example.com"],
+			"templateId",
+			data,
+			"de"
+		);
+		// French has no template, so the default English one is used, and written in English.
+		await service.sendCustomEmail(
+			"sender@example.com",
+			["a@example.com"],
+			"templateId",
+			data,
+			"fr"
+		);
+
+		expect(captured).toEqual([
+			{
+				subject: "Gültig bis Mittwoch, 4. November 2026 um 05:44 UTC",
+				content:
+					"Valid for 1 Stunde, 30 Minuten, until Mittwoch, 4. November 2026 um 05:44 UTC, raw 90"
+			},
+			{
+				subject: "Expires Wednesday, November 4, 2026 at 05:44 UTC",
+				content:
+					"Valid for 1 hour, 30 minutes, until Wednesday, November 4, 2026 at 05:44 UTC, raw 90"
+			}
+		]);
+	});
+
+	test("leaves a value that does not suit its format as it is", async () => {
+		let capturedContent: string | undefined;
+		MessagingEmailConnectorFactory.register(
+			"messaging-email",
+			() =>
+				({
+					sendCustomEmail: async (
+						sender: string,
+						recipients: string[],
+						subject: string,
+						content: string
+					) => {
+						capturedContent = content;
+						return true;
+					}
+				}) as unknown as IMessagingEmailConnector
+		);
+
+		await templateStorageMemory.set({
+			id: "templateId:en",
+			dateCreated: new Date(Date.now()).toISOString(),
+			title: "Title",
+			content: "{{when:dateTime}} {{length:minutes}} {{none:minutes}}"
+		});
+
+		const service = new MessagingService({
+			messagingEmailConnectorType: "messaging-email"
+		});
+		await service.sendCustomEmail(
+			"sender@example.com",
+			["a@example.com"],
+			"templateId",
+			{ when: "soon", length: "long", none: "0" },
+			"en"
+		);
+
+		expect(capturedContent).toBe("soon long 0");
+	});
+
 	test("template replacement value containing $$ is inserted literally", async () => {
 		let capturedContent: string | undefined;
 		MessagingEmailConnectorFactory.register(
