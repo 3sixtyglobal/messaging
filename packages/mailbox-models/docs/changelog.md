@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/messaging/compare/mailbox-models-v0.20.0-next.3...mailbox-models-v0.20.0-next.4) (2026-11-03)
+
+
+### Miscellaneous Chores
+
+* **mailbox-models:** Synchronize repo versions
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/mailbox-models-v0.20.0-next.2...mailbox-models-v0.20.0-next.3) (2026-10-28)
 
 

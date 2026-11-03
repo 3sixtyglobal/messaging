@@ -254,7 +254,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
@@ -318,7 +318,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
@@ -388,7 +388,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
@@ -455,7 +455,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
@@ -574,7 +574,7 @@ importers:
         specifier: next
         version: 0.20.0-next.10
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
@@ -636,12 +636,12 @@ importers:
         version: 0.20.0-next.10
       '@3sixty/entity-storage-models':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/mailbox-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../mailbox-models
       '@3sixty/nameof':
         specifier: next
@@ -658,7 +658,7 @@ importers:
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/nameof-transformer':
         specifier: next
         version: 0.20.0-next.10
@@ -705,7 +705,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
@@ -722,10 +722,10 @@ importers:
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/entity-storage-models':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/logging-connector-entity-storage':
         specifier: next
         version: 0.20.0-next.2
@@ -779,12 +779,12 @@ importers:
         version: 0.20.0-next.10
       '@3sixty/entity-storage-models':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
@@ -792,7 +792,7 @@ importers:
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/nameof-transformer':
         specifier: next
         version: 0.20.0-next.10
@@ -839,7 +839,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
@@ -944,12 +944,12 @@ importers:
         version: 0.20.0-next.10
       '@3sixty/entity-storage-models':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/logging-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/messaging-models':
-        specifier: 0.20.0-next.3
+        specifier: 0.20.0-next.4
         version: link:../messaging-models
       '@3sixty/nameof':
         specifier: next
@@ -960,7 +960,7 @@ importers:
     devDependencies:
       '@3sixty/entity-storage-connector-memory':
         specifier: next
-        version: 0.20.0-next.3
+        version: 0.20.0-next.4
       '@3sixty/nameof-transformer':
         specifier: next
         version: 0.20.0-next.10
@@ -1028,12 +1028,12 @@ packages:
     resolution: {integrity: sha512-IYMUwAK6j4iIm7Kcp6TC1EtktwdXRPiFccHSXX4wqOzs+BUAHcnW6vIHVAE/KKLR2+K1pb5HWhqErSdPHkF/xw==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/entity-storage-connector-memory@0.20.0-next.3':
-    resolution: {integrity: sha512-BrvJSu+D3wSG9DtijEqu3Z2Bn80AngeZs4u5JNS5PboA7hgn2A8XAYkh8X46GokNyWbsy7Iu0U2insGQ6a6wfw==}
+  '@3sixty/entity-storage-connector-memory@0.20.0-next.4':
+    resolution: {integrity: sha512-ckszpd7T45Ea1KdglxDaK03V7Z4Rs8D98yYT4KaqcY/Gf3VOzoFTXi273iBMcqdVDZFxMKsSm3o1SLsw3+LDvA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/entity-storage-models@0.20.0-next.3':
-    resolution: {integrity: sha512-6bPWSIQ/99SPgyMQ2/OtFH2U+EFfCc+lkP+23+tMJVz25kIKQCtrtpgvyavLZr7mcbDQUMgmgoDhXQpPao26/Q==}
+  '@3sixty/entity-storage-models@0.20.0-next.4':
+    resolution: {integrity: sha512-rnKDqH03K9Vh+3rEImcwDBt+S79v1PFaDDokTnehUCKRMHeMqSPTKbL/vIrGr/74DhJ4WAPLuRcTQCf2BeyC2Q==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/entity@0.20.0-next.10':
@@ -4691,17 +4691,17 @@ snapshots:
       '@scure/bip39': 2.4.0
       micro-key-producer: 0.10.2
 
-  '@3sixty/entity-storage-connector-memory@0.20.0-next.3':
+  '@3sixty/entity-storage-connector-memory@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.8
       '@3sixty/context': 0.20.0-next.10
       '@3sixty/core': 0.20.0-next.10
       '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/entity-storage-models': 0.20.0-next.3
+      '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/nameof': 0.20.0-next.10
 
-  '@3sixty/entity-storage-models@0.20.0-next.3':
+  '@3sixty/entity-storage-models@0.20.0-next.4':
     dependencies:
       '@3sixty/context': 0.20.0-next.10
       '@3sixty/core': 0.20.0-next.10
@@ -4723,7 +4723,7 @@ snapshots:
       '@3sixty/context': 0.20.0-next.10
       '@3sixty/core': 0.20.0-next.10
       '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/entity-storage-models': 0.20.0-next.3
+      '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/nameof': 0.20.0-next.10
 

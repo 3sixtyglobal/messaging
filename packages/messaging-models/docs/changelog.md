@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/messaging/compare/messaging-models-v0.20.0-next.3...messaging-models-v0.20.0-next.4) (2026-11-03)
+
+
+### Features
+
+* format template placeholders in the template locale ([#19](https://github.com/3sixtyglobal/messaging/issues/19)) ([ddebcd2](https://github.com/3sixtyglobal/messaging/commit/ddebcd2ad6d0eae0ef80b25dd3e4f1791ea9d400))
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/messaging-models-v0.20.0-next.2...messaging-models-v0.20.0-next.3) (2026-10-28)
 
 
