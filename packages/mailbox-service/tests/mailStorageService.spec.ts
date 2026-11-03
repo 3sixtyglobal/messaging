@@ -3,7 +3,7 @@
 import type { IPlatformComponent } from "@3sixty/api-models";
 import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
 import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
-import { ComponentFactory } from "@3sixty/core";
+import { ComponentFactory, DurationConstants } from "@3sixty/core";
 import { ComparisonOperator } from "@3sixty/entity";
 import { MemoryEntityStorageConnector } from "@3sixty/entity-storage-connector-memory";
 import { EntityStorageConnectorFactory } from "@3sixty/entity-storage-models";
@@ -120,14 +120,14 @@ describe("MailStorageService", () => {
 	});
 
 	test("query returns emails after the given epoch", async () => {
-		const before = new Date(Date.now() - 1000).toISOString();
+		const before = new Date(Date.now() - DurationConstants.MsPerSecond).toISOString();
 		const id = await service.store(TEST_MAILBOX_ID, TEST_EMAIL);
 		const result = await service.query(before);
 		expect(result.emails.some(e => e.id === id)).toBe(true);
 	});
 
 	test("query filters by mailboxId", async () => {
-		const before = new Date(Date.now() - 1000).toISOString();
+		const before = new Date(Date.now() - DurationConstants.MsPerSecond).toISOString();
 		await service.store("other-mailbox", TEST_EMAIL);
 		const id = await service.store(TEST_MAILBOX_ID, TEST_EMAIL);
 		const result = await service.query(before, TEST_MAILBOX_ID);
@@ -179,7 +179,7 @@ describe("MailStorageService", () => {
 	test("retention period is measured in minutes", async () => {
 		const retentionMinutes = 30;
 		const minutesAgo = (minutes: number): string => {
-			const offsetMs = minutes * 60_000;
+			const offsetMs = minutes * DurationConstants.MsPerMinute;
 			return new Date(Date.now() - offsetMs).toISOString();
 		};
 

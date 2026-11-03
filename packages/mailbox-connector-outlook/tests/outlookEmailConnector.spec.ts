@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
-import { ComponentFactory } from "@3sixty/core";
+import { ComponentFactory, DurationConstants } from "@3sixty/core";
 import type { IError } from "@3sixty/core";
 import {
 	EmailProtocolConnectorFactory,
@@ -139,7 +139,7 @@ function authResult(accessToken: string, account?: AccountInfo): AuthenticationR
 		idTokenClaims: {},
 		accessToken,
 		fromCache: false,
-		expiresOn: new Date(Date.now() + 3600000),
+		expiresOn: new Date(Date.now() + DurationConstants.MsPerHour),
 		tokenType: "Bearer",
 		correlationId: "test-correlation-id"
 	};

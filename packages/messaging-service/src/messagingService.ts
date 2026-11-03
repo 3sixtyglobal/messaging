@@ -1,7 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import { BaseError, ComponentFactory, Converter, GeneralError, Guards, Is } from "@3sixty/core";
+import {
+	BaseError,
+	ComponentFactory,
+	Converter,
+	DurationConstants,
+	GeneralError,
+	Guards,
+	Is
+} from "@3sixty/core";
 import type { ILoggingComponent } from "@3sixty/logging-models";
 import {
 	type IMessagingAdminComponent,
@@ -30,7 +38,7 @@ export class MessagingService implements IMessagingComponent {
 	 * Default cache time for fetched style sheets, one hour.
 	 * @internal
 	 */
-	private static readonly _DEFAULT_STYLE_SHEET_CACHE_TTL_MS: number = 3600000;
+	private static readonly _DEFAULT_STYLE_SHEET_CACHE_TTL_MS: number = DurationConstants.MsPerHour;
 
 	/**
 	 * Emails messaging connector used by the service.

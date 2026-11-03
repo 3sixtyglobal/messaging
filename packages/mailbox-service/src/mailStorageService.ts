@@ -5,6 +5,7 @@ import type { ITaskSchedulerComponent } from "@3sixty/background-task-models";
 import {
 	BaseError,
 	ComponentFactory,
+	DurationConstants,
 	Guards,
 	Is,
 	type IValidationFailure,
@@ -293,7 +294,7 @@ export class MailStorageService implements IMailStorageComponent {
 	 */
 	private async removeExpiredForPartition(): Promise<void> {
 		try {
-			const retentionMilliseconds = this._retentionMinutes * 60_000;
+			const retentionMilliseconds = this._retentionMinutes * DurationConstants.MsPerMinute;
 			const retentionThreshold = new Date(Date.now() - retentionMilliseconds).toISOString();
 			const ids: string[] = [];
 			let cursor: string | undefined;
