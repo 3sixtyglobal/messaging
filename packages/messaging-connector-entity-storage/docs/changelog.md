@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/messaging/compare/messaging-connector-entity-storage-v0.20.0-next.3...messaging-connector-entity-storage-v0.20.0-next.4) (2026-11-03)
+
+
+### Miscellaneous Chores
+
+* **messaging-connector-entity-storage:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/messaging-models bumped from 0.20.0-next.3 to 0.20.0-next.4
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/messaging/compare/messaging-connector-entity-storage-v0.20.0-next.2...messaging-connector-entity-storage-v0.20.0-next.3) (2026-10-28)
 
 
