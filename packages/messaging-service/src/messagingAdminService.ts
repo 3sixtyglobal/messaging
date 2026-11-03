@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { GeneralError, Guards, Is } from "@3sixty/core";
 import {
@@ -86,63 +87,44 @@ export class MessagingAdminService implements IMessagingAdminComponent {
 	}
 
 	/**
-	 * Get the email template by id and locale.
+	 * Get the email template by id and locale, or for the locale's language, such as de for de-CH,
+	 * or for the default locale when there is none for either.
 	 * @param templateId The id of the email template.
 	 * @param locale The locale of the email template.
-	 * @returns The email template.
+	 * @returns The email template, with the locale of the template found.
 	 */
 	public async getTemplate(
 		templateId: string,
 		locale: string
-	): Promise<{ title: string; content: string }> {
+	): Promise<{ title: string; content: string; locale: string }> {
 		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(templateId), templateId);
 		Guards.stringValue(MessagingAdminService.CLASS_NAME, nameof(locale), locale);
 
-		let templateEntry;
-
-		try {
-			// First try to get the template for the requested locale
-			templateEntry = await this._entityStorageConnector.get(`${templateId}:${locale}`);
-		} catch (err) {
-			throw new GeneralError(
-				MessagingAdminService.CLASS_NAME,
-				"getTemplateFailed",
-				{
-					templateId,
-					locale
-				},
-				err
-			);
-		}
-
-		// If the template is not found for the requested locale, try to get it for the default locale
-		// only if the requested locale is different from the default locale
-		if (Is.empty(templateEntry) && this._defaultLocale !== locale) {
+		const candidates = [...new Set([locale, locale.split("-")[0], this._defaultLocale])];
+		for (const candidate of candidates) {
+			let templateEntry;
 			try {
-				templateEntry = await this._entityStorageConnector.get(
-					`${templateId}:${this._defaultLocale}`
-				);
+				templateEntry = await this._entityStorageConnector.get(`${templateId}:${candidate}`);
 			} catch (err) {
 				throw new GeneralError(
 					MessagingAdminService.CLASS_NAME,
 					"getTemplateFailed",
 					{
 						templateId,
-						locale: this._defaultLocale
+						locale: candidate
 					},
 					err
 				);
 			}
+			if (!Is.empty(templateEntry)) {
+				return { title: templateEntry.title, content: templateEntry.content, locale: candidate };
+			}
 		}
 
-		if (Is.empty(templateEntry)) {
-			throw new GeneralError(MessagingAdminService.CLASS_NAME, "getTemplateFailed", {
-				templateId,
-				locale
-			});
-		}
-
-		return templateEntry;
+		throw new GeneralError(MessagingAdminService.CLASS_NAME, "getTemplateFailed", {
+			templateId,
+			locale
+		});
 	}
 
 	/**

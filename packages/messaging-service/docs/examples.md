@@ -37,6 +37,20 @@ const emailSent = await messagingService.sendCustomEmail(
 );
 console.log(emailSent); // true
 
+// A placeholder can name a format, written in the locale of the template used:
+// {{expires:dateTime}} writes Wednesday, November 4, 2026 at 05:44 UTC and
+// {{expiryMinutes:minutes}} writes 24 hours.
+await messagingService.sendCustomEmail(
+  'service@example.org',
+  ['alice@example.org'],
+  'password-reset',
+  {
+    expires: '2026-11-04T05:44:00.000Z',
+    expiryMinutes: '1440'
+  },
+  'en'
+);
+
 const deviceAddress = await messagingService.registerDevice('orders-app', 'device-token-001');
 console.log(deviceAddress); // orders-app:device-token-001
 
@@ -83,8 +97,10 @@ await adminService.setTemplate(
   'Hi {{firstName}}, thanks for joining {{organisation}}.'
 );
 
-const template = await adminService.getTemplate('welcome-email', 'en');
+// With no template for de, the template for the default locale is returned, with its locale.
+const template = await adminService.getTemplate('welcome-email', 'de');
 console.log(template.title); // Welcome {{firstName}}
+console.log(template.locale); // en
 
 await adminService.removeTemplate('welcome-email', 'en');
 ```

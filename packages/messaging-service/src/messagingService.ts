@@ -3,9 +3,13 @@
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	BaseError,
+	Coerce,
 	ComponentFactory,
 	Converter,
+	Duration,
 	DurationConstants,
+	DurationFormatStyle,
+	DurationUnit,
 	GeneralError,
 	Guards,
 	Is
@@ -154,7 +158,10 @@ export class MessagingService implements IMessagingComponent {
 		const content = this._inlineStyleSheets
 			? await this.inlineStyleSheets(templateId, template.content)
 			: template.content;
-		const populatedTemplate = this.populateTemplate({ title: template.title, content }, data);
+		const populatedTemplate = this.populateTemplate(
+			{ title: template.title, content, locale: template.locale },
+			data
+		);
 
 		return this._emailMessagingConnector.sendCustomEmail(
 			sender,
@@ -310,16 +317,18 @@ export class MessagingService implements IMessagingComponent {
 	}
 
 	/**
-	 * Populates a template by replacing placeholders with the provided data values.
+	 * Populates a template by replacing placeholders with the provided data values. A placeholder
+	 * written with a format, such as `{{expires:dateTime}}`, is written in the locale of the template.
 	 * @param template The template.
 	 * @param template.title The title of the template.
 	 * @param template.content The content of the template.
+	 * @param template.locale The locale of the template.
 	 * @param data The data to populate the template.
 	 * @returns The template with all placeholders replaced.
 	 * @internal
 	 */
 	private populateTemplate(
-		template: { title: string; content: string },
+		template: { title: string; content: string; locale: string },
 		data: { [key: string]: string }
 	): { title: string; content: string } {
 		let populatedTitle = template.title;
@@ -328,14 +337,58 @@ export class MessagingService implements IMessagingComponent {
 		for (const key in data) {
 			const value = data[key];
 			const escapedKey = key.replace(/[$()*+.?[\\\]^{|}]/g, "\\$&");
-			const placeholder = new RegExp(`\\{\\{${escapedKey}\\}\\}`, "g");
-			populatedTitle = populatedTitle.replace(placeholder, () => value);
-			populatedContent = populatedContent.replace(placeholder, () => value);
+			const placeholder = new RegExp(`\\{\\{${escapedKey}(?::(dateTime|minutes))?\\}\\}`, "g");
+			const replacement = (match: string, format?: string): string =>
+				this.formatValue(value, format, template.locale);
+			populatedTitle = populatedTitle.replace(placeholder, replacement);
+			populatedContent = populatedContent.replace(placeholder, replacement);
 		}
 
 		return {
 			title: populatedTitle,
 			content: populatedContent
 		};
+	}
+
+	/**
+	 * Write a template value in a format for a locale: `dateTime` writes an ISO date as a date and time
+	 * in UTC, such as Wednesday, November 4, 2026 at 05:44 UTC, and `minutes` writes a number of
+	 * minutes as a duration, such as 24 hours. A value that does not suit the format is left as it is.
+	 * @param value The value.
+	 * @param format The format, the value as it is when omitted.
+	 * @param locale The locale to write it for.
+	 * @returns The value written in the format.
+	 * @internal
+	 */
+	private formatValue(value: string, format: string | undefined, locale: string): string {
+		if (format === "dateTime") {
+			const time = Date.parse(value);
+			return Number.isNaN(time)
+				? value
+				: new Intl.DateTimeFormat(locale, {
+						weekday: "long",
+						day: "numeric",
+						month: "long",
+						year: "numeric",
+						hour: "2-digit",
+						minute: "2-digit",
+						hourCycle: "h23",
+						timeZone: "UTC",
+						timeZoneName: "short"
+					}).format(time);
+		}
+		if (format === "minutes") {
+			const minutes = Coerce.integer(value);
+			return Is.integer(minutes) && minutes > 0
+				? Duration.toLocaleString(
+						Duration.round(Duration.from(minutes, DurationUnit.Minutes), {
+							largestUnit: DurationUnit.Hours
+						}),
+						DurationFormatStyle.Long,
+						locale
+					)
+				: value;
+		}
+		return value;
 	}
 }

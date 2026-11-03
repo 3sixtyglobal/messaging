@@ -98,4 +98,37 @@ describe("MessagingAdminService", () => {
 			}
 		]);
 	});
+
+	test("gets a template with its locale, falling back to the default locale", async () => {
+		const service = new MessagingAdminService();
+		await service.setTemplate("templateId", "en", "English", "Hello");
+		await service.setTemplate("templateId", "de", "Deutsch", "Hallo");
+
+		expect(await service.getTemplate("templateId", "de")).toEqual({
+			title: "Deutsch",
+			content: "Hallo",
+			locale: "de"
+		});
+		expect(await service.getTemplate("templateId", "fr")).toEqual({
+			title: "English",
+			content: "Hello",
+			locale: "en"
+		});
+	});
+
+	test("gets the template for the language of a locale before the default locale", async () => {
+		const service = new MessagingAdminService();
+		await service.setTemplate("templateId", "en", "English", "Hello");
+		await service.setTemplate("templateId", "de", "Deutsch", "Hallo");
+		await service.setTemplate("templateId", "de-AT", "Österreich", "Servus");
+
+		expect((await service.getTemplate("templateId", "de-AT")).locale).toBe("de-AT");
+		expect((await service.getTemplate("templateId", "de-CH")).locale).toBe("de");
+		expect((await service.getTemplate("templateId", "fr-CA")).locale).toBe("en");
+		await expect(service.getTemplate("missing", "de-CH")).rejects.toMatchObject({
+			name: "GeneralError",
+			message: "messagingAdminService.getTemplateFailed",
+			properties: { templateId: "missing", locale: "de-CH" }
+		});
+	});
 });
