@@ -1326,7 +1326,7 @@ describe("GmailEmailConnector monitoring", () => {
 		installGmail(fake);
 
 		const connector = new GmailEmailConnector({ config: TEST_GMAIL_CONFIG });
-		const flushed: { message: IEmail | undefined; state: IGmailEmailConnectorState }[] = [];
+		const flushed: { message?: IEmail; state: IGmailEmailConnectorState }[] = [];
 
 		await connector.retrieve(
 			"test-instance",

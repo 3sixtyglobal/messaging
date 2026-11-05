@@ -6,6 +6,5 @@ import type { IEmailProtocolConnector } from "../models/IEmailProtocolConnector.
 /**
  * Factory for creating email protocol connectors.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EmailProtocolConnectorFactory =
 	Factory.createFactory<IEmailProtocolConnector>("email-protocol");

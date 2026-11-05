@@ -6,6 +6,5 @@ import type { IMessagingPushNotificationsConnector } from "../models/IMessagingP
 /**
  * Factory for creating messaging push notification connectors.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const MessagingPushNotificationsConnectorFactory =
 	Factory.createFactory<IMessagingPushNotificationsConnector>("messaging-push-notifications");

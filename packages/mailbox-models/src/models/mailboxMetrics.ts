@@ -6,7 +6,6 @@ import { MailboxMetricIds } from "./mailboxMetricIds.js";
 /**
  * Metrics registered by the mailbox service.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const MailboxMetrics: ITelemetryMetric[] = [
 	{
 		id: MailboxMetricIds.EmailsReceived,

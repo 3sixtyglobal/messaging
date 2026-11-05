@@ -6,7 +6,6 @@ import type { IMailboxConfigField } from "@3sixty/mailbox-models";
 /**
  * The configuration field schema for Outlook connectors.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const OutlookEmailConnectorConfigSchema: IMailboxConfigField[] = [
 	{
 		labelKey: "outlookEmailConnectorConfigSchema.emailAddress",

@@ -6,7 +6,6 @@ import type { IMailboxConfigField } from "@3sixty/mailbox-models";
 /**
  * The configuration field schema for IMAP connectors.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ImapEmailConnectorConfigSchema: IMailboxConfigField[] = [
 	{
 		labelKey: "imapEmailConnectorConfigSchema.host",

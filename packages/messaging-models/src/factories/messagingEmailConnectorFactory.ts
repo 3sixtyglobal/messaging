@@ -6,6 +6,5 @@ import type { IMessagingEmailConnector } from "../models/IMessagingEmailConnecto
 /**
  * Factory for creating messaging email connectors.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const MessagingEmailConnectorFactory =
 	Factory.createFactory<IMessagingEmailConnector>("messaging-email");

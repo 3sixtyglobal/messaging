@@ -4,7 +4,6 @@
 /**
  * Metric IDs for the mailbox service.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const MailboxMetricIds = {
 	/**
 	 * Number of emails received across all mailboxes.

@@ -6,6 +6,5 @@ import type { IMessagingSmsConnector } from "../models/IMessagingSmsConnector.js
 /**
  * Factory for creating messaging sms connectors.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const MessagingSmsConnectorFactory =
 	Factory.createFactory<IMessagingSmsConnector>("messaging-sms");

@@ -8,7 +8,6 @@ import type { IMailboxConfigField } from "@3sixty/mailbox-models";
  * The refresh token is issued by the consent flow rather than configured, so it travels in the
  * connector state and is marked secure to keep it in the vault.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const GmailEmailConnectorStateSchema: IMailboxConfigField[] = [
 	{
 		labelKey: "gmailEmailConnectorStateSchema.refreshToken",

@@ -1530,7 +1530,7 @@ describe("OutlookEmailConnector monitoring", () => {
 		installGraph(fake);
 
 		const connector = new OutlookEmailConnector({ config: TEST_OUTLOOK_CONFIG });
-		const flushed: { message: IEmail | undefined; state: IOutlookEmailConnectorState }[] = [];
+		const flushed: { message?: IEmail; state: IOutlookEmailConnectorState }[] = [];
 
 		await connector.retrieve(
 			"test-instance",

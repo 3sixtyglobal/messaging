@@ -6,5 +6,4 @@ import type { IEmailConsumer } from "../models/IEmailConsumer.js";
 /**
  * Factory for creating email consumer instances.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EmailConsumerFactory = Factory.createFactory<IEmailConsumer>("email-consumer");
