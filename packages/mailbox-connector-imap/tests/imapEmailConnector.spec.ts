@@ -82,7 +82,7 @@ interface IMessageStream extends AsyncGenerator<
 }
 
 function makeMessageStream(count: number, throwAtIndex?: number): IMessageStream {
-	interface Msg {
+	interface IMsg {
 		seq: number;
 		uid: number;
 		source: Buffer;
@@ -91,14 +91,14 @@ function makeMessageStream(count: number, throwAtIndex?: number): IMessageStream
 	let i = 0;
 	const stream: IMessageStream = {
 		terminated: false,
-		async next(): Promise<IteratorResult<Msg>> {
+		async next(): Promise<IteratorResult<IMsg>> {
 			if (throwAtIndex !== undefined && i === throwAtIndex) {
 				throw new Error("Connection lost");
 			}
 			if (i >= count) {
 				return { done: true, value: undefined };
 			}
-			const value: Msg = {
+			const value: IMsg = {
 				seq: i + 1,
 				uid: i + 1,
 				source: Buffer.from(MINIMAL_RAW_EMAIL),
@@ -107,12 +107,12 @@ function makeMessageStream(count: number, throwAtIndex?: number): IMessageStream
 			i++;
 			return { done: false, value };
 		},
-		async return(): Promise<IteratorResult<Msg>> {
+		async return(): Promise<IteratorResult<IMsg>> {
 			stream.terminated = true;
 			i = count;
 			return { done: true, value: undefined };
 		},
-		async throw(err: unknown): Promise<IteratorResult<Msg>> {
+		async throw(err: unknown): Promise<IteratorResult<IMsg>> {
 			stream.terminated = true;
 			i = count;
 			throw err;
